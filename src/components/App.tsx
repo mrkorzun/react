@@ -1,5 +1,7 @@
 // src/components/App.tsx
 import Alert from "./Alert";
+import Button from "./Button";
+import UserMenu from "./UserModule";
 
 export default function App() {
   return (
@@ -7,7 +9,10 @@ export default function App() {
       <Alert />
       <Alert type="success" />
       <Alert type="error" />
-      <Alert type="miss" />
+
+      <Button variant="primary" text="Login" />
+      <Button variant="secondary" text="Follow" />
+      <UserMenu />
     </>
   );
 }

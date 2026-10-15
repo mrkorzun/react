@@ -12,7 +12,7 @@ export default function App() {
 
       <Button variant="primary" text="Login" />
       <Button variant="secondary" text="Follow" />
-      <UserMenu />
+      <UserMenu name="Mario" />
     </>
   );
 }

@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./components/App";
-import "modern-normalize";
-import "./global.css";
+import "modern-normalize/modern-normalize.css";
+import "./components/Theory-pr/global.css";
+
+import App from "./components/Coctails-pr/App";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

@@ -1,0 +1,40 @@
+.cocktail-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: calc((100% - 3 * 16px) / 4);
+  height: 100%;
+  padding: 16px;
+
+  border-radius: 10px;
+  box-sizing: border-box;
+
+  cursor: pointer;
+  border: 1px solid #bdbdbd;
+}
+
+.cocktail-card:hover,
+.cocktail-card:focus {
+  background-color: rgb(227, 227, 245);
+}
+
+.img {
+  width: 90%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.title {
+  margin: 0 0 10px 0;
+}
+
+.desc {
+  margin: 0;
+  max-height: 100px;
+  overflow: auto;
+}
+
+.desc::-webkit-scrollbar {
+  display: none;
+}

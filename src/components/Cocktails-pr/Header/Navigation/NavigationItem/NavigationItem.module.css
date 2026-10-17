@@ -1,0 +1,19 @@
+.navigation-item {
+  margin-right: 15px;
+  list-style: none;
+}
+
+.navigation-item:last-child {
+  margin: 0;
+}
+
+.link {
+  font-size: 21px;
+  font-weight: 100;
+  color: black;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: blue;
+}

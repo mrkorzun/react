@@ -1,0 +1,21 @@
+.coctails {
+  margin: 0 auto;
+  max-width: 1200px;
+
+  padding: 20px;
+}
+
+.title {
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 20px;
+  margin: 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

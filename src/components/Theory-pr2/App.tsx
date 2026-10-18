@@ -5,6 +5,8 @@ const App = () => {
   return (
     <div className={css["page"]}>
       <Counter />
+      <Counter />
+      <Counter />
     </div>
   );
 };

@@ -1,66 +1,69 @@
-# ⚛️ React — учебный репозиторий
+**English** | [Русский](README.ru.md) | [Українська](README.uk.md) | [Español](README.es.md)
 
-Личный репозиторий для изучения React. Здесь собрано всё, что я прохожу по React:
-теория, практика и задачи для повторного решения, всё в одном месте.
+# ⚛️ React — learning repository
 
-## Как устроен репозиторий
+My personal repository for learning React. Everything I study about React lives
+here: theory, practice and tasks to solve again, all in one place.
 
-### `main` — текущее обучение
+## How the repository is organized
 
-Сюда я пушу то, что прохожу на курсе прямо сейчас. Каждая папка в
-`src/components` — это этап обучения, оформленный как мини-проект, который я
-решаю по ходу курса. Список пополняется по мере прохождения.
+### `main` — current learning
 
-| Папка                         | Мини-проект                      |
+This is where I push what I'm studying in the course right now. Each folder in
+`src/components` is a learning stage built as a mini-project that I solve along
+the way. The list grows as I progress.
+
+| Folder                        | Mini-project                     |
 | ----------------------------- | -------------------------------- |
-| `src/components/Theory-pr`    | Теория на практике (`useState`)  |
-| `src/components/Theory-pr2`   | Теория на практике, часть 2      |
-| `src/components/Cocktails-pr` | Приложение коктейлей             |
+| `src/components/Theory-pr`    | Theory in practice (`useState`)  |
+| `src/components/Theory-pr2`   | Theory in practice, part 2       |
+| `src/components/Cocktails-pr` | Cocktails app                    |
 
-### Ветки — задачи для повторного прохождения
+### Branches — tasks for re-solving
 
-В отдельных ветках хранятся задачи и компоненты, к которым я хочу вернуться и
-решить заново, чтобы закрепить материал. Ветки **не мерджатся** в `main`.
+Separate branches hold tasks and components I want to come back to and solve
+again to reinforce what I've learned. Branches are **never merged** into `main`.
 
-- **`task-XX-название`** — условие задачи (README) на чистом шаблоне. Эту ветку
-  я не меняю.
-- **`task-XX-название-tryN`** — моя попытка решения, созданная от ветки задачи.
+- **`task-XX-name`** — the task description (README) on a clean template. I
+  don't change this branch.
+- **`task-XX-name-tryN`** — my solution attempt, created from the task branch.
 
-## Задачи
+## Tasks
 
-| №  | Задача                         | Ветка                                                                                      | Темы                                                |
-| -- | ------------------------------ | ------------------------------------------------------------------------------------------ | --------------------------------------------------- |
-| 01 | Віджет відгуків (Sip Happens Café) | [`task-01-cafe-feedback`](https://github.com/mrkorzun/react/tree/task-01-cafe-feedback) | компоненты, пропсы, `useState`, типизация, условный рендеринг |
+| #  | Task                               | Branch                                                                                     | Topics                                                     |
+| -- | ---------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------- |
+| 01 | Feedback widget (Sip Happens Café) | [`task-01-cafe-feedback`](https://github.com/mrkorzun/react/tree/task-01-cafe-feedback) | components, props, `useState`, typing, conditional rendering |
 
-> Полный список веток с задачами — в этой таблице. Новая задача = новая строка.
-> Как решать задачу и как добавить новую — описано в README каждой ветки задачи.
+> The full list of task branches is in this table. New task = new row.
+> How to solve a task and how to add a new one is described in each task
+> branch's README.
 
-## Хочешь решить задачу и показать мне?
+## Want to solve a task and show me?
 
-Буду рад проверить твоё решение. Как это сделать:
+I'd be happy to review your solution. Here's how:
 
-1. Сделай **Fork** этого репозитория (кнопка справа вверху на GitHub).
-2. Склонируй свой форк и перейди в ветку задачи:
+1. **Fork** this repository (button at the top right on GitHub).
+2. Clone your fork and switch to the task branch:
    ```bash
-   git clone https://github.com/<твой-ник>/react.git
+   git clone https://github.com/<your-username>/react.git
    cd react
    git checkout task-01-cafe-feedback
-   git checkout -b task-01-cafe-feedback-<твой-ник>
+   git checkout -b task-01-cafe-feedback-<your-username>
    ```
-3. Реши задачу по README, закоммить и запушь ветку в свой форк:
+3. Solve the task following its README, then commit and push the branch to your fork:
    ```bash
-   git push -u origin task-01-cafe-feedback-<твой-ник>
+   git push -u origin task-01-cafe-feedback-<your-username>
    ```
-4. Открой **Pull Request** в этот репозиторий:
-   - **base:** `task-01-cafe-feedback` (ветка задачи, **не** `main`);
-   - **compare:** твоя ветка из форка;
-   - в названии укажи: `Решение task-01 — <твой-ник>`.
-5. Я посмотрю код и оставлю комментарии прямо в PR.
+4. Open a **Pull Request** to this repository:
+   - **base:** `task-01-cafe-feedback` (the task branch, **not** `main`);
+   - **compare:** your branch from the fork;
+   - title: `Solution task-01 — <your-username>`.
+5. I'll review the code and leave comments right in the PR.
 
-PR **не мерджится**, чтобы ветка задачи осталась чистой для следующих
-прохождений. После ревью я закрою PR, а твоё решение останется в твоём форке.
+PRs are **not merged**, so the task branch stays clean for future attempts.
+After the review I'll close the PR, and your solution stays in your fork.
 
-## Стек
+## Stack
 
 - React 19 + TypeScript
 - Vite
@@ -68,11 +71,11 @@ PR **не мерджится**, чтобы ветка задачи остала�
 - ESLint, Prettier
 - `clsx`, `react-icons`
 
-## Скрипты
+## Scripts
 
-| Команда           | Что делает                    |
+| Command           | What it does                  |
 | ----------------- | ----------------------------- |
-| `npm run dev`     | запуск dev-сервера            |
-| `npm run build`   | проверка типов и сборка       |
-| `npm run preview` | просмотр production-сборки    |
-| `npm run lint`    | проверка ESLint               |
+| `npm run dev`     | start the dev server          |
+| `npm run build`   | type-check and build          |
+| `npm run preview` | preview the production build  |
+| `npm run lint`    | run ESLint                    |

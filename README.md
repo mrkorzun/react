@@ -44,6 +44,11 @@ least one vote and clears the results.
 
 **Level:** beginner · first React + TypeScript app
 
+### Demo
+
+▶️ [Watch the demo video](https://goitlmsstorage.b-cdn.net/d653a361-6984-4b04-a053-3dc896dca4ca2025-04-06%2018-07-42.mp4) — how the finished app should look and work
+(every feature is clicked through). Video from the GoIT course materials.
+
 ### What you'll practice
 
 | Skill                         | Where it's used in the task                                         |

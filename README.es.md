@@ -44,6 +44,11 @@ solo después del primer voto y reinicia los resultados.
 
 **Nivel:** principiante · primera app con React + TypeScript
 
+### Demo
+
+▶️ [Ver el vídeo de demostración](https://goitlmsstorage.b-cdn.net/d653a361-6984-4b04-a053-3dc896dca4ca2025-04-06%2018-07-42.mp4) — cómo debe verse y funcionar la app
+terminada (se prueba toda la funcionalidad). Vídeo de los materiales del curso GoIT.
+
 ### Qué vas a practicar
 
 | Habilidad                            | Dónde se usa en la tarea                                          |

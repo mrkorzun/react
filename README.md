@@ -206,3 +206,34 @@ const positiveRate = totalVotes
 - [ ] Крок 6 — `totalVotes` і `positiveRate`
 - [ ] Крок 7 — `Notification` і умовний рендеринг
 - [ ] Крок 8 — Reset за умови
+
+---
+
+## Как решать задачу
+
+```bash
+# открыть задачу
+git checkout task-01-cafe-feedback
+
+# начать новую попытку
+git checkout -b task-01-cafe-feedback-try1
+npm install
+npm run dev
+
+# вернуть попытку к условию, если хочется начать заново
+git reset --hard task-01-cafe-feedback
+```
+
+## Как добавить новую задачу
+
+```bash
+git checkout main
+git checkout -b task-02-название
+# заменить README.md условием задачи
+git add README.md
+git commit -m "task-02: add README"
+git push -u origin task-02-название
+```
+
+После этого добавить строку в таблицу «Задачи» в
+[README ветки `main`](https://github.com/mrkorzun/react#задачи).

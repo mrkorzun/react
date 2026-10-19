@@ -140,7 +140,9 @@ Un componente con el nombre y una breve descripción de la cafetería:
 </div>
 ```
 
-Añádelo a `App`.
+Añádelo a `App`. Después de este paso la app debe verse así:
+
+![Resultado del paso 2: CafeInfo dentro de App, árbol de componentes en React DevTools](assets/task-01/step-02-cafe-info.png)
 
 ## Paso 3. Estado de la aplicación
 

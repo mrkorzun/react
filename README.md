@@ -140,7 +140,9 @@ A component with the café's name and a short description:
 </div>
 ```
 
-Add it to `App`.
+Add it to `App`. After this step the app should look like this:
+
+![Step 2 result: CafeInfo rendered inside App, React DevTools component tree](assets/task-01/step-02-cafe-info.png)
 
 ## Step 3. App state
 

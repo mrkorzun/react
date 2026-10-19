@@ -46,8 +46,9 @@ least one vote and clears the results.
 
 ### Demo
 
-▶️ [Watch the demo video](https://goitlmsstorage.b-cdn.net/d653a361-6984-4b04-a053-3dc896dca4ca2025-04-06%2018-07-42.mp4) — how the finished app should look and work
-(every feature is clicked through). Video from the GoIT course materials.
+How the finished app should look and work (every feature is clicked through):
+
+![Demo: voting, statistics and Reset in the finished app](assets/task-01/demo.gif)
 
 ### What you'll practice
 

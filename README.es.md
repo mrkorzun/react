@@ -46,8 +46,9 @@ solo después del primer voto y reinicia los resultados.
 
 ### Demo
 
-▶️ [Ver el vídeo de demostración](https://goitlmsstorage.b-cdn.net/d653a361-6984-4b04-a053-3dc896dca4ca2025-04-06%2018-07-42.mp4) — cómo debe verse y funcionar la app
-terminada (se prueba toda la funcionalidad). Vídeo de los materiales del curso GoIT.
+Cómo debe verse y funcionar la app terminada (se prueba toda la funcionalidad):
+
+![Demo: votación, estadísticas y Reset en la app terminada](assets/task-01/demo.gif)
 
 ### Qué vas a practicar
 

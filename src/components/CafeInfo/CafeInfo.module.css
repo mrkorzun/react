@@ -1,0 +1,24 @@
+.container {
+  padding: 32px 32px;
+  background-color: #fff;
+  border: 1px solid #e1e4e8;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.title {
+  margin: 0;
+  font-size: 36px;
+  color: #1a1a1a;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.text {
+  margin: 0;
+  max-width: 600px;
+
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4b4b4b;
+}

@@ -197,6 +197,10 @@ Props:
 Declare a `VoteOptionsProps` interface in the component file. The buttons must
 update the state in `App`.
 
+After this step the app should work like this:
+
+![Step 4 result: VoteOptions buttons update state](assets/task-01/step-04-vote-options.gif)
+
 ## Step 5. `VoteStats` component
 
 Displays the vote statistics:
@@ -222,6 +226,10 @@ Props:
 Declare a `VoteStatsProps` interface in the component file. Clicking the
 buttons in `VoteOptions` must update what `VoteStats` shows.
 
+After this step the app should work like this:
+
+![Step 5 result: VoteStats shows the votes](assets/task-01/step-05-vote-stats.gif)
+
 ## Step 6. Calculating statistics
 
 Calculations are done in `App`, and the ready values are passed to `VoteStats`
@@ -238,6 +246,10 @@ const positiveRate = totalVotes
 > You **don't need** separate state properties for `totalVotes` and
 > `positiveRate` — they are derived data.
 
+After this step the app should work like this:
+
+![Step 6 result: total and positive percentage are calculated](assets/task-01/step-06-statistics.gif)
+
 ## Step 7. `Notification` component
 
 Shows a message when there are no statistics yet. Takes no props:
@@ -250,6 +262,10 @@ Conditional rendering based on `totalVotes`:
 
 - `totalVotes > 0` → render `VoteStats`;
 - `totalVotes === 0` → render `Notification`.
+
+After this step the app should work like this:
+
+![Step 7 result: Notification is shown until the first vote](assets/task-01/step-07-notification.gif)
 
 ## Step 8. Conditional Reset button
 

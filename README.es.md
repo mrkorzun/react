@@ -197,6 +197,10 @@ Props:
 Declara la interfaz `VoteOptionsProps` en el archivo del componente. Los botones
 deben actualizar el estado en `App`.
 
+Después de este paso la app debe funcionar así:
+
+![Resultado del paso 4: los botones de VoteOptions actualizan el estado](assets/task-01/step-04-vote-options.gif)
+
 ## Paso 5. Componente `VoteStats`
 
 Muestra las estadísticas de votos:
@@ -222,6 +226,10 @@ Props:
 Declara la interfaz `VoteStatsProps` en el archivo del componente. Al hacer clic
 en los botones de `VoteOptions`, los cambios deben verse en `VoteStats`.
 
+Después de este paso la app debe funcionar así:
+
+![Resultado del paso 5: VoteStats muestra los votos](assets/task-01/step-05-vote-stats.gif)
+
 ## Paso 6. Cálculo de estadísticas
 
 Los cálculos se hacen en `App` y los valores ya calculados se pasan a
@@ -238,6 +246,10 @@ const positiveRate = totalVotes
 > **No hace falta** crear propiedades separadas en el estado para `totalVotes`
 > y `positiveRate`: son datos derivados.
 
+Después de este paso la app debe funcionar así:
+
+![Resultado del paso 6: se calculan Total y el porcentaje positivo](assets/task-01/step-06-statistics.gif)
+
 ## Paso 7. Componente `Notification`
 
 Muestra un mensaje cuando todavía no hay estadísticas. No recibe props:
@@ -250,6 +262,10 @@ Renderizado condicional según `totalVotes`:
 
 - `totalVotes > 0` → se renderiza `VoteStats`;
 - `totalVotes === 0` → se renderiza `Notification`.
+
+Después de este paso la app debe funcionar así:
+
+![Resultado del paso 7: Notification se muestra hasta el primer voto](assets/task-01/step-07-notification.gif)
 
 ## Paso 8. Botón Reset condicional
 

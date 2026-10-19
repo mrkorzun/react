@@ -10,14 +10,14 @@ here: theory, practice and tasks to solve again, all in one place.
 ### `main` — current learning
 
 This is where I push what I'm studying in the course right now. Each folder in
-`src/components` is a learning stage built as a mini-project that I solve along
-the way. The list grows as I progress.
+`src/components` is a learning stage built as a mini-project: practical code
+only, no theory notes. The list grows as I progress.
 
-| Folder                        | Mini-project                     |
-| ----------------------------- | -------------------------------- |
-| `src/components/Theory-pr`    | Theory in practice (`useState`)  |
-| `src/components/Theory-pr2`   | Theory in practice, part 2       |
-| `src/components/Cocktails-pr` | Cocktails app                    |
+| Folder                        | What's practiced                                                        |
+| ----------------------------- | ----------------------------------------------------------------------- |
+| `src/components/Theory-pr`    | Components and typed props, `clsx` variants, CSS Modules, `react-icons` |
+| `src/components/Theory-pr2`   | `useState`: `Counter` component with independent state per instance     |
+| `src/components/Cocktails-pr` | Cocktails page: nested components, rendering lists with `map()`         |
 
 ### Branches — tasks for re-solving
 

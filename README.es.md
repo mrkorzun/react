@@ -10,14 +10,14 @@ React: teoría, práctica y tareas para volver a resolver, todo en un mismo luga
 ### `main` — aprendizaje actual
 
 Aquí subo lo que estoy estudiando en el curso ahora mismo. Cada carpeta en
-`src/components` es una etapa de aprendizaje en forma de mini-proyecto que
-resuelvo durante el curso. La lista crece a medida que avanzo.
+`src/components` es una etapa de aprendizaje en forma de mini-proyecto: solo
+práctica y código, sin explicaciones teóricas. La lista crece a medida que avanzo.
 
-| Carpeta                       | Mini-proyecto                     |
-| ----------------------------- | --------------------------------- |
-| `src/components/Theory-pr`    | Teoría en práctica (`useState`)   |
-| `src/components/Theory-pr2`   | Teoría en práctica, parte 2       |
-| `src/components/Cocktails-pr` | App de cócteles                   |
+| Carpeta                       | Qué se practica                                                             |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| `src/components/Theory-pr`    | Componentes y props tipadas, variantes con `clsx`, CSS Modules, `react-icons` |
+| `src/components/Theory-pr2`   | `useState`: componente `Counter` con estado independiente en cada instancia |
+| `src/components/Cocktails-pr` | Página de cócteles: componentes anidados, renderizado de listas con `map()` |
 
 ### Ramas — tareas para volver a resolver
 

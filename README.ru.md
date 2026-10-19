@@ -34,7 +34,7 @@
 | Композиция компонентов             | все компоненты рендерятся внутри `App`                           |
 | Пропсы                             | передача данных и колбэков из `App` в дочерние компоненты        |
 | Типизация пропсов (`interface`)    | `VoteOptionsProps`, `VoteStatsProps`                             |
-| Общие TS-типы, union-типы          | `Votes`, `VoteType = 'good' \| 'neutral' \| 'bad'` в `src/types` |
+| Общие TS-типы, union-типы          | `Votes`, `VoteTypes = 'good' \| 'neutral' \| 'bad'` в `src/types` |
 | `useState` с объектом              | состояние `votes` `{ good, neutral, bad }`                       |
 | Иммутабельное обновление состояния | `handleVote(type)` — spread + вычисляемый ключ `[type]`          |
 | Подъём состояния (lifting state up) | состояние в `App`, дети получают его через пропсы               |
@@ -51,82 +51,69 @@
 Есть три варианта оценки: **good**, **neutral**, **bad**. Пользователь выбирает
 один из вариантов и видит статистику.
 
-## Общие требования
+> 💡 Свои стили писать не нужно — сосредоточься только на логике на React и TypeScript.
 
-- В каждой папке компонента должны быть:
-  - файл компонента с расширением `.tsx` (например, `App.tsx`);
-  - файл стилей с таким же именем, оканчивающийся на `.module.css`
-    (например, `App.module.css`).
-- Компоненты экспортируются по умолчанию (`export default`).
-- Общие типы, используемые в нескольких компонентах, вынесены в отдельный файл
-  `src/types/votes.ts`. Типы и интерфейсы, относящиеся только к одному
-  компоненту, объявлены прямо в файле этого компонента.
-- TypeScript-код должен быть чистым, понятным и отформатированным с помощью
-  Prettier.
-- Стилизация выполняется с помощью CSS-модулей.
-- Используется `modern-normalize` для унификации стилей в разных браузерах.
+Вёрстка уже готова: все компоненты с JSX-разметкой и стилями лежат в ветке,
+поэтому не нужно тратить время на верстку — сразу переходи к **логике на React
+и TypeScript**: состоянию, пропсам, типизации, вычислениям и условному
+рендерингу.
 
-## Компоненты
-
-Интерфейс уже разделён на компоненты, даны готовая HTML-разметка и стили.
-Задача — сосредоточиться на логике в React и TypeScript: собрать интерфейс,
-реализовать функциональность и выполнить типизацию.
-
-Стили для всех компонентов скопируй из репозитория
-[goitacademy/react-cafe-styles](https://github.com/goitacademy/react-cafe-styles).
-После создания компонентов скопируй соответствующие `.module.css` файлы в
-соответствующие папки в `src/components`.
-
-Все компоненты рендерятся внутри компонента `App`.
+## Что уже есть в стартовом коде
 
 ![Структура компонентов: CafeInfo, VoteOptions и VoteStats внутри App](assets/task-01/components.png)
 
 ```
 src/
 ├── components/
-│   ├── App/            App.tsx, App.module.css
-│   ├── CafeInfo/       CafeInfo.tsx, CafeInfo.module.css
-│   ├── VoteOptions/    VoteOptions.tsx, VoteOptions.module.css
-│   ├── VoteStats/      VoteStats.tsx, VoteStats.module.css
-│   └── Notification/   Notification.tsx, Notification.module.css
+│   ├── App/            App.tsx, App.module.css                    ← рендерит все компоненты
+│   ├── CafeInfo/       CafeInfo.tsx, CafeInfo.module.css          ← готов, логика не нужна
+│   ├── VoteOptions/    VoteOptions.tsx, VoteOptions.module.css    ← разметка кнопок
+│   ├── VoteStats/      VoteStats.tsx, VoteStats.module.css        ← разметка статистики (нули)
+│   └── Notification/   Notification.tsx, Notification.module.css  ← сообщение «No feedback yet»
 └── types/
-    └── votes.ts
+    └── Vote.ts                                                    ← Votes и VoteTypes
 ```
+
+- У каждого компонента есть готовая JSX-разметка и свой CSS-модуль.
+- `App` рендерит `CafeInfo`, `VoteOptions`, `VoteStats` и `Notification` сразу
+  все вместе — логики пока нет.
+- В `src/types/Vote.ts` уже экспортированы общие типы:
+
+  ```ts
+  export interface Votes {
+    good: number;
+    neutral: number;
+    bad: number;
+  }
+
+  export type VoteTypes = "good" | "neutral" | "bad";
+  ```
+
+## Общие требования
+
+- Разметку и стили не меняем — добавляем только логику, пропсы и типы.
+- Компоненты экспортируются по умолчанию (`export default`).
+- Общие типы импортируются из `src/types/Vote.ts`. Типы и интерфейсы, которые
+  относятся только к одному компоненту (например, пропсы), объявляются прямо в
+  файле этого компонента.
+- TypeScript-код должен быть чистым, понятным и отформатированным с помощью
+  Prettier.
 
 ---
 
-## Шаг 1. Компонент `App`
+## Шаг 1. Изучи стартовый код
 
-`App` — контейнер для остальных компонентов. Пока что создаёт такую разметку:
+Запусти проект (`npm install`, `npm run dev`) и посмотри файлы в
+`src/components` и `src/types`. Сейчас приложение одновременно показывает
+информацию о кофейне, кнопки, статистику с нулями и сообщение «No feedback yet»,
+а кнопки ничего не делают.
 
-```jsx
-<div className={css.app}></div>
-```
+## Шаг 2. Состояние приложения
 
-## Шаг 2. Компонент `CafeInfo`
+При клике на **Good / Neutral / Bad** в `VoteOptions` нужно сохранять выбор
+пользователя и передавать его другим компонентам, в частности `<VoteStats />`.
 
-Компонент с названием и коротким описанием кофейни:
-
-```jsx
-<div className={css.container}>
-  <h1 className={css.title}>Sip Happens Café</h1>
-  <p className={css.description}>
-    Please rate our service by selecting one of the options below.
-  </p>
-</div>
-```
-
-Добавь его в `App`. После этого шага интерфейс должен выглядеть так:
-
-![Результат шага 2: CafeInfo внутри App, дерево компонентов в React DevTools](assets/task-01/step-02-cafe-info.png)
-
-## Шаг 3. Состояние приложения
-
-При клике на кнопки **Good / Neutral / Bad** из компонента `VoteOptions` нужно
-сохранять выбор пользователя и передавать его другим компонентам, в частности
-`<VoteStats />`.
-
-Создай в `App` состояние `votes`:
+Создай в `App` состояние `votes`, типизированное интерфейсом `Votes`:
 
 ```ts
 {
@@ -136,76 +123,49 @@ src/
 }
 ```
 
-Типизируй состояние через интерфейс `Votes`, объявленный и экспортированный в
-`src/types/votes.ts`. В этом же файле создай тип `VoteType` —
-`'good' | 'neutral' | 'bad'`.
-
 Добавь в `App` функции:
 
-- `handleVote(type)` — обновляет состояние голосов; параметр типизирован через `VoteType`;
+- `handleVote(type)` — обновляет состояние голосов; параметр типизирован через `VoteTypes`;
 - `resetVotes()` — сбрасывает состояние.
 
 `votes` — центральный источник данных; компоненты получают актуальные значения
 через пропсы.
 
-## Шаг 4. Компонент `VoteOptions`
+## Шаг 3. `VoteOptions` — пропсы и клики
 
-Рендерит кнопки для голосования и кнопку Reset:
+Добавь пропсы в `VoteOptions` и подключи их к кнопкам:
 
-```jsx
-<div className={css.container}>
-  <button className={css.button}>Good</button>
-  <button className={css.button}>Neutral</button>
-  <button className={css.button}>Bad</button>
-  <button className={`${css.button} ${css.reset}`}>Reset</button>
-</div>
-```
+| Пропс      | Тип                         | Описание                                                |
+| ---------- | --------------------------- | ------------------------------------------------------- |
+| `onVote`   | `(type: VoteTypes) => void` | вызывается при клике на кнопку голосования              |
+| `onReset`  | `() => void`                | вызывается при клике на Reset, сбрасывает голоса        |
+| `canReset` | `boolean`                   | показывать ли кнопку Reset (на этом этапе можно `true`) |
 
-Пропсы:
-
-| Пропс      | Тип                        | Описание                                                  |
-| ---------- | -------------------------- | --------------------------------------------------------- |
-| `onVote`   | `(type: VoteType) => void` | вызывается при клике на кнопку голосования                |
-| `onReset`  | `() => void`               | вызывается при клике на Reset, сбрасывает голоса          |
-| `canReset` | `boolean`                  | показывать ли кнопку Reset (на этом этапе можно `true`)   |
-
-В файле компонента объяви интерфейс `VoteOptionsProps`. Кнопки должны обновлять
-состояние в `App`.
+В файле компонента объяви интерфейс `VoteOptionsProps`. Передай из `App`
+функции `handleVote` и `resetVotes`. Кнопки должны обновлять состояние в `App`.
 
 После этого шага приложение должно работать так:
 
-![Результат шага 4: кнопки VoteOptions обновляют состояние](assets/task-01/step-04-vote-options.gif)
+![Результат шага 3: кнопки VoteOptions обновляют состояние](assets/task-01/step-04-vote-options.gif)
 
-## Шаг 5. Компонент `VoteStats`
+## Шаг 4. `VoteStats` — вывод голосов
 
-Отображает статистику голосов:
+Добавь пропсы в `VoteStats` и замени нули в разметке на реальные значения:
 
-```jsx
-<div className={styles.container}>
-  <p className={styles.stat}>Good: <strong>0</strong></p>
-  <p className={styles.stat}>Neutral: <strong>0</strong></p>
-  <p className={styles.stat}>Bad: <strong>0</strong></p>
-  <p className={styles.stat}>Total: <strong>0</strong></p>
-  <p className={styles.stat}>Positive: <strong>0%</strong></p>
-</div>
-```
-
-Пропсы:
-
-| Пропс          | Тип      | Описание                                          |
-| -------------- | -------- | ------------------------------------------------- |
-| `votes`        | `Votes`  | количество голосов для good, neutral, bad         |
-| `totalVotes`   | `number` | общее количество голосов (пока можно `0`)         |
-| `positiveRate` | `number` | процент положительных голосов (пока можно `0`)    |
+| Пропс          | Тип      | Описание                                       |
+| -------------- | -------- | ---------------------------------------------- |
+| `votes`        | `Votes`  | количество голосов для good, neutral, bad      |
+| `totalVotes`   | `number` | общее количество голосов (пока можно `0`)      |
+| `positiveRate` | `number` | процент положительных голосов (пока можно `0`) |
 
 В файле компонента объяви интерфейс `VoteStatsProps`. При кликах на кнопки в
 `VoteOptions` изменения должны отображаться в `VoteStats`.
 
 После этого шага приложение должно работать так:
 
-![Результат шага 5: VoteStats показывает голоса](assets/task-01/step-05-vote-stats.gif)
+![Результат шага 4: VoteStats показывает голоса](assets/task-01/step-05-vote-stats.gif)
 
-## Шаг 6. Вычисление статистики
+## Шаг 5. Вычисление статистики
 
 Вычисления выполняются в `App`, готовые значения передаются пропсами в
 `VoteStats`.
@@ -223,34 +183,31 @@ const positiveRate = totalVotes
 
 После этого шага приложение должно работать так:
 
-![Результат шага 6: вычисляются Total и процент положительных](assets/task-01/step-06-statistics.gif)
+![Результат шага 5: вычисляются Total и процент положительных](assets/task-01/step-06-statistics.gif)
 
-## Шаг 7. Компонент `Notification`
+## Шаг 6. `Notification` — условный рендеринг
 
-Показывает сообщение об отсутствии статистики. Пропсов не принимает:
-
-```jsx
-<p className={css.message}>No feedback yet</p>
-```
-
-Условный рендеринг в зависимости от `totalVotes`:
+Сейчас `App` рендерит `VoteStats` и `Notification` вместе. Сделай так, чтобы это
+зависело от `totalVotes`:
 
 - `totalVotes > 0` → рендерится `VoteStats`;
 - `totalVotes === 0` → рендерится `Notification`.
 
+`Notification` пропсов не принимает.
+
 После этого шага приложение должно работать так:
 
-![Результат шага 7: Notification показывается до первого голоса](assets/task-01/step-07-notification.gif)
+![Результат шага 6: Notification показывается до первого голоса](assets/task-01/step-07-notification.gif)
 
-## Шаг 8. Кнопка Reset по условию
+## Шаг 7. Кнопка Reset по условию
 
 Кнопка Reset отображается только когда есть хотя бы один голос. Используй
-`totalVotes` в `App` и передай соответствующее значение пропсом `canReset` в
-`VoteOptions`.
+`totalVotes` в `App`, передай соответствующее значение пропсом `canReset` в
+`VoteOptions` и рендери кнопку Reset, только если `canReset` равен `true`.
 
 После этого шага приложение готово и должно работать так:
 
-![Результат шага 8: кнопка Reset появляется только после первого голоса](assets/task-01/step-08-reset.gif)
+![Результат шага 7: кнопка Reset появляется только после первого голоса](assets/task-01/step-08-reset.gif)
 
 ---
 
@@ -260,7 +217,7 @@ const positiveRate = totalVotes
 
 **Требования к решению**
 
-- [ ] Выполнены все шаги 1–8, отмечены все пункты чеклиста ниже.
+- [ ] Выполнены все шаги 1–7, отмечены все пункты чеклиста ниже.
 - [ ] `npm run build` и `npm run lint` проходят без ошибок.
 - [ ] Код отформатирован Prettier.
 - [ ] Приложение проверено в браузере: голосование, статистика, `Notification` и Reset работают.
@@ -294,11 +251,10 @@ PR **не мерджится**, чтобы ветка задачи остала�
 
 ## Чеклист
 
-- [ ] Шаг 1 — `App`
-- [ ] Шаг 2 — `CafeInfo`
-- [ ] Шаг 3 — состояние `votes`, типы `Votes` и `VoteType`
-- [ ] Шаг 4 — `VoteOptions`
-- [ ] Шаг 5 — `VoteStats`
-- [ ] Шаг 6 — `totalVotes` и `positiveRate`
-- [ ] Шаг 7 — `Notification` и условный рендеринг
-- [ ] Шаг 8 — Reset по условию
+- [ ] Шаг 1 — изучен стартовый код
+- [ ] Шаг 2 — состояние `votes`, `handleVote` и `resetVotes`
+- [ ] Шаг 3 — `VoteOptions`: пропсы и клики
+- [ ] Шаг 4 — `VoteStats`: пропсы и значения
+- [ ] Шаг 5 — `totalVotes` и `positiveRate`
+- [ ] Шаг 6 — `Notification` и условный рендеринг
+- [ ] Шаг 7 — Reset по условию

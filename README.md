@@ -34,7 +34,7 @@ least one vote and clears the results.
 | Component composition         | all components are rendered inside `App`                            |
 | Props                         | passing data and callbacks from `App` to child components           |
 | Typing props (`interface`)    | `VoteOptionsProps`, `VoteStatsProps`                                |
-| Shared TS types, union types  | `Votes`, `VoteType = 'good' \| 'neutral' \| 'bad'` in `src/types` |
+| Shared TS types, union types  | `Votes`, `VoteTypes = 'good' \| 'neutral' \| 'bad'` in `src/types` |
 | `useState` with an object     | `votes` state `{ good, neutral, bad }`                              |
 | Immutable state updates       | `handleVote(type)` — spread + computed key `[type]`                 |
 | Lifting state up              | state lives in `App`, children get it through props                 |
@@ -51,81 +51,68 @@ Build an app that lets users leave feedback about a café. There are three
 rating options: **good**, **neutral**, **bad**. The user picks one of them and
 sees the statistics.
 
-## General requirements
+> 💡 No need to write your own styles — just focus on React and TypeScript logic.
 
-- Each component folder must contain:
-  - the component file with the `.tsx` extension (e.g. `App.tsx`);
-  - a styles file with the same name ending in `.module.css`
-    (e.g. `App.module.css`).
-- Components are exported with a default export (`export default`).
-- Shared types used by several components live in a separate file,
-  `src/types/votes.ts`. Types and interfaces that belong to a single component
-  are declared directly in that component's file.
-- TypeScript code must be clean, readable and formatted with Prettier.
-- Styling is done with CSS Modules.
-- `modern-normalize` is used to unify styles across browsers.
+The markup is already done: all components with JSX and styles are in the
+branch, so you don't spend time on layout and go straight to the **React and
+TypeScript logic** — state, props, typing, calculations and conditional
+rendering.
 
-## Components
-
-The interface is already split into components, and the HTML markup and styles
-are provided. Your job is to focus on the React and TypeScript logic: assemble
-the interface, implement the functionality and add the typings.
-
-Copy the styles for all components from the
-[goitacademy/react-cafe-styles](https://github.com/goitacademy/react-cafe-styles)
-repository. After creating your components, copy the matching `.module.css`
-files into the corresponding folders in `src/components`.
-
-All components are rendered inside the `App` component.
+## What's already in the starter
 
 ![Component structure: CafeInfo, VoteOptions and VoteStats inside App](assets/task-01/components.png)
 
 ```
 src/
 ├── components/
-│   ├── App/            App.tsx, App.module.css
-│   ├── CafeInfo/       CafeInfo.tsx, CafeInfo.module.css
-│   ├── VoteOptions/    VoteOptions.tsx, VoteOptions.module.css
-│   ├── VoteStats/      VoteStats.tsx, VoteStats.module.css
-│   └── Notification/   Notification.tsx, Notification.module.css
+│   ├── App/            App.tsx, App.module.css                    ← renders all components
+│   ├── CafeInfo/       CafeInfo.tsx, CafeInfo.module.css          ← done, no logic needed
+│   ├── VoteOptions/    VoteOptions.tsx, VoteOptions.module.css    ← markup of the buttons
+│   ├── VoteStats/      VoteStats.tsx, VoteStats.module.css        ← markup of the stats (zeros)
+│   └── Notification/   Notification.tsx, Notification.module.css  ← "No feedback yet" message
 └── types/
-    └── votes.ts
+    └── Vote.ts                                                    ← Votes and VoteTypes
 ```
+
+- Every component has ready JSX markup and its own CSS module.
+- `App` renders `CafeInfo`, `VoteOptions`, `VoteStats` and `Notification` all at
+  once — there is no logic yet.
+- `src/types/Vote.ts` already exports the shared types:
+
+  ```ts
+  export interface Votes {
+    good: number;
+    neutral: number;
+    bad: number;
+  }
+
+  export type VoteTypes = "good" | "neutral" | "bad";
+  ```
+
+## General requirements
+
+- Don't change the markup and styles — only add logic, props and types.
+- Components are exported with a default export (`export default`).
+- Shared types are imported from `src/types/Vote.ts`. Types and interfaces that
+  belong to a single component (for example, props) are declared directly in
+  that component's file.
+- TypeScript code must be clean, readable and formatted with Prettier.
 
 ---
 
-## Step 1. `App` component
+## Step 1. Explore the starter
 
-`App` is the container for the other components. For now it renders this markup:
+Run the project (`npm install`, `npm run dev`) and look through the files in
+`src/components` and `src/types`. Right now the app shows the café info, the
+buttons, the stats with zeros and the "No feedback yet" message at the same
+time, and the buttons don't do anything.
 
-```jsx
-<div className={css.app}></div>
-```
+## Step 2. App state
 
-## Step 2. `CafeInfo` component
+Clicking **Good / Neutral / Bad** in `VoteOptions` must store the user's choice
+and pass it to other components, in particular `<VoteStats />`.
 
-A component with the café's name and a short description:
-
-```jsx
-<div className={css.container}>
-  <h1 className={css.title}>Sip Happens Café</h1>
-  <p className={css.description}>
-    Please rate our service by selecting one of the options below.
-  </p>
-</div>
-```
-
-Add it to `App`. After this step the app should look like this:
-
-![Step 2 result: CafeInfo rendered inside App, React DevTools component tree](assets/task-01/step-02-cafe-info.png)
-
-## Step 3. App state
-
-When one of the **Good / Neutral / Bad** buttons in `VoteOptions` is clicked,
-the user's choice has to be stored and passed to other components, in
-particular `<VoteStats />`.
-
-Create a `votes` state in `App`:
+Create a `votes` state in `App` typed with the `Votes` interface:
 
 ```ts
 {
@@ -135,61 +122,35 @@ Create a `votes` state in `App`:
 }
 ```
 
-Type the state with a `Votes` interface declared and exported in
-`src/types/votes.ts`. In the same file create a `VoteType` type —
-`'good' | 'neutral' | 'bad'`.
-
 Add these functions to `App`:
 
-- `handleVote(type)` — updates the vote state; its parameter is typed with `VoteType`;
+- `handleVote(type)` — updates the vote state; its parameter is typed with `VoteTypes`;
 - `resetVotes()` — resets the state.
 
 `votes` is the single source of truth; components receive up-to-date values
 through props.
 
-## Step 4. `VoteOptions` component
+## Step 3. `VoteOptions` — props and clicks
 
-Renders the voting buttons and the Reset button:
+Add props to `VoteOptions` and hook them up to the buttons:
 
-```jsx
-<div className={css.container}>
-  <button className={css.button}>Good</button>
-  <button className={css.button}>Neutral</button>
-  <button className={css.button}>Bad</button>
-  <button className={`${css.button} ${css.reset}`}>Reset</button>
-</div>
-```
+| Prop       | Type                        | Description                                             |
+| ---------- | --------------------------- | ------------------------------------------------------- |
+| `onVote`   | `(type: VoteTypes) => void` | called when a voting button is clicked                  |
+| `onReset`  | `() => void`                | called when Reset is clicked, resets the votes          |
+| `canReset` | `boolean`                   | whether to show the Reset button (`true` for now is OK) |
 
-Props:
-
-| Prop       | Type                       | Description                                             |
-| ---------- | -------------------------- | ------------------------------------------------------- |
-| `onVote`   | `(type: VoteType) => void` | called when a voting button is clicked                  |
-| `onReset`  | `() => void`               | called when Reset is clicked, resets the votes          |
-| `canReset` | `boolean`                  | whether to show the Reset button (`true` for now is OK) |
-
-Declare a `VoteOptionsProps` interface in the component file. The buttons must
-update the state in `App`.
+Declare a `VoteOptionsProps` interface in the component file. Pass
+`handleVote` and `resetVotes` from `App`. The buttons must update the state in
+`App`.
 
 After this step the app should work like this:
 
-![Step 4 result: VoteOptions buttons update state](assets/task-01/step-04-vote-options.gif)
+![Step 3 result: VoteOptions buttons update state](assets/task-01/step-04-vote-options.gif)
 
-## Step 5. `VoteStats` component
+## Step 4. `VoteStats` — show the votes
 
-Displays the vote statistics:
-
-```jsx
-<div className={styles.container}>
-  <p className={styles.stat}>Good: <strong>0</strong></p>
-  <p className={styles.stat}>Neutral: <strong>0</strong></p>
-  <p className={styles.stat}>Bad: <strong>0</strong></p>
-  <p className={styles.stat}>Total: <strong>0</strong></p>
-  <p className={styles.stat}>Positive: <strong>0%</strong></p>
-</div>
-```
-
-Props:
+Add props to `VoteStats` and replace the zeros in the markup with real values:
 
 | Prop           | Type     | Description                                   |
 | -------------- | -------- | --------------------------------------------- |
@@ -202,9 +163,9 @@ buttons in `VoteOptions` must update what `VoteStats` shows.
 
 After this step the app should work like this:
 
-![Step 5 result: VoteStats shows the votes](assets/task-01/step-05-vote-stats.gif)
+![Step 4 result: VoteStats shows the votes](assets/task-01/step-05-vote-stats.gif)
 
-## Step 6. Calculating statistics
+## Step 5. Calculating statistics
 
 Calculations are done in `App`, and the ready values are passed to `VoteStats`
 as props.
@@ -222,34 +183,31 @@ const positiveRate = totalVotes
 
 After this step the app should work like this:
 
-![Step 6 result: total and positive percentage are calculated](assets/task-01/step-06-statistics.gif)
+![Step 5 result: total and positive percentage are calculated](assets/task-01/step-06-statistics.gif)
 
-## Step 7. `Notification` component
+## Step 6. `Notification` — conditional rendering
 
-Shows a message when there are no statistics yet. Takes no props:
-
-```jsx
-<p className={css.message}>No feedback yet</p>
-```
-
-Conditional rendering based on `totalVotes`:
+Right now `App` renders `VoteStats` and `Notification` together. Make it depend
+on `totalVotes`:
 
 - `totalVotes > 0` → render `VoteStats`;
 - `totalVotes === 0` → render `Notification`.
 
+`Notification` takes no props.
+
 After this step the app should work like this:
 
-![Step 7 result: Notification is shown until the first vote](assets/task-01/step-07-notification.gif)
+![Step 6 result: Notification is shown until the first vote](assets/task-01/step-07-notification.gif)
 
-## Step 8. Conditional Reset button
+## Step 7. Conditional Reset button
 
 The Reset button is shown only when there is at least one vote. Use
-`totalVotes` in `App` and pass the matching value to `VoteOptions` via the
-`canReset` prop.
+`totalVotes` in `App`, pass the matching value to `VoteOptions` via the
+`canReset` prop, and render the Reset button only when `canReset` is `true`.
 
 After this step the app is complete and should work like this:
 
-![Step 8 result: Reset button appears only after the first vote](assets/task-01/step-08-reset.gif)
+![Step 7 result: Reset button appears only after the first vote](assets/task-01/step-08-reset.gif)
 
 ---
 
@@ -259,7 +217,7 @@ Solved the task and want me to review it? Here are the steps and requirements.
 
 **Requirements for the solution**
 
-- [ ] All steps 1–8 are done and every item in the checklist below is ticked.
+- [ ] All steps 1–7 are done and every item in the checklist below is ticked.
 - [ ] `npm run build` and `npm run lint` pass without errors.
 - [ ] Code is formatted with Prettier.
 - [ ] The app is checked in the browser: voting, statistics, `Notification` and Reset work.
@@ -293,11 +251,10 @@ After the review I'll close it, and your solution stays in your fork.
 
 ## Checklist
 
-- [ ] Step 1 — `App`
-- [ ] Step 2 — `CafeInfo`
-- [ ] Step 3 — `votes` state, `Votes` and `VoteType` types
-- [ ] Step 4 — `VoteOptions`
-- [ ] Step 5 — `VoteStats`
-- [ ] Step 6 — `totalVotes` and `positiveRate`
-- [ ] Step 7 — `Notification` and conditional rendering
-- [ ] Step 8 — conditional Reset
+- [ ] Step 1 — explored the starter
+- [ ] Step 2 — `votes` state, `handleVote` and `resetVotes`
+- [ ] Step 3 — `VoteOptions`: props and clicks
+- [ ] Step 4 — `VoteStats`: props and values
+- [ ] Step 5 — `totalVotes` and `positiveRate`
+- [ ] Step 6 — `Notification` and conditional rendering
+- [ ] Step 7 — conditional Reset

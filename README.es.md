@@ -34,7 +34,7 @@ solo después del primer voto y reinicia los resultados.
 | Composición de componentes           | todos los componentes se renderizan dentro de `App`               |
 | Props                                | pasar datos y callbacks de `App` a los componentes hijos          |
 | Tipado de props (`interface`)        | `VoteOptionsProps`, `VoteStatsProps`                              |
-| Tipos TS compartidos, union types    | `Votes`, `VoteType = 'good' \| 'neutral' \| 'bad'` en `src/types` |
+| Tipos TS compartidos, union types    | `Votes`, `VoteTypes = 'good' \| 'neutral' \| 'bad'` en `src/types` |
 | `useState` con un objeto             | estado `votes` `{ good, neutral, bad }`                           |
 | Actualización inmutable del estado   | `handleVote(type)` — spread + clave calculada `[type]`            |
 | Elevar el estado (lifting state up)  | el estado vive en `App`, los hijos lo reciben por props           |
@@ -51,81 +51,68 @@ Crea una aplicación que permita a los usuarios dejar su opinión sobre una
 cafetería. Hay tres opciones de valoración: **good**, **neutral**, **bad**. El
 usuario elige una de ellas y ve las estadísticas.
 
-## Requisitos generales
+> 💡 No hace falta escribir tus propios estilos: céntrate solo en la lógica con React y TypeScript.
 
-- Cada carpeta de componente debe contener:
-  - el archivo del componente con extensión `.tsx` (por ejemplo, `App.tsx`);
-  - un archivo de estilos con el mismo nombre terminado en `.module.css`
-    (por ejemplo, `App.module.css`).
-- Los componentes se exportan por defecto (`export default`).
-- Los tipos compartidos por varios componentes están en un archivo aparte,
-  `src/types/votes.ts`. Los tipos e interfaces que pertenecen a un solo
-  componente se declaran directamente en el archivo de ese componente.
-- El código TypeScript debe ser limpio, legible y formateado con Prettier.
-- Los estilos se hacen con CSS Modules.
-- Se usa `modern-normalize` para unificar los estilos entre navegadores.
+La maquetación ya está hecha: todos los componentes con su JSX y estilos están
+en la rama, así que no pierdes tiempo maquetando y vas directo a la **lógica con
+React y TypeScript**: estado, props, tipado, cálculos y renderizado condicional.
 
-## Componentes
-
-La interfaz ya está dividida en componentes y se proporcionan el marcado HTML y
-los estilos. Tu tarea es centrarte en la lógica de React y TypeScript: montar la
-interfaz, implementar la funcionalidad y añadir el tipado.
-
-Copia los estilos de todos los componentes del repositorio
-[goitacademy/react-cafe-styles](https://github.com/goitacademy/react-cafe-styles).
-Después de crear tus componentes, copia los archivos `.module.css`
-correspondientes en sus carpetas dentro de `src/components`.
-
-Todos los componentes se renderizan dentro del componente `App`.
+## Qué incluye el código inicial
 
 ![Estructura de componentes: CafeInfo, VoteOptions y VoteStats dentro de App](assets/task-01/components.png)
 
 ```
 src/
 ├── components/
-│   ├── App/            App.tsx, App.module.css
-│   ├── CafeInfo/       CafeInfo.tsx, CafeInfo.module.css
-│   ├── VoteOptions/    VoteOptions.tsx, VoteOptions.module.css
-│   ├── VoteStats/      VoteStats.tsx, VoteStats.module.css
-│   └── Notification/   Notification.tsx, Notification.module.css
+│   ├── App/            App.tsx, App.module.css                    ← renderiza todos los componentes
+│   ├── CafeInfo/       CafeInfo.tsx, CafeInfo.module.css          ← listo, no necesita lógica
+│   ├── VoteOptions/    VoteOptions.tsx, VoteOptions.module.css    ← marcado de los botones
+│   ├── VoteStats/      VoteStats.tsx, VoteStats.module.css        ← marcado de las estadísticas (ceros)
+│   └── Notification/   Notification.tsx, Notification.module.css  ← mensaje «No feedback yet»
 └── types/
-    └── votes.ts
+    └── Vote.ts                                                    ← Votes y VoteTypes
 ```
+
+- Cada componente tiene su marcado JSX listo y su propio módulo CSS.
+- `App` renderiza `CafeInfo`, `VoteOptions`, `VoteStats` y `Notification` todos
+  a la vez; todavía no hay lógica.
+- `src/types/Vote.ts` ya exporta los tipos compartidos:
+
+  ```ts
+  export interface Votes {
+    good: number;
+    neutral: number;
+    bad: number;
+  }
+
+  export type VoteTypes = "good" | "neutral" | "bad";
+  ```
+
+## Requisitos generales
+
+- No cambies el marcado ni los estilos: solo añade lógica, props y tipos.
+- Los componentes se exportan por defecto (`export default`).
+- Los tipos compartidos se importan de `src/types/Vote.ts`. Los tipos e
+  interfaces que pertenecen a un solo componente (por ejemplo, las props) se
+  declaran directamente en el archivo de ese componente.
+- El código TypeScript debe ser limpio, legible y formateado con Prettier.
 
 ---
 
-## Paso 1. Componente `App`
+## Paso 1. Explora el código inicial
 
-`App` es el contenedor del resto de componentes. Por ahora renderiza este marcado:
+Arranca el proyecto (`npm install`, `npm run dev`) y revisa los archivos de
+`src/components` y `src/types`. Ahora mismo la app muestra a la vez la
+información de la cafetería, los botones, las estadísticas con ceros y el
+mensaje «No feedback yet», y los botones no hacen nada.
 
-```jsx
-<div className={css.app}></div>
-```
+## Paso 2. Estado de la aplicación
 
-## Paso 2. Componente `CafeInfo`
+Al hacer clic en **Good / Neutral / Bad** en `VoteOptions` hay que guardar la
+elección del usuario y pasarla a otros componentes, en particular a
+`<VoteStats />`.
 
-Un componente con el nombre y una breve descripción de la cafetería:
-
-```jsx
-<div className={css.container}>
-  <h1 className={css.title}>Sip Happens Café</h1>
-  <p className={css.description}>
-    Please rate our service by selecting one of the options below.
-  </p>
-</div>
-```
-
-Añádelo a `App`. Después de este paso la app debe verse así:
-
-![Resultado del paso 2: CafeInfo dentro de App, árbol de componentes en React DevTools](assets/task-01/step-02-cafe-info.png)
-
-## Paso 3. Estado de la aplicación
-
-Al hacer clic en uno de los botones **Good / Neutral / Bad** de `VoteOptions`,
-hay que guardar la elección del usuario y pasarla a otros componentes, en
-particular a `<VoteStats />`.
-
-Crea en `App` el estado `votes`:
+Crea en `App` el estado `votes`, tipado con la interfaz `Votes`:
 
 ```ts
 {
@@ -135,76 +122,50 @@ Crea en `App` el estado `votes`:
 }
 ```
 
-Tipa el estado con la interfaz `Votes`, declarada y exportada en
-`src/types/votes.ts`. En el mismo archivo crea el tipo `VoteType` —
-`'good' | 'neutral' | 'bad'`.
-
 Añade en `App` las funciones:
 
-- `handleVote(type)` — actualiza el estado de los votos; su parámetro se tipa con `VoteType`;
+- `handleVote(type)` — actualiza el estado de los votos; su parámetro se tipa con `VoteTypes`;
 - `resetVotes()` — reinicia el estado.
 
 `votes` es la única fuente de verdad; los componentes reciben los valores
 actualizados a través de props.
 
-## Paso 4. Componente `VoteOptions`
+## Paso 3. `VoteOptions` — props y clics
 
-Renderiza los botones de votación y el botón Reset:
+Añade props a `VoteOptions` y conéctalas a los botones:
 
-```jsx
-<div className={css.container}>
-  <button className={css.button}>Good</button>
-  <button className={css.button}>Neutral</button>
-  <button className={css.button}>Bad</button>
-  <button className={`${css.button} ${css.reset}`}>Reset</button>
-</div>
-```
+| Prop       | Tipo                        | Descripción                                               |
+| ---------- | --------------------------- | --------------------------------------------------------- |
+| `onVote`   | `(type: VoteTypes) => void` | se llama al hacer clic en un botón de votación            |
+| `onReset`  | `() => void`                | se llama al hacer clic en Reset, reinicia los votos       |
+| `canReset` | `boolean`                   | si se muestra el botón Reset (por ahora puede ser `true`) |
 
-Props:
-
-| Prop       | Tipo                       | Descripción                                                  |
-| ---------- | -------------------------- | ------------------------------------------------------------ |
-| `onVote`   | `(type: VoteType) => void` | se llama al hacer clic en un botón de votación               |
-| `onReset`  | `() => void`               | se llama al hacer clic en Reset, reinicia los votos          |
-| `canReset` | `boolean`                  | si se muestra el botón Reset (por ahora puede ser `true`)    |
-
-Declara la interfaz `VoteOptionsProps` en el archivo del componente. Los botones
-deben actualizar el estado en `App`.
+Declara la interfaz `VoteOptionsProps` en el archivo del componente. Pasa
+`handleVote` y `resetVotes` desde `App`. Los botones deben actualizar el estado
+en `App`.
 
 Después de este paso la app debe funcionar así:
 
-![Resultado del paso 4: los botones de VoteOptions actualizan el estado](assets/task-01/step-04-vote-options.gif)
+![Resultado del paso 3: los botones de VoteOptions actualizan el estado](assets/task-01/step-04-vote-options.gif)
 
-## Paso 5. Componente `VoteStats`
+## Paso 4. `VoteStats` — mostrar los votos
 
-Muestra las estadísticas de votos:
+Añade props a `VoteStats` y sustituye los ceros del marcado por valores reales:
 
-```jsx
-<div className={styles.container}>
-  <p className={styles.stat}>Good: <strong>0</strong></p>
-  <p className={styles.stat}>Neutral: <strong>0</strong></p>
-  <p className={styles.stat}>Bad: <strong>0</strong></p>
-  <p className={styles.stat}>Total: <strong>0</strong></p>
-  <p className={styles.stat}>Positive: <strong>0%</strong></p>
-</div>
-```
-
-Props:
-
-| Prop           | Tipo     | Descripción                                          |
-| -------------- | -------- | ---------------------------------------------------- |
-| `votes`        | `Votes`  | número de votos para good, neutral, bad              |
-| `totalVotes`   | `number` | número total de votos (por ahora puede ser `0`)      |
-| `positiveRate` | `number` | porcentaje de votos positivos (por ahora `0`)        |
+| Prop           | Tipo     | Descripción                                     |
+| -------------- | -------- | ----------------------------------------------- |
+| `votes`        | `Votes`  | número de votos para good, neutral, bad         |
+| `totalVotes`   | `number` | número total de votos (por ahora puede ser `0`) |
+| `positiveRate` | `number` | porcentaje de votos positivos (por ahora `0`)   |
 
 Declara la interfaz `VoteStatsProps` en el archivo del componente. Al hacer clic
 en los botones de `VoteOptions`, los cambios deben verse en `VoteStats`.
 
 Después de este paso la app debe funcionar así:
 
-![Resultado del paso 5: VoteStats muestra los votos](assets/task-01/step-05-vote-stats.gif)
+![Resultado del paso 4: VoteStats muestra los votos](assets/task-01/step-05-vote-stats.gif)
 
-## Paso 6. Cálculo de estadísticas
+## Paso 5. Cálculo de estadísticas
 
 Los cálculos se hacen en `App` y los valores ya calculados se pasan a
 `VoteStats` como props.
@@ -222,34 +183,31 @@ const positiveRate = totalVotes
 
 Después de este paso la app debe funcionar así:
 
-![Resultado del paso 6: se calculan Total y el porcentaje positivo](assets/task-01/step-06-statistics.gif)
+![Resultado del paso 5: se calculan Total y el porcentaje positivo](assets/task-01/step-06-statistics.gif)
 
-## Paso 7. Componente `Notification`
+## Paso 6. `Notification` — renderizado condicional
 
-Muestra un mensaje cuando todavía no hay estadísticas. No recibe props:
-
-```jsx
-<p className={css.message}>No feedback yet</p>
-```
-
-Renderizado condicional según `totalVotes`:
+Ahora `App` renderiza `VoteStats` y `Notification` juntos. Haz que dependa de
+`totalVotes`:
 
 - `totalVotes > 0` → se renderiza `VoteStats`;
 - `totalVotes === 0` → se renderiza `Notification`.
 
+`Notification` no recibe props.
+
 Después de este paso la app debe funcionar así:
 
-![Resultado del paso 7: Notification se muestra hasta el primer voto](assets/task-01/step-07-notification.gif)
+![Resultado del paso 6: Notification se muestra hasta el primer voto](assets/task-01/step-07-notification.gif)
 
-## Paso 8. Botón Reset condicional
+## Paso 7. Botón Reset condicional
 
 El botón Reset solo se muestra cuando hay al menos un voto. Usa `totalVotes` en
-`App` y pasa el valor correspondiente a `VoteOptions` mediante la prop
-`canReset`.
+`App`, pasa el valor correspondiente a `VoteOptions` mediante la prop
+`canReset` y renderiza el botón Reset solo cuando `canReset` sea `true`.
 
 Después de este paso la app está terminada y debe funcionar así:
 
-![Resultado del paso 8: el botón Reset aparece solo tras el primer voto](assets/task-01/step-08-reset.gif)
+![Resultado del paso 7: el botón Reset aparece solo tras el primer voto](assets/task-01/step-08-reset.gif)
 
 ---
 
@@ -259,7 +217,7 @@ Después de este paso la app está terminada y debe funcionar así:
 
 **Requisitos de la solución**
 
-- [ ] Están hechos todos los pasos 1–8 y marcados todos los puntos del checklist de abajo.
+- [ ] Están hechos todos los pasos 1–7 y marcados todos los puntos del checklist de abajo.
 - [ ] `npm run build` y `npm run lint` pasan sin errores.
 - [ ] El código está formateado con Prettier.
 - [ ] La app está probada en el navegador: votación, estadísticas, `Notification` y Reset funcionan.
@@ -293,11 +251,10 @@ intentos. Tras la revisión lo cerraré y tu solución seguirá en tu fork.
 
 ## Checklist
 
-- [ ] Paso 1 — `App`
-- [ ] Paso 2 — `CafeInfo`
-- [ ] Paso 3 — estado `votes`, tipos `Votes` y `VoteType`
-- [ ] Paso 4 — `VoteOptions`
-- [ ] Paso 5 — `VoteStats`
-- [ ] Paso 6 — `totalVotes` y `positiveRate`
-- [ ] Paso 7 — `Notification` y renderizado condicional
-- [ ] Paso 8 — Reset condicional
+- [ ] Paso 1 — código inicial explorado
+- [ ] Paso 2 — estado `votes`, `handleVote` y `resetVotes`
+- [ ] Paso 3 — `VoteOptions`: props y clics
+- [ ] Paso 4 — `VoteStats`: props y valores
+- [ ] Paso 5 — `totalVotes` y `positiveRate`
+- [ ] Paso 6 — `Notification` y renderizado condicional
+- [ ] Paso 7 — Reset condicional

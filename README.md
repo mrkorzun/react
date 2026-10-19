@@ -1,40 +1,10 @@
-**English** | [Русский](README.ru.md) | [Українська](README.uk.md) | [Español](README.es.md)
+<p align="center">
+  <b>English</b> | <a href="README.ru.md">Русский</a> | <a href="README.uk.md">Українська</a> | <a href="README.es.md">Español</a>
+</p>
 
 # Feedback widget — Sip Happens Café
 
 ![Demo: voting, statistics and Reset in the finished app](assets/task-01/demo.gif)
-
-## How to solve the task
-
-```bash
-# 1. clone the repository (once)
-git clone https://github.com/mrkorzun/react.git
-cd react
-
-# 2. open the project in VS Code
-code .
-
-# 3. switch to the task branch
-git checkout task-01-cafe-feedback
-
-# 4. create your attempt branch
-git checkout -b task-01-cafe-feedback-try1
-
-# 5. install dependencies and start the dev server
-npm install
-npm run dev
-```
-
-Then open http://localhost:5173 in the browser.
-
-```bash
-# already cloned? just pull the latest branches
-git fetch origin
-git checkout task-01-cafe-feedback
-
-# reset the attempt back to the task if you want to start over
-git reset --hard task-01-cafe-feedback
-```
 
 ## About the project
 
@@ -71,6 +41,38 @@ least one vote and clears the results.
 | Derived data                  | `totalVotes` and `positiveRate` are computed, not stored            |
 | Conditional rendering         | `VoteStats` vs `Notification`, Reset button via `canReset`          |
 | CSS Modules                   | `*.module.css` for every component, `modern-normalize`              |
+
+## How to solve the task
+
+```bash
+# 1. clone the repository (once)
+git clone https://github.com/mrkorzun/react.git
+cd react
+
+# 2. open the project in VS Code
+code .
+
+# 3. switch to the task branch
+git checkout task-01-cafe-feedback
+
+# 4. create your attempt branch
+git checkout -b task-01-cafe-feedback-try1
+
+# 5. install dependencies and start the dev server
+npm install
+npm run dev
+```
+
+Then open http://localhost:5173 in the browser.
+
+```bash
+# already cloned? just pull the latest branches
+git fetch origin
+git checkout task-01-cafe-feedback
+
+# reset the attempt back to the task if you want to start over
+git reset --hard task-01-cafe-feedback
+```
 
 ---
 

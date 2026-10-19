@@ -1,40 +1,10 @@
-[English](README.md) | **Русский** | [Українська](README.uk.md) | [Español](README.es.md)
+<p align="center">
+  <a href="README.md">English</a> | <b>Русский</b> | <a href="README.uk.md">Українська</a> | <a href="README.es.md">Español</a>
+</p>
 
 # Виджет отзывов — Sip Happens Café
 
 ![Демо: голосование, статистика и Reset в готовом приложении](assets/task-01/demo.gif)
-
-## Как решать задачу
-
-```bash
-# 1. склонировать репозиторий (один раз)
-git clone https://github.com/mrkorzun/react.git
-cd react
-
-# 2. открыть проект в VS Code
-code .
-
-# 3. перейти в ветку задачи
-git checkout task-01-cafe-feedback
-
-# 4. создать свою ветку для попытки
-git checkout -b task-01-cafe-feedback-try1
-
-# 5. установить зависимости и запустить dev-сервер
-npm install
-npm run dev
-```
-
-После этого открой в браузере http://localhost:5173.
-
-```bash
-# уже клонировал? просто подтяни свежие ветки
-git fetch origin
-git checkout task-01-cafe-feedback
-
-# вернуть попытку к условию, если хочется начать заново
-git reset --hard task-01-cafe-feedback
-```
 
 ## О проекте
 
@@ -71,6 +41,38 @@ git reset --hard task-01-cafe-feedback
 | Производные данные                 | `totalVotes` и `positiveRate` вычисляются, а не хранятся         |
 | Условный рендеринг                 | `VoteStats` или `Notification`, кнопка Reset через `canReset`    |
 | CSS-модули                         | `*.module.css` для каждого компонента, `modern-normalize`        |
+
+## Как решать задачу
+
+```bash
+# 1. склонировать репозиторий (один раз)
+git clone https://github.com/mrkorzun/react.git
+cd react
+
+# 2. открыть проект в VS Code
+code .
+
+# 3. перейти в ветку задачи
+git checkout task-01-cafe-feedback
+
+# 4. создать свою ветку для попытки
+git checkout -b task-01-cafe-feedback-try1
+
+# 5. установить зависимости и запустить dev-сервер
+npm install
+npm run dev
+```
+
+После этого открой в браузере http://localhost:5173.
+
+```bash
+# уже клонировал? просто подтяни свежие ветки
+git fetch origin
+git checkout task-01-cafe-feedback
+
+# вернуть попытку к условию, если хочется начать заново
+git reset --hard task-01-cafe-feedback
+```
 
 ---
 

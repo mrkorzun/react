@@ -33,6 +33,7 @@
 | 01 | Віджет відгуків (Sip Happens Café) | [`task-01-cafe-feedback`](https://github.com/mrkorzun/react/tree/task-01-cafe-feedback) | компоненты, пропсы, `useState`, типизация, условный рендеринг |
 
 > Полный список веток с задачами — в этой таблице. Новая задача = новая строка.
+> Как решать задачу и как добавить новую — описано в README каждой ветки задачи.
 
 ## Хочешь решить задачу и показать мне?
 
@@ -58,34 +59,6 @@
 
 PR **не мерджится**, чтобы ветка задачи осталась чистой для следующих
 прохождений. После ревью я закрою PR, а твоё решение останется в твоём форке.
-
-## Как решать задачу
-
-```bash
-# открыть задачу
-git checkout task-01-cafe-feedback
-
-# начать новую попытку
-git checkout -b task-01-cafe-feedback-try1
-npm install
-npm run dev
-
-# вернуть попытку к условию, если хочется начать заново
-git reset --hard task-01-cafe-feedback
-```
-
-## Как добавить новую задачу
-
-```bash
-git checkout main
-git checkout -b task-02-название
-# заменить README.md условием задачи
-git add README.md
-git commit -m "task-02: add README"
-git push -u origin task-02-название
-```
-
-После этого добавить строку в таблицу «Задачи» выше.
 
 ## Стек
 

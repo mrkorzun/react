@@ -2,6 +2,8 @@
 
 # Віджет відгуків — Sip Happens Café
 
+![Демо: голосування, статистика та Reset у готовому застосунку](assets/task-01/demo.gif)
+
 ## Як розв’язувати задачу
 
 ```bash
@@ -42,13 +44,16 @@ git reset --hard task-01-cafe-feedback
 показується повідомлення «No feedback yet»; кнопка **Reset** з’являється лише
 після першого голосу й скидає результати.
 
-**Рівень:** початковий · перший застосунок на React + TypeScript
-
-### Демо
-
-Як має виглядати й працювати готовий застосунок (проклікано весь функціонал):
-
-![Демо: голосування, статистика та Reset у готовому застосунку](assets/task-01/demo.gif)
+![Рівень: початковий](https://img.shields.io/badge/%D0%A0%D1%96%D0%B2%D0%B5%D0%BD%D1%8C-%D0%BF%D0%BE%D1%87%D0%B0%D1%82%D0%BA%D0%BE%D0%B2%D0%B8%D0%B9-2EA44F)
+![React: 19](https://img.shields.io/badge/React-19-087EA4?logo=react&logoColor=white)
+![TypeScript: strict](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
+![Vite: 8](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
+![CSS: Modules](https://img.shields.io/badge/CSS-Modules-1572B6?logo=cssmodules&logoColor=white)
+![Prettier: formatted](https://img.shields.io/badge/Prettier-formatted-F7B93E?logo=prettier&logoColor=white)
+![hook: useState](https://img.shields.io/badge/hook-useState-20232A?logo=react&logoColor=white)
+![props: typed](https://img.shields.io/badge/props-typed-20232A)
+![rendering: conditional](https://img.shields.io/badge/rendering-conditional-20232A)
+![state: lifting up](https://img.shields.io/badge/state-lifting%20up-20232A)
 
 ### Що прокачуєш
 

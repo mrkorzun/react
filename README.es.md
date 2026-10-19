@@ -2,6 +2,8 @@
 
 # Widget de opiniones — Sip Happens Café
 
+![Demo: votación, estadísticas y Reset en la app terminada](assets/task-01/demo.gif)
+
 ## Cómo resolver la tarea
 
 ```bash
@@ -42,13 +44,16 @@ opción, el total de votos y el porcentaje de opiniones positivas. Mientras no
 haya votos se muestra el mensaje «No feedback yet»; el botón **Reset** aparece
 solo después del primer voto y reinicia los resultados.
 
-**Nivel:** principiante · primera app con React + TypeScript
-
-### Demo
-
-Cómo debe verse y funcionar la app terminada (se prueba toda la funcionalidad):
-
-![Demo: votación, estadísticas y Reset en la app terminada](assets/task-01/demo.gif)
+![Nivel: principiante](https://img.shields.io/badge/Nivel-principiante-2EA44F)
+![React: 19](https://img.shields.io/badge/React-19-087EA4?logo=react&logoColor=white)
+![TypeScript: strict](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
+![Vite: 8](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
+![CSS: Modules](https://img.shields.io/badge/CSS-Modules-1572B6?logo=cssmodules&logoColor=white)
+![Prettier: formatted](https://img.shields.io/badge/Prettier-formatted-F7B93E?logo=prettier&logoColor=white)
+![hook: useState](https://img.shields.io/badge/hook-useState-20232A?logo=react&logoColor=white)
+![props: typed](https://img.shields.io/badge/props-typed-20232A)
+![rendering: conditional](https://img.shields.io/badge/rendering-conditional-20232A)
+![state: lifting up](https://img.shields.io/badge/state-lifting%20up-20232A)
 
 ### Qué vas a practicar
 

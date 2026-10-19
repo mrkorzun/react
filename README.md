@@ -2,7 +2,7 @@
   <b>English</b> | <a href="README.ru.md">Русский</a> | <a href="README.uk.md">Українська</a> | <a href="README.es.md">Español</a>
 </p>
 
-# Feedback widget — Sip Happens Café
+# Feedback widget — Sip Happens Café ![Level: beginner](https://img.shields.io/badge/Level-beginner-2EA44F)
 
 ![Demo: voting, statistics and Reset in the finished app](assets/task-01/demo.gif)
 
@@ -14,7 +14,6 @@ votes and the percentage of positive feedback. Until the first vote a
 "No feedback yet" message is shown; the **Reset** button appears only after at
 least one vote and clears the results.
 
-![Level: beginner](https://img.shields.io/badge/Level-beginner-2EA44F)
 ![React: 19](https://img.shields.io/badge/React-19-087EA4?logo=react&logoColor=white)
 ![TypeScript: strict](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![Vite: 8](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)

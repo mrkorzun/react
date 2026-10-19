@@ -2,7 +2,7 @@
   <a href="README.md">English</a> | <b>Русский</b> | <a href="README.uk.md">Українська</a> | <a href="README.es.md">Español</a>
 </p>
 
-# Виджет отзывов — Sip Happens Café
+# Виджет отзывов — Sip Happens Café ![Уровень: начальный](https://img.shields.io/badge/%D0%A3%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C-%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-2EA44F)
 
 ![Демо: голосование, статистика и Reset в готовом приложении](assets/task-01/demo.gif)
 
@@ -14,7 +14,6 @@
 сообщение «No feedback yet»; кнопка **Reset** появляется только после первого
 голоса и сбрасывает результаты.
 
-![Уровень: начальный](https://img.shields.io/badge/%D0%A3%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C-%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-2EA44F)
 ![React: 19](https://img.shields.io/badge/React-19-087EA4?logo=react&logoColor=white)
 ![TypeScript: strict](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![Vite: 8](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)

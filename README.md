@@ -1,39 +1,39 @@
-# Віджет відгуків — Sip Happens Café
+**English** | [Русский](README.ru.md) | [Українська](README.uk.md) | [Español](README.es.md)
 
-Створи застосунок, який дозволяє користувачам залишати відгуки про кав’ярню.
-Є три варіанти оцінки: **good**, **neutral**, **bad**. Користувач обирає одну з
-опцій і бачить статистику.
+# Feedback widget — Sip Happens Café
 
-## Загальні вимоги
+Build an app that lets users leave feedback about a café. There are three
+rating options: **good**, **neutral**, **bad**. The user picks one of them and
+sees the statistics.
 
-- У кожній папці компонента мають бути:
-  - файл компонента з розширенням `.tsx` (наприклад, `App.tsx`);
-  - файл стилів з такою самою назвою, що закінчується на `.module.css`
-    (наприклад, `App.module.css`).
-- Для експорту компонентів використовується експорт за замовчуванням
-  (`export default`).
-- Загальні типи, які використовуються в кількох компонентах, винесені в окремий
-  файл `src/types/votes.ts`. Типи та інтерфейси, які стосуються лише одного
-  компонента, оголошені безпосередньо у файлі цього компонента.
-- TypeScript-код має бути чистим, зрозумілим і відформатованим за допомогою
-  Prettier.
-- Стилізація виконується за допомогою CSS-модулів.
-- Використовується `modern-normalize` для уніфікації стилів у різних браузерах.
-- Після змін у репозиторії почекай 5 хвилин перед відправкою роботи на
-  перевірку — GitHub потрібен час, щоб оновити версію.
+## General requirements
 
-## Компоненти
+- Each component folder must contain:
+  - the component file with the `.tsx` extension (e.g. `App.tsx`);
+  - a styles file with the same name ending in `.module.css`
+    (e.g. `App.module.css`).
+- Components are exported with a default export (`export default`).
+- Shared types used by several components live in a separate file,
+  `src/types/votes.ts`. Types and interfaces that belong to a single component
+  are declared directly in that component's file.
+- TypeScript code must be clean, readable and formatted with Prettier.
+- Styling is done with CSS Modules.
+- `modern-normalize` is used to unify styles across browsers.
+- After pushing changes, wait 5 minutes before submitting the work for review —
+  GitHub needs time to update.
 
-Інтерфейс уже розділено на компоненти, надано готову HTML-розмітку й стилі.
-Задача — сфокусуватися на логіці в React і TypeScript: зібрати інтерфейс,
-реалізувати функціональність і виконати типізацію.
+## Components
 
-Стилі для всіх компонентів скопіюй із репозиторію
-[goitacademy/react-cafe-styles](https://github.com/goitacademy/react-cafe-styles).
-Після створення компонентів скопіюй відповідні `.module.css` файли у відповідні
-папки в `src/components`.
+The interface is already split into components, and the HTML markup and styles
+are provided. Your job is to focus on the React and TypeScript logic: assemble
+the interface, implement the functionality and add the typings.
 
-Усі компоненти рендеряться всередині компонента `App`.
+Copy the styles for all components from the
+[goitacademy/react-cafe-styles](https://github.com/goitacademy/react-cafe-styles)
+repository. After creating your components, copy the matching `.module.css`
+files into the corresponding folders in `src/components`.
+
+All components are rendered inside the `App` component.
 
 ```
 src/
@@ -49,17 +49,17 @@ src/
 
 ---
 
-## Крок 1. Компонент `App`
+## Step 1. `App` component
 
-`App` — контейнер для решти компонентів. Поки що створює таку розмітку:
+`App` is the container for the other components. For now it renders this markup:
 
 ```jsx
 <div className={css.app}></div>
 ```
 
-## Крок 2. Компонент `CafeInfo`
+## Step 2. `CafeInfo` component
 
-Компонент із назвою та коротким описом кав’ярні:
+A component with the café's name and a short description:
 
 ```jsx
 <div className={css.container}>
@@ -70,15 +70,15 @@ src/
 </div>
 ```
 
-Додай його до `App`.
+Add it to `App`.
 
-## Крок 3. Стан додатка
+## Step 3. App state
 
-При кліку на кнопки **Good / Neutral / Bad** з компонента `VoteOptions` треба
-зберігати вибір користувача та передавати його іншим компонентам, зокрема
-`<VoteStats />`.
+When one of the **Good / Neutral / Bad** buttons in `VoteOptions` is clicked,
+the user's choice has to be stored and passed to other components, in
+particular `<VoteStats />`.
 
-Створи в `App` стан `votes`:
+Create a `votes` state in `App`:
 
 ```ts
 {
@@ -88,21 +88,21 @@ src/
 }
 ```
 
-Типізуй стан через інтерфейс `Votes`, оголошений та експортований у
-`src/types/votes.ts`. У цьому ж файлі створи тип `VoteType` —
+Type the state with a `Votes` interface declared and exported in
+`src/types/votes.ts`. In the same file create a `VoteType` type —
 `'good' | 'neutral' | 'bad'`.
 
-Додай у `App` функції:
+Add these functions to `App`:
 
-- `handleVote(type)` — оновлює стан голосів; параметр типізований через `VoteType`;
-- `resetVotes()` — скидає стан.
+- `handleVote(type)` — updates the vote state; its parameter is typed with `VoteType`;
+- `resetVotes()` — resets the state.
 
-`votes` — центральне джерело даних; компоненти отримують актуальні значення
-через пропси.
+`votes` is the single source of truth; components receive up-to-date values
+through props.
 
-## Крок 4. Компонент `VoteOptions`
+## Step 4. `VoteOptions` component
 
-Рендерить кнопки для голосування та кнопку Reset:
+Renders the voting buttons and the Reset button:
 
 ```jsx
 <div className={css.container}>
@@ -113,56 +113,46 @@ src/
 </div>
 ```
 
-Пропси:
+Props:
 
-| Пропс      | Тип                        | Опис                                                     |
-| ---------- | -------------------------- | -------------------------------------------------------- |
-| `onVote`   | `(type: VoteType) => void` | викликається при кліку на кнопку голосування             |
-| `onReset`  | `() => void`               | викликається при кліку на Reset, скидає голоси           |
-| `canReset` | `boolean`                  | чи показувати кнопку Reset (на цьому етапі можна `true`) |
+| Prop       | Type                       | Description                                             |
+| ---------- | -------------------------- | ------------------------------------------------------- |
+| `onVote`   | `(type: VoteType) => void` | called when a voting button is clicked                  |
+| `onReset`  | `() => void`               | called when Reset is clicked, resets the votes          |
+| `canReset` | `boolean`                  | whether to show the Reset button (`true` for now is OK) |
 
-У файлі компонента оголоси інтерфейс `VoteOptionsProps`. Кнопки мають оновлювати
-стан в `App`.
+Declare a `VoteOptionsProps` interface in the component file. The buttons must
+update the state in `App`.
 
-## Крок 5. Компонент `VoteStats`
+## Step 5. `VoteStats` component
 
-Відображає статистику голосів:
+Displays the vote statistics:
 
 ```jsx
 <div className={styles.container}>
-  <p className={styles.stat}>
-    Good: <strong>0</strong>
-  </p>
-  <p className={styles.stat}>
-    Neutral: <strong>0</strong>
-  </p>
-  <p className={styles.stat}>
-    Bad: <strong>0</strong>
-  </p>
-  <p className={styles.stat}>
-    Total: <strong>0</strong>
-  </p>
-  <p className={styles.stat}>
-    Positive: <strong>0%</strong>
-  </p>
+  <p className={styles.stat}>Good: <strong>0</strong></p>
+  <p className={styles.stat}>Neutral: <strong>0</strong></p>
+  <p className={styles.stat}>Bad: <strong>0</strong></p>
+  <p className={styles.stat}>Total: <strong>0</strong></p>
+  <p className={styles.stat}>Positive: <strong>0%</strong></p>
 </div>
 ```
 
-Пропси:
+Props:
 
-| Пропс          | Тип      | Опис                                         |
-| -------------- | -------- | -------------------------------------------- |
-| `votes`        | `Votes`  | кількість голосів для good, neutral, bad     |
-| `totalVotes`   | `number` | загальна кількість голосів (поки можна `0`)  |
-| `positiveRate` | `number` | відсоток позитивних голосів (поки можна `0`) |
+| Prop           | Type     | Description                                   |
+| -------------- | -------- | --------------------------------------------- |
+| `votes`        | `Votes`  | vote counts for good, neutral, bad            |
+| `totalVotes`   | `number` | total number of votes (`0` for now is OK)     |
+| `positiveRate` | `number` | percentage of positive votes (`0` for now)    |
 
-У файлі компонента оголоси інтерфейс `VoteStatsProps`. При кліках на кнопки в
-`VoteOptions` зміни мають відображатися у `VoteStats`.
+Declare a `VoteStatsProps` interface in the component file. Clicking the
+buttons in `VoteOptions` must update what `VoteStats` shows.
 
-## Крок 6. Обчислення статистики
+## Step 6. Calculating statistics
 
-Обчислення виконуються в `App`, готові значення передаються пропсами у
-`VoteStats`.
+Calculations are done in `App`, and the ready values are passed to `VoteStats`
+as props.
 
 ```ts
 const totalVotes = votes.good + votes.neutral + votes.bad;
@@ -172,68 +162,74 @@ const positiveRate = totalVotes
   : 0;
 ```
 
-> Для `totalVotes` і `positiveRate` **не потрібно** створювати окремі властивості
-> в стані — це похідні дані.
+> You **don't need** separate state properties for `totalVotes` and
+> `positiveRate` — they are derived data.
 
-## Крок 7. Компонент `Notification`
+## Step 7. `Notification` component
 
-Показує повідомлення про відсутність статистики. Пропсів не приймає:
+Shows a message when there are no statistics yet. Takes no props:
 
 ```jsx
 <p className={css.message}>No feedback yet</p>
 ```
 
-Умовний рендеринг залежно від `totalVotes`:
+Conditional rendering based on `totalVotes`:
 
-- `totalVotes > 0` → рендериться `VoteStats`;
-- `totalVotes === 0` → рендериться `Notification`.
+- `totalVotes > 0` → render `VoteStats`;
+- `totalVotes === 0` → render `Notification`.
 
-## Крок 8. Кнопка Reset за умови
+## Step 8. Conditional Reset button
 
-Кнопка Reset відображається тільки коли є хоча б один голос. Використай
-`totalVotes` в `App` і передай відповідне значення пропсом `canReset` у
-`VoteOptions`.
-
----
-
-## Чекліст
-
-- [ ] Крок 1 — `App`
-- [ ] Крок 2 — `CafeInfo`
-- [ ] Крок 3 — стан `votes`, типи `Votes` і `VoteType`
-- [ ] Крок 4 — `VoteOptions`
-- [ ] Крок 5 — `VoteStats`
-- [ ] Крок 6 — `totalVotes` і `positiveRate`
-- [ ] Крок 7 — `Notification` і умовний рендеринг
-- [ ] Крок 8 — Reset за умови
+The Reset button is shown only when there is at least one vote. Use
+`totalVotes` in `App` and pass the matching value to `VoteOptions` via the
+`canReset` prop.
 
 ---
 
-## Как решать задачу
+## Submission
+
+- [ ] The app's **production URL** is added in the LMS (not a repository link).
+- [ ] All functionality is checked on the live page before submitting.
+- [ ] 5 minutes have passed since the last push.
+
+## Checklist
+
+- [ ] Step 1 — `App`
+- [ ] Step 2 — `CafeInfo`
+- [ ] Step 3 — `votes` state, `Votes` and `VoteType` types
+- [ ] Step 4 — `VoteOptions`
+- [ ] Step 5 — `VoteStats`
+- [ ] Step 6 — `totalVotes` and `positiveRate`
+- [ ] Step 7 — `Notification` and conditional rendering
+- [ ] Step 8 — conditional Reset
+
+---
+
+## How to solve the task
 
 ```bash
-# открыть задачу
+# open the task
 git checkout task-01-cafe-feedback
 
-# начать новую попытку
+# start a new attempt
 git checkout -b task-01-cafe-feedback-try1
 npm install
 npm run dev
 
-# вернуть попытку к условию, если хочется начать заново
+# reset the attempt back to the task if you want to start over
 git reset --hard task-01-cafe-feedback
 ```
 
-## Как добавить новую задачу
+## How to add a new task
 
 ```bash
 git checkout main
-git checkout -b task-02-название
-# заменить README.md условием задачи
-git add README.md
+git checkout -b task-02-name
+# replace README*.md with the task description (all language versions)
+git add README*.md
 git commit -m "task-02: add README"
-git push -u origin task-02-название
+git push -u origin task-02-name
 ```
 
-После этого добавить строку в таблицу «Задачи» в
-[README ветки `main`](https://github.com/mrkorzun/react/blob/main/README.ru.md#задачи).
+Then add a row to the "Tasks" table in every language version of the
+[`main` branch README](https://github.com/mrkorzun/react#tasks).

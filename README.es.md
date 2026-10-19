@@ -1,0 +1,235 @@
+[English](README.md) | [Русский](README.ru.md) | [Українська](README.uk.md) | **Español**
+
+# Widget de opiniones — Sip Happens Café
+
+Crea una aplicación que permita a los usuarios dejar su opinión sobre una
+cafetería. Hay tres opciones de valoración: **good**, **neutral**, **bad**. El
+usuario elige una de ellas y ve las estadísticas.
+
+## Requisitos generales
+
+- Cada carpeta de componente debe contener:
+  - el archivo del componente con extensión `.tsx` (por ejemplo, `App.tsx`);
+  - un archivo de estilos con el mismo nombre terminado en `.module.css`
+    (por ejemplo, `App.module.css`).
+- Los componentes se exportan por defecto (`export default`).
+- Los tipos compartidos por varios componentes están en un archivo aparte,
+  `src/types/votes.ts`. Los tipos e interfaces que pertenecen a un solo
+  componente se declaran directamente en el archivo de ese componente.
+- El código TypeScript debe ser limpio, legible y formateado con Prettier.
+- Los estilos se hacen con CSS Modules.
+- Se usa `modern-normalize` para unificar los estilos entre navegadores.
+- Después de subir cambios, espera 5 minutos antes de enviar el trabajo a
+  revisión: GitHub necesita tiempo para actualizarse.
+
+## Componentes
+
+La interfaz ya está dividida en componentes y se proporcionan el marcado HTML y
+los estilos. Tu tarea es centrarte en la lógica de React y TypeScript: montar la
+interfaz, implementar la funcionalidad y añadir el tipado.
+
+Copia los estilos de todos los componentes del repositorio
+[goitacademy/react-cafe-styles](https://github.com/goitacademy/react-cafe-styles).
+Después de crear tus componentes, copia los archivos `.module.css`
+correspondientes en sus carpetas dentro de `src/components`.
+
+Todos los componentes se renderizan dentro del componente `App`.
+
+```
+src/
+├── components/
+│   ├── App/            App.tsx, App.module.css
+│   ├── CafeInfo/       CafeInfo.tsx, CafeInfo.module.css
+│   ├── VoteOptions/    VoteOptions.tsx, VoteOptions.module.css
+│   ├── VoteStats/      VoteStats.tsx, VoteStats.module.css
+│   └── Notification/   Notification.tsx, Notification.module.css
+└── types/
+    └── votes.ts
+```
+
+---
+
+## Paso 1. Componente `App`
+
+`App` es el contenedor del resto de componentes. Por ahora renderiza este marcado:
+
+```jsx
+<div className={css.app}></div>
+```
+
+## Paso 2. Componente `CafeInfo`
+
+Un componente con el nombre y una breve descripción de la cafetería:
+
+```jsx
+<div className={css.container}>
+  <h1 className={css.title}>Sip Happens Café</h1>
+  <p className={css.description}>
+    Please rate our service by selecting one of the options below.
+  </p>
+</div>
+```
+
+Añádelo a `App`.
+
+## Paso 3. Estado de la aplicación
+
+Al hacer clic en uno de los botones **Good / Neutral / Bad** de `VoteOptions`,
+hay que guardar la elección del usuario y pasarla a otros componentes, en
+particular a `<VoteStats />`.
+
+Crea en `App` el estado `votes`:
+
+```ts
+{
+  good: 0,
+  neutral: 0,
+  bad: 0
+}
+```
+
+Tipa el estado con la interfaz `Votes`, declarada y exportada en
+`src/types/votes.ts`. En el mismo archivo crea el tipo `VoteType` —
+`'good' | 'neutral' | 'bad'`.
+
+Añade en `App` las funciones:
+
+- `handleVote(type)` — actualiza el estado de los votos; su parámetro se tipa con `VoteType`;
+- `resetVotes()` — reinicia el estado.
+
+`votes` es la única fuente de verdad; los componentes reciben los valores
+actualizados a través de props.
+
+## Paso 4. Componente `VoteOptions`
+
+Renderiza los botones de votación y el botón Reset:
+
+```jsx
+<div className={css.container}>
+  <button className={css.button}>Good</button>
+  <button className={css.button}>Neutral</button>
+  <button className={css.button}>Bad</button>
+  <button className={`${css.button} ${css.reset}`}>Reset</button>
+</div>
+```
+
+Props:
+
+| Prop       | Tipo                       | Descripción                                                  |
+| ---------- | -------------------------- | ------------------------------------------------------------ |
+| `onVote`   | `(type: VoteType) => void` | se llama al hacer clic en un botón de votación               |
+| `onReset`  | `() => void`               | se llama al hacer clic en Reset, reinicia los votos          |
+| `canReset` | `boolean`                  | si se muestra el botón Reset (por ahora puede ser `true`)    |
+
+Declara la interfaz `VoteOptionsProps` en el archivo del componente. Los botones
+deben actualizar el estado en `App`.
+
+## Paso 5. Componente `VoteStats`
+
+Muestra las estadísticas de votos:
+
+```jsx
+<div className={styles.container}>
+  <p className={styles.stat}>Good: <strong>0</strong></p>
+  <p className={styles.stat}>Neutral: <strong>0</strong></p>
+  <p className={styles.stat}>Bad: <strong>0</strong></p>
+  <p className={styles.stat}>Total: <strong>0</strong></p>
+  <p className={styles.stat}>Positive: <strong>0%</strong></p>
+</div>
+```
+
+Props:
+
+| Prop           | Tipo     | Descripción                                          |
+| -------------- | -------- | ---------------------------------------------------- |
+| `votes`        | `Votes`  | número de votos para good, neutral, bad              |
+| `totalVotes`   | `number` | número total de votos (por ahora puede ser `0`)      |
+| `positiveRate` | `number` | porcentaje de votos positivos (por ahora `0`)        |
+
+Declara la interfaz `VoteStatsProps` en el archivo del componente. Al hacer clic
+en los botones de `VoteOptions`, los cambios deben verse en `VoteStats`.
+
+## Paso 6. Cálculo de estadísticas
+
+Los cálculos se hacen en `App` y los valores ya calculados se pasan a
+`VoteStats` como props.
+
+```ts
+const totalVotes = votes.good + votes.neutral + votes.bad;
+
+const positiveRate = totalVotes
+  ? Math.round((votes.good / totalVotes) * 100)
+  : 0;
+```
+
+> **No hace falta** crear propiedades separadas en el estado para `totalVotes`
+> y `positiveRate`: son datos derivados.
+
+## Paso 7. Componente `Notification`
+
+Muestra un mensaje cuando todavía no hay estadísticas. No recibe props:
+
+```jsx
+<p className={css.message}>No feedback yet</p>
+```
+
+Renderizado condicional según `totalVotes`:
+
+- `totalVotes > 0` → se renderiza `VoteStats`;
+- `totalVotes === 0` → se renderiza `Notification`.
+
+## Paso 8. Botón Reset condicional
+
+El botón Reset solo se muestra cuando hay al menos un voto. Usa `totalVotes` en
+`App` y pasa el valor correspondiente a `VoteOptions` mediante la prop
+`canReset`.
+
+---
+
+## Entrega
+
+- [ ] En el LMS se ha añadido la **URL de producción** de la app (no el enlace al repositorio).
+- [ ] Antes de entregar se ha comprobado toda la funcionalidad en la página en vivo.
+- [ ] Han pasado 5 minutos desde el último push.
+
+## Checklist
+
+- [ ] Paso 1 — `App`
+- [ ] Paso 2 — `CafeInfo`
+- [ ] Paso 3 — estado `votes`, tipos `Votes` y `VoteType`
+- [ ] Paso 4 — `VoteOptions`
+- [ ] Paso 5 — `VoteStats`
+- [ ] Paso 6 — `totalVotes` y `positiveRate`
+- [ ] Paso 7 — `Notification` y renderizado condicional
+- [ ] Paso 8 — Reset condicional
+
+---
+
+## Cómo resolver la tarea
+
+```bash
+# abrir la tarea
+git checkout task-01-cafe-feedback
+
+# empezar un nuevo intento
+git checkout -b task-01-cafe-feedback-try1
+npm install
+npm run dev
+
+# devolver el intento al enunciado si quieres empezar de cero
+git reset --hard task-01-cafe-feedback
+```
+
+## Cómo añadir una nueva tarea
+
+```bash
+git checkout main
+git checkout -b task-02-nombre
+# reemplazar README*.md con el enunciado de la tarea (todas las versiones de idioma)
+git add README*.md
+git commit -m "task-02: add README"
+git push -u origin task-02-nombre
+```
+
+Después, añade una fila a la tabla «Tareas» en todas las versiones de idioma del
+[README de la rama `main`](https://github.com/mrkorzun/react/blob/main/README.es.md#tareas).

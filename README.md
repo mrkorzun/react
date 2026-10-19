@@ -26,7 +26,6 @@ again to reinforce what I've learned. Branches are **never merged** into `main`.
 
 - **`task-XX-name`** — the task description (README) on a clean template. I
   don't change this branch.
-- **`task-XX-name-tryN`** — my solution attempt, created from the task branch.
 
 ## Tasks
 

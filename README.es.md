@@ -27,8 +27,6 @@ con `main`.
 
 - **`task-XX-nombre`** — el enunciado de la tarea (README) sobre una plantilla
   limpia. Esta rama no la modifico.
-- **`task-XX-nombre-tryN`** — mi intento de solución, creado a partir de la rama
-  de la tarea.
 
 ## Tareas
 

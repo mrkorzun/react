@@ -286,12 +286,6 @@ After this step the app is complete and should work like this:
 
 ---
 
-## Submission
-
-- [ ] The app's **production URL** is added in the LMS (not a repository link).
-- [ ] All functionality is checked on the live page before submitting.
-- [ ] 5 minutes have passed since the last push.
-
 ## Checklist
 
 - [ ] Step 1 — `App`

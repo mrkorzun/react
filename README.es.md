@@ -286,12 +286,6 @@ Después de este paso la app está terminada y debe funcionar así:
 
 ---
 
-## Entrega
-
-- [ ] En el LMS se ha añadido la **URL de producción** de la app (no el enlace al repositorio).
-- [ ] Antes de entregar se ha comprobado toda la funcionalidad en la página en vivo.
-- [ ] Han pasado 5 minutos desde el último push.
-
 ## Checklist
 
 - [ ] Paso 1 — `App`

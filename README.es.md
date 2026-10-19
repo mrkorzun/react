@@ -2,7 +2,9 @@
   <a href="README.md">English</a> | <a href="README.ru.md">Русский</a> | <a href="README.uk.md">Українська</a> | <b>Español</b>
 </p>
 
-# Widget de opiniones — Sip Happens Café ![Nivel: principiante](https://img.shields.io/badge/Nivel-principiante-2EA44F)
+<img align="right" alt="Nivel: principiante" src="https://img.shields.io/badge/Nivel-principiante-2EA44F">
+
+# Widget de opiniones — Sip Happens Café
 
 ![Demo: votación, estadísticas y Reset en la app terminada](assets/task-01/demo.gif)
 

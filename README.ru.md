@@ -2,7 +2,9 @@
   <a href="README.md">English</a> | <b>Русский</b> | <a href="README.uk.md">Українська</a> | <a href="README.es.md">Español</a>
 </p>
 
-# Виджет отзывов — Sip Happens Café ![Уровень: начальный](https://img.shields.io/badge/%D0%A3%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C-%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-2EA44F)
+<img align="right" alt="Уровень: начальный" src="https://img.shields.io/badge/%D0%A3%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C-%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-2EA44F">
+
+# Виджет отзывов — Sip Happens Café
 
 ![Демо: голосование, статистика и Reset в готовом приложении](assets/task-01/demo.gif)
 

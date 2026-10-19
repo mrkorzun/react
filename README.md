@@ -236,4 +236,4 @@ git push -u origin task-02-название
 ```
 
 После этого добавить строку в таблицу «Задачи» в
-[README ветки `main`](https://github.com/mrkorzun/react#задачи).
+[README ветки `main`](https://github.com/mrkorzun/react/blob/main/README.ru.md#задачи).

@@ -42,38 +42,6 @@
 | Умовний рендеринг                  | `VoteStats` або `Notification`, кнопка Reset через `canReset`    |
 | CSS-модулі                         | `*.module.css` для кожного компонента, `modern-normalize`        |
 
-## Як розв’язувати задачу
-
-```bash
-# 1. склонувати репозиторій (один раз)
-git clone https://github.com/mrkorzun/react.git
-cd react
-
-# 2. відкрити проєкт у VS Code
-code .
-
-# 3. перейти в гілку задачі
-git checkout task-01-cafe-feedback
-
-# 4. створити свою гілку для спроби
-git checkout -b task-01-cafe-feedback-try1
-
-# 5. встановити залежності й запустити dev-сервер
-npm install
-npm run dev
-```
-
-Після цього відкрий у браузері http://localhost:5173.
-
-```bash
-# вже склонував? просто підтягни свіжі гілки
-git fetch origin
-git checkout task-01-cafe-feedback
-
-# повернути спробу до умови, якщо хочеш почати заново
-git reset --hard task-01-cafe-feedback
-```
-
 ---
 
 ## Завдання
@@ -317,6 +285,8 @@ const positiveRate = totalVotes
    cd react
    git checkout task-01-cafe-feedback
    git checkout -b task-01-cafe-feedback-<твій-нік>
+   npm install
+   npm run dev
    ```
 3. Розв’яжи задачу, закоміть і запуш гілку у свій форк:
    ```bash

@@ -42,38 +42,6 @@ solo después del primer voto y reinicia los resultados.
 | Renderizado condicional              | `VoteStats` o `Notification`, botón Reset con `canReset`          |
 | CSS Modules                          | `*.module.css` para cada componente, `modern-normalize`           |
 
-## Cómo resolver la tarea
-
-```bash
-# 1. clonar el repositorio (una vez)
-git clone https://github.com/mrkorzun/react.git
-cd react
-
-# 2. abrir el proyecto en VS Code
-code .
-
-# 3. cambiar a la rama de la tarea
-git checkout task-01-cafe-feedback
-
-# 4. crear tu rama para el intento
-git checkout -b task-01-cafe-feedback-try1
-
-# 5. instalar dependencias y arrancar el servidor de desarrollo
-npm install
-npm run dev
-```
-
-Después abre http://localhost:5173 en el navegador.
-
-```bash
-# ¿ya lo clonaste? solo trae las ramas nuevas
-git fetch origin
-git checkout task-01-cafe-feedback
-
-# devolver el intento al enunciado si quieres empezar de cero
-git reset --hard task-01-cafe-feedback
-```
-
 ---
 
 ## Tarea
@@ -305,6 +273,8 @@ Después de este paso la app está terminada y debe funcionar así:
    cd react
    git checkout task-01-cafe-feedback
    git checkout -b task-01-cafe-feedback-<tu-usuario>
+   npm install
+   npm run dev
    ```
 3. Resuelve la tarea, haz commit y sube la rama a tu fork:
    ```bash

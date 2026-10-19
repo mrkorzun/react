@@ -115,11 +115,11 @@ src/
 
 Пропси:
 
-| Пропс      | Тип                          | Опис                                                         |
-| ---------- | ---------------------------- | ------------------------------------------------------------ |
-| `onVote`   | `(type: VoteType) => void`   | викликається при кліку на кнопку голосування                 |
-| `onReset`  | `() => void`                 | викликається при кліку на Reset, скидає голоси               |
-| `canReset` | `boolean`                    | чи показувати кнопку Reset (на цьому етапі можна `true`)     |
+| Пропс      | Тип                        | Опис                                                     |
+| ---------- | -------------------------- | -------------------------------------------------------- |
+| `onVote`   | `(type: VoteType) => void` | викликається при кліку на кнопку голосування             |
+| `onReset`  | `() => void`               | викликається при кліку на Reset, скидає голоси           |
+| `canReset` | `boolean`                  | чи показувати кнопку Reset (на цьому етапі можна `true`) |
 
 У файлі компонента оголоси інтерфейс `VoteOptionsProps`. Кнопки мають оновлювати
 стан в `App`.
@@ -130,21 +130,31 @@ src/
 
 ```jsx
 <div className={styles.container}>
-  <p className={styles.stat}>Good: <strong>0</strong></p>
-  <p className={styles.stat}>Neutral: <strong>0</strong></p>
-  <p className={styles.stat}>Bad: <strong>0</strong></p>
-  <p className={styles.stat}>Total: <strong>0</strong></p>
-  <p className={styles.stat}>Positive: <strong>0%</strong></p>
+  <p className={styles.stat}>
+    Good: <strong>0</strong>
+  </p>
+  <p className={styles.stat}>
+    Neutral: <strong>0</strong>
+  </p>
+  <p className={styles.stat}>
+    Bad: <strong>0</strong>
+  </p>
+  <p className={styles.stat}>
+    Total: <strong>0</strong>
+  </p>
+  <p className={styles.stat}>
+    Positive: <strong>0%</strong>
+  </p>
 </div>
 ```
 
 Пропси:
 
-| Пропс          | Тип      | Опис                                             |
-| -------------- | -------- | ------------------------------------------------ |
-| `votes`        | `Votes`  | кількість голосів для good, neutral, bad         |
-| `totalVotes`   | `number` | загальна кількість голосів (поки можна `0`)      |
-| `positiveRate` | `number` | відсоток позитивних голосів (поки можна `0`)     |
+| Пропс          | Тип      | Опис                                         |
+| -------------- | -------- | -------------------------------------------- |
+| `votes`        | `Votes`  | кількість голосів для good, neutral, bad     |
+| `totalVotes`   | `number` | загальна кількість голосів (поки можна `0`)  |
+| `positiveRate` | `number` | відсоток позитивних голосів (поки можна `0`) |
 
 У файлі компонента оголоси інтерфейс `VoteStatsProps`. При кліках на кнопки в
 `VoteOptions` зміни мають відображатися у `VoteStats`.
@@ -185,12 +195,6 @@ const positiveRate = totalVotes
 `VoteOptions`.
 
 ---
-
-## Здача роботи
-
-- [ ] В LMS додано **production URL** застосунку (не посилання на репозиторій).
-- [ ] Перед здачею перевірено роботу всього функціоналу на живій сторінці.
-- [ ] Після останнього пушу минуло 5 хвилин.
 
 ## Чекліст
 

@@ -95,8 +95,6 @@ usuario elige una de ellas y ve las estadísticas.
 - El código TypeScript debe ser limpio, legible y formateado con Prettier.
 - Los estilos se hacen con CSS Modules.
 - Se usa `modern-normalize` para unificar los estilos entre navegadores.
-- Después de subir cambios, espera 5 minutos antes de enviar el trabajo a
-  revisión: GitHub necesita tiempo para actualizarse.
 
 ## Componentes
 
@@ -285,6 +283,42 @@ Después de este paso la app está terminada y debe funcionar así:
 ![Resultado del paso 8: el botón Reset aparece solo tras el primer voto](assets/task-01/step-08-reset.gif)
 
 ---
+
+## Entrega para revisión
+
+¿Has resuelto la tarea y quieres que la revise? Estos son los pasos y requisitos.
+
+**Requisitos de la solución**
+
+- [ ] Están hechos todos los pasos 1–8 y marcados todos los puntos del checklist de abajo.
+- [ ] `npm run build` y `npm run lint` pasan sin errores.
+- [ ] El código está formateado con Prettier.
+- [ ] La app está probada en el navegador: votación, estadísticas, `Notification` y Reset funcionan.
+- [ ] *(Opcional)* La app está desplegada (Vercel / Netlify / GitHub Pages) y el enlace está en el PR.
+
+**Cómo entregar**
+
+1. Haz un **Fork** de este repositorio (botón arriba a la derecha en GitHub).
+2. Clona tu fork y crea tu rama a partir de la rama de la tarea:
+   ```bash
+   git clone https://github.com/<tu-usuario>/react.git
+   cd react
+   git checkout task-01-cafe-feedback
+   git checkout -b task-01-cafe-feedback-<tu-usuario>
+   ```
+3. Resuelve la tarea, haz commit y sube la rama a tu fork:
+   ```bash
+   git push -u origin task-01-cafe-feedback-<tu-usuario>
+   ```
+4. Abre un **Pull Request** a este repositorio:
+   - **base:** `task-01-cafe-feedback` (la rama de la tarea, **no** `main`);
+   - **compare:** tu rama del fork;
+   - título: `Solución task-01 — <tu-usuario>`;
+   - rellena la plantilla del PR (aparece automáticamente).
+5. Revisaré el código y dejaré comentarios directamente en el PR.
+
+El PR **no se fusiona**, para que la rama de la tarea siga limpia para futuros
+intentos. Tras la revisión lo cerraré y tu solución seguirá en tu fork.
 
 ## Checklist
 

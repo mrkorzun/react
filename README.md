@@ -95,8 +95,6 @@ sees the statistics.
 - TypeScript code must be clean, readable and formatted with Prettier.
 - Styling is done with CSS Modules.
 - `modern-normalize` is used to unify styles across browsers.
-- After pushing changes, wait 5 minutes before submitting the work for review —
-  GitHub needs time to update.
 
 ## Components
 
@@ -285,6 +283,42 @@ After this step the app is complete and should work like this:
 ![Step 8 result: Reset button appears only after the first vote](assets/task-01/step-08-reset.gif)
 
 ---
+
+## Submitting for review
+
+Solved the task and want me to review it? Here are the steps and requirements.
+
+**Requirements for the solution**
+
+- [ ] All steps 1–8 are done and every item in the checklist below is ticked.
+- [ ] `npm run build` and `npm run lint` pass without errors.
+- [ ] Code is formatted with Prettier.
+- [ ] The app is checked in the browser: voting, statistics, `Notification` and Reset work.
+- [ ] *(Optional)* The app is deployed (Vercel / Netlify / GitHub Pages) and the link is added to the PR.
+
+**How to submit**
+
+1. **Fork** this repository (button at the top right on GitHub).
+2. Clone your fork and create your branch from the task branch:
+   ```bash
+   git clone https://github.com/<your-username>/react.git
+   cd react
+   git checkout task-01-cafe-feedback
+   git checkout -b task-01-cafe-feedback-<your-username>
+   ```
+3. Solve the task, commit and push the branch to your fork:
+   ```bash
+   git push -u origin task-01-cafe-feedback-<your-username>
+   ```
+4. Open a **Pull Request** to this repository:
+   - **base:** `task-01-cafe-feedback` (the task branch, **not** `main`);
+   - **compare:** your branch from the fork;
+   - title: `Solution task-01 — <your-username>`;
+   - fill in the PR template (it appears automatically).
+5. I'll review the code and leave comments right in the PR.
+
+The PR is **not merged**, so the task branch stays clean for future attempts.
+After the review I'll close it, and your solution stays in your fork.
 
 ## Checklist
 

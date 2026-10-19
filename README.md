@@ -1,78 +1,77 @@
-# React + TypeScript + Vite
+# ⚛️ React — учебный репозиторий
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Личный репозиторий для изучения React. Здесь собрано всё, что я прохожу по React:
+теория, практика и задачи для повторного решения, всё в одном месте.
 
-Currently, two official plugins are available:
+## Как устроен репозиторий
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### `main` — текущее обучение
 
-## React Compiler
+Сюда я пушу то, что прохожу на курсе прямо сейчас: разборы теории, учебные
+примеры и небольшие задачки. Это рабочая ветка и живой конспект.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+| Папка                         | Что внутри                     |
+| ----------------------------- | ------------------------------ |
+| `src/components/Theory-pr`    | Теория и примеры (`useState`)  |
+| `src/components/Theory-pr2`   | Теория и примеры, часть 2      |
+| `src/components/Cocktails-pr` | Практика — приложение коктейлей |
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+### Ветки — задачи для повторного прохождения
 
-## Expanding the ESLint configuration
+В отдельных ветках хранятся задачи и компоненты, к которым я хочу вернуться и
+решить заново, чтобы закрепить материал. Ветки **не мерджатся** в `main`.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **`task-XX-название`** — условие задачи (README) на чистом шаблоне. Эту ветку
+  я не меняю.
+- **`task-XX-название-tryN`** — моя попытка решения, созданная от ветки задачи.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Задачи
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| №  | Задача                         | Ветка                                                                                      | Темы                                                |
+| -- | ------------------------------ | ------------------------------------------------------------------------------------------ | --------------------------------------------------- |
+| 01 | Віджет відгуків (Sip Happens Café) | [`task-01-cafe-feedback`](https://github.com/mrkorzun/react/tree/task-01-cafe-feedback) | компоненты, пропсы, `useState`, типизация, условный рендеринг |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Как решать задачу
 
+```bash
+# открыть задачу
+git checkout task-01-cafe-feedback
+
+# начать новую попытку
+git checkout -b task-01-cafe-feedback-try1
+npm install
+npm run dev
+
+# вернуть попытку к условию, если хочется начать заново
+git reset --hard task-01-cafe-feedback
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Как добавить новую задачу
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+git checkout main
+git checkout -b task-02-название
+# заменить README.md условием задачи
+git add README.md
+git commit -m "task-02: add README"
+git push -u origin task-02-название
 ```
+
+После этого добавить строку в таблицу «Задачи» выше.
+
+## Стек
+
+- React 19 + TypeScript
+- Vite
+- CSS Modules + `modern-normalize`
+- ESLint, Prettier
+- `clsx`, `react-icons`
+
+## Скрипты
+
+| Команда           | Что делает                    |
+| ----------------- | ----------------------------- |
+| `npm run dev`     | запуск dev-сервера            |
+| `npm run build`   | проверка типов и сборка       |
+| `npm run preview` | просмотр production-сборки    |
+| `npm run lint`    | проверка ESLint               |

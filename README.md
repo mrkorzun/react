@@ -103,6 +103,8 @@ files into the corresponding folders in `src/components`.
 
 All components are rendered inside the `App` component.
 
+![Component structure: CafeInfo, VoteOptions and VoteStats inside App](assets/task-01/components.png)
+
 ```
 src/
 ├── components/

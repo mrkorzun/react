@@ -103,6 +103,8 @@ correspondientes en sus carpetas dentro de `src/components`.
 
 Todos los componentes se renderizan dentro del componente `App`.
 
+![Estructura de componentes: CafeInfo, VoteOptions y VoteStats dentro de App](assets/task-01/components.png)
+
 ```
 src/
 ├── components/

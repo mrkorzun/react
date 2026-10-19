@@ -104,6 +104,8 @@ git reset --hard task-01-cafe-feedback
 
 Все компоненты рендерятся внутри компонента `App`.
 
+![Структура компонентов: CafeInfo, VoteOptions и VoteStats внутри App](assets/task-01/components.png)
+
 ```
 src/
 ├── components/

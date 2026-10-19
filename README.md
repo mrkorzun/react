@@ -1,78 +1,86 @@
-# React + TypeScript + Vite
+**English** | [Русский](README.ru.md) | [Українська](README.uk.md) | [Español](README.es.md)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# ⚛️ React — learning repository
 
-Currently, two official plugins are available:
+My personal repository for learning React. Everything I study about React lives
+here: theory, practice and tasks to solve again, all in one place.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## How the repository is organized
 
-## React Compiler
+### `main` — current learning
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+This is where I push what I'm studying in the course right now. Each folder in
+`src/components` is a learning stage built as a mini-project: practical code
+only, no theory notes. The list grows as I progress.
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+| Folder                        | What's practiced                                                        |
+| ----------------------------- | ----------------------------------------------------------------------- |
+| `src/components/Theory-pr`    | Components and typed props, `clsx` variants, CSS Modules, `react-icons` |
+| `src/components/Theory-pr2`   | `useState`: `Counter` component with independent state per instance     |
+| `src/components/Cocktails-pr` | Cocktails page: nested components, rendering lists with `map()`         |
 
-## Expanding the ESLint configuration
+### Branches — tasks for re-solving
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Separate branches hold tasks and components I want to come back to and solve
+again to reinforce what I've learned. Branches are **never merged** into `main`.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **`task-XX-name`** — the task description (README) on a clean template. I
+  don't change this branch.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tasks
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| #  | Task                               | Branch                                                                                     | Topics                                                     |
+| -- | ---------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------- |
+| 01 | Feedback widget (Sip Happens Café) | [`task-01-cafe-feedback`](https://github.com/mrkorzun/react/tree/task-01-cafe-feedback) | components, props, `useState`, typing, conditional rendering |
 
-```
+> The full list of task branches is in this table. New task = new row.
+> How to solve a task and how to add a new one is described in each task
+> branch's README.
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Want to solve a task and show me?
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+I'd be happy to review your solution. Here's how:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Fork** this repository (button at the top right on GitHub).
+2. Clone your fork and switch to the task branch:
+   ```bash
+   git clone https://github.com/<your-username>/react.git
+   cd react
+   git checkout task-01-cafe-feedback
+   git checkout -b task-01-cafe-feedback-<your-username>
+   ```
+3. Solve the task following its README, then commit and push the branch to your fork:
+   ```bash
+   git push -u origin task-01-cafe-feedback-<your-username>
+   ```
+4. Open a **Pull Request** to this repository:
+   - **base:** `task-01-cafe-feedback` (the task branch, **not** `main`);
+   - **compare:** your branch from the fork;
+   - title: `Solution task-01 — <your-username>`.
+5. I'll review the code and leave comments right in the PR.
 
-```
+PRs are **not merged**, so the task branch stays clean for future attempts.
+After the review I'll close the PR, and your solution stays in your fork.
+
+## Stack
+
+- React 19 + TypeScript
+- Vite
+- CSS Modules + `modern-normalize`
+- ESLint, Prettier
+- `clsx`, `react-icons`
+
+## Scripts
+
+| Command           | What it does                  |
+| ----------------- | ----------------------------- |
+| `npm run dev`     | start the dev server          |
+| `npm run build`   | type-check and build          |
+| `npm run preview` | preview the production build  |
+| `npm run lint`    | run ESLint                    |
+
+---
+
+> **About contributors.** Claude (Anthropic's AI assistant) appears among the
+> contributors only because it helped write and translate the README files. All
+> code in this repository is written by me.

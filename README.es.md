@@ -5,13 +5,30 @@
 ## Cómo resolver la tarea
 
 ```bash
-# abrir la tarea
+# 1. clonar el repositorio (una vez)
+git clone https://github.com/mrkorzun/react.git
+cd react
+
+# 2. abrir el proyecto en VS Code
+code .
+
+# 3. cambiar a la rama de la tarea
 git checkout task-01-cafe-feedback
 
-# empezar un nuevo intento
+# 4. crear tu rama para el intento
 git checkout -b task-01-cafe-feedback-try1
+
+# 5. instalar dependencias y arrancar el servidor de desarrollo
 npm install
 npm run dev
+```
+
+Después abre http://localhost:5173 en el navegador.
+
+```bash
+# ¿ya lo clonaste? solo trae las ramas nuevas
+git fetch origin
+git checkout task-01-cafe-feedback
 
 # devolver el intento al enunciado si quieres empezar de cero
 git reset --hard task-01-cafe-feedback

@@ -5,13 +5,30 @@
 ## How to solve the task
 
 ```bash
-# open the task
+# 1. clone the repository (once)
+git clone https://github.com/mrkorzun/react.git
+cd react
+
+# 2. open the project in VS Code
+code .
+
+# 3. switch to the task branch
 git checkout task-01-cafe-feedback
 
-# start a new attempt
+# 4. create your attempt branch
 git checkout -b task-01-cafe-feedback-try1
+
+# 5. install dependencies and start the dev server
 npm install
 npm run dev
+```
+
+Then open http://localhost:5173 in the browser.
+
+```bash
+# already cloned? just pull the latest branches
+git fetch origin
+git checkout task-01-cafe-feedback
 
 # reset the attempt back to the task if you want to start over
 git reset --hard task-01-cafe-feedback

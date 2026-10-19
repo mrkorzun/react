@@ -278,6 +278,10 @@ El botón Reset solo se muestra cuando hay al menos un voto. Usa `totalVotes` en
 `App` y pasa el valor correspondiente a `VoteOptions` mediante la prop
 `canReset`.
 
+Después de este paso la app está terminada y debe funcionar así:
+
+![Resultado del paso 8: el botón Reset aparece solo tras el primer voto](assets/task-01/step-08-reset.gif)
+
 ---
 
 ## Entrega

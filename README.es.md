@@ -2,6 +2,52 @@
 
 # Widget de opiniones — Sip Happens Café
 
+## Cómo resolver la tarea
+
+```bash
+# abrir la tarea
+git checkout task-01-cafe-feedback
+
+# empezar un nuevo intento
+git checkout -b task-01-cafe-feedback-try1
+npm install
+npm run dev
+
+# devolver el intento al enunciado si quieres empezar de cero
+git reset --hard task-01-cafe-feedback
+```
+
+## Sobre el proyecto
+
+Una app de una sola página donde el visitante valora una cafetería
+(**Good / Neutral / Bad**) y ve al instante las estadísticas: los votos de cada
+opción, el total de votos y el porcentaje de opiniones positivas. Mientras no
+haya votos se muestra el mensaje «No feedback yet»; el botón **Reset** aparece
+solo después del primer voto y reinicia los resultados.
+
+**Nivel:** principiante · primera app con React + TypeScript
+
+### Qué vas a practicar
+
+| Habilidad                            | Dónde se usa en la tarea                                          |
+| ------------------------------------ | ----------------------------------------------------------------- |
+| Componentes funcionales y JSX        | `App`, `CafeInfo`, `VoteOptions`, `VoteStats`, `Notification`     |
+| Composición de componentes           | todos los componentes se renderizan dentro de `App`               |
+| Props                                | pasar datos y callbacks de `App` a los componentes hijos          |
+| Tipado de props (`interface`)        | `VoteOptionsProps`, `VoteStatsProps`                              |
+| Tipos TS compartidos, union types    | `Votes`, `VoteType = 'good' \| 'neutral' \| 'bad'` en `src/types` |
+| `useState` con un objeto             | estado `votes` `{ good, neutral, bad }`                           |
+| Actualización inmutable del estado   | `handleVote(type)` — spread + clave calculada `[type]`            |
+| Elevar el estado (lifting state up)  | el estado vive en `App`, los hijos lo reciben por props           |
+| Manejo de eventos                    | `onClick` en los botones → `onVote` / `onReset`                   |
+| Datos derivados                      | `totalVotes` y `positiveRate` se calculan, no se guardan          |
+| Renderizado condicional              | `VoteStats` o `Notification`, botón Reset con `canReset`          |
+| CSS Modules                          | `*.module.css` para cada componente, `modern-normalize`           |
+
+---
+
+## Tarea
+
 Crea una aplicación que permita a los usuarios dejar su opinión sobre una
 cafetería. Hay tres opciones de valoración: **good**, **neutral**, **bad**. El
 usuario elige una de ellas y ve las estadísticas.
@@ -204,21 +250,6 @@ El botón Reset solo se muestra cuando hay al menos un voto. Usa `totalVotes` en
 - [ ] Paso 8 — Reset condicional
 
 ---
-
-## Cómo resolver la tarea
-
-```bash
-# abrir la tarea
-git checkout task-01-cafe-feedback
-
-# empezar un nuevo intento
-git checkout -b task-01-cafe-feedback-try1
-npm install
-npm run dev
-
-# devolver el intento al enunciado si quieres empezar de cero
-git reset --hard task-01-cafe-feedback
-```
 
 ## Cómo añadir una nueva tarea
 

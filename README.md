@@ -2,6 +2,52 @@
 
 # Feedback widget — Sip Happens Café
 
+## How to solve the task
+
+```bash
+# open the task
+git checkout task-01-cafe-feedback
+
+# start a new attempt
+git checkout -b task-01-cafe-feedback-try1
+npm install
+npm run dev
+
+# reset the attempt back to the task if you want to start over
+git reset --hard task-01-cafe-feedback
+```
+
+## About the project
+
+A single-page app where a visitor rates a café (**Good / Neutral / Bad**) and
+immediately sees the statistics: the count for each option, the total number of
+votes and the percentage of positive feedback. Until the first vote a
+"No feedback yet" message is shown; the **Reset** button appears only after at
+least one vote and clears the results.
+
+**Level:** beginner · first React + TypeScript app
+
+### What you'll practice
+
+| Skill                         | Where it's used in the task                                         |
+| ----------------------------- | ------------------------------------------------------------------- |
+| Function components and JSX   | `App`, `CafeInfo`, `VoteOptions`, `VoteStats`, `Notification`       |
+| Component composition         | all components are rendered inside `App`                            |
+| Props                         | passing data and callbacks from `App` to child components           |
+| Typing props (`interface`)    | `VoteOptionsProps`, `VoteStatsProps`                                |
+| Shared TS types, union types  | `Votes`, `VoteType = 'good' \| 'neutral' \| 'bad'` in `src/types` |
+| `useState` with an object     | `votes` state `{ good, neutral, bad }`                              |
+| Immutable state updates       | `handleVote(type)` — spread + computed key `[type]`                 |
+| Lifting state up              | state lives in `App`, children get it through props                 |
+| Event handling                | `onClick` on buttons → `onVote` / `onReset`                         |
+| Derived data                  | `totalVotes` and `positiveRate` are computed, not stored            |
+| Conditional rendering         | `VoteStats` vs `Notification`, Reset button via `canReset`          |
+| CSS Modules                   | `*.module.css` for every component, `modern-normalize`              |
+
+---
+
+## Task
+
 Build an app that lets users leave feedback about a café. There are three
 rating options: **good**, **neutral**, **bad**. The user picks one of them and
 sees the statistics.
@@ -204,21 +250,6 @@ The Reset button is shown only when there is at least one vote. Use
 - [ ] Step 8 — conditional Reset
 
 ---
-
-## How to solve the task
-
-```bash
-# open the task
-git checkout task-01-cafe-feedback
-
-# start a new attempt
-git checkout -b task-01-cafe-feedback-try1
-npm install
-npm run dev
-
-# reset the attempt back to the task if you want to start over
-git reset --hard task-01-cafe-feedback
-```
 
 ## How to add a new task
 

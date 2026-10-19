@@ -78,3 +78,9 @@ After the review I'll close the PR, and your solution stays in your fork.
 | `npm run build`   | type-check and build          |
 | `npm run preview` | preview the production build  |
 | `npm run lint`    | run ESLint                    |
+
+---
+
+> **About contributors.** Claude (Anthropic's AI assistant) appears among the
+> contributors only because it helped write and translate the README files. All
+> code in this repository is written by me.

@@ -79,3 +79,9 @@ intentos. Tras la revisión cerraré el PR y tu solución seguirá en tu fork.
 | `npm run build`   | comprueba tipos y compila           |
 | `npm run preview` | vista previa del build de producción |
 | `npm run lint`    | ejecuta ESLint                      |
+
+---
+
+> **Sobre los colaboradores.** Claude (el asistente de IA de Anthropic) aparece
+> entre los colaboradores solo porque ayudó a redactar y traducir los archivos
+> README. Todo el código de este repositorio lo he escrito yo.

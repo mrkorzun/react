@@ -1,22 +1,16 @@
 import css from "./Counter.module.css";
-import type { Clicks } from "../type";
-import { useState } from "react";
 
-const Counter = () => {
-  const [clicks, setClicks] = useState<Clicks>({ click: 0 });
+interface ClickCounterProps {
+  value: number;
+  onUpdate: () => void;
+}
 
-  const handleClick = () => {
-    //Передать новое значение напрямую:
-    // setClicks({ click: clicks.click + 1 });
-    // Передать функцию от предыдущего состояния:
-    setClicks((prev) => ({ click: prev.click + 1 }));
-  };
-
+const ClickCounter = ({ value, onUpdate }: ClickCounterProps) => {
   return (
     <div className={css["counter"]}>
-      <button onClick={handleClick}>Click Me: {clicks.click}</button>
+      <button onClick={onUpdate}>Click Me: {value}</button>
     </div>
   );
 };
 
-export default Counter;
+export default ClickCounter;

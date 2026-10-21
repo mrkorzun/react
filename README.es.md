@@ -20,6 +20,28 @@ práctica y código, sin explicaciones teóricas. La lista crece a medida que av
 | `src/components/Cocktails-pr` | Página de cócteles: componentes anidados, renderizado de listas con `map()` |
 | `src/components/ModalExample` | Ventana modal: abrir/cerrar con un `useState` booleano, pasar una función por props |
 
+#### `Cocktails-pr` — cómo está hecha la página de cócteles
+
+**Idea.** La página se divide en componentes pequeños, cada uno con una sola
+responsabilidad. La lista de cócteles no se escribe a mano: un array de datos
+pasa por `map()` y cada elemento se convierte en una tarjeta.
+
+**Especificación técnica:**
+
+- `App` arma la página con tres bloques: `Header`, `CocktailList`, `Footer`.
+- `Header` se compone de `Logo` y `Navigation`. `Navigation` renderiza los
+  elementos `NavigationItem` del array `nav` con `map()`.
+- `CocktailList` contiene el array `coctails` (objetos con `_id`, `drink`,
+  `drinkThumb`, `description`), toma los primeros 8 con `slice(0, 8)` y
+  convierte cada uno en un `CocktailCard` con `map()`.
+- Cada tarjeta tiene un `key={el._id}` único para que React siga los elementos
+  de la lista.
+- `CocktailList` pasa los datos a `CocktailCard` por props: `title`, `img`,
+  `desc`. Las props están tipadas con `interface CocktailCardProps`.
+- `CocktailCard` renderiza un `<li>` con imagen, título y descripción; el `alt`
+  de la imagen es el nombre del cóctel.
+- Cada componente tiene su propio CSS Module al lado.
+
 #### `ModalExample` — cómo funciona el modal
 
 **Idea.** Abrir y cerrar un modal se reduce a un booleano en el estado:

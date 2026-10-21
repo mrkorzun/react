@@ -20,6 +20,27 @@ only, no theory notes. The list grows as I progress.
 | `src/components/Cocktails-pr` | Cocktails page: nested components, rendering lists with `map()`         |
 | `src/components/ModalExample` | Modal window: open/close with a boolean `useState`, passing a callback via props |
 
+#### `Cocktails-pr` — how the cocktails page works
+
+**Idea.** The page is split into small components, each responsible for one
+thing. The cocktail list isn't written by hand: an array of data goes through
+`map()`, and every element becomes a card.
+
+**Technical spec:**
+
+- `App` assembles the page from three blocks: `Header`, `CocktailList`, `Footer`.
+- `Header` is made of nested components: `Logo` and `Navigation`. `Navigation`
+  renders `NavigationItem` items from the `nav` array via `map()`.
+- `CocktailList` holds the `coctails` array (objects with `_id`, `drink`,
+  `drinkThumb`, `description`), takes the first 8 with `slice(0, 8)` and turns
+  each into a `CocktailCard` via `map()`.
+- Each card gets a unique `key={el._id}` so React can track list items.
+- `CocktailList` passes data to `CocktailCard` through props: `title`, `img`,
+  `desc`. Props are typed via `interface CocktailCardProps`.
+- `CocktailCard` renders `<li>` with an image, a title and a description; the
+  image's `alt` is the cocktail name.
+- Every component has its own CSS Module next to it.
+
 #### `ModalExample` — how the modal works
 
 **Idea.** Opening and closing a modal comes down to one boolean in state:

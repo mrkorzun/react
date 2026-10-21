@@ -1,0 +1,41 @@
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: rgba(165, 165, 165, 0.365);
+}
+
+.modal {
+  width: 70vw;
+  height: 70vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: aliceblue;
+}
+
+.close-modal {
+  width: 200px;
+  height: 60px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  color: aliceblue;
+  background-color: blue;
+  transition: background-color 200ms ease;
+}
+
+.close-modal:hover {
+  background-color: rgb(76, 76, 255);
+}

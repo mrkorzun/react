@@ -18,6 +18,27 @@ práctica y código, sin explicaciones teóricas. La lista crece a medida que av
 | `src/components/Theory-pr`    | Componentes y props tipadas, variantes con `clsx`, CSS Modules, `react-icons` |
 | `src/components/Theory-pr2`   | `useState`: componente `Counter` con estado independiente en cada instancia |
 | `src/components/Cocktails-pr` | Página de cócteles: componentes anidados, renderizado de listas con `map()` |
+| `src/components/ModalExample` | Ventana modal: abrir/cerrar con un `useState` booleano, pasar una función por props |
+
+#### `ModalExample` — cómo funciona el modal
+
+**Idea.** Abrir y cerrar un modal se reduce a un booleano en el estado:
+`const [isOpen, setOpen] = useState(false)`. `true` — el modal se muestra,
+`false` — se oculta. El renderizado condicional `{isOpen && <Modal ... />}`
+lo añade a la página o lo quita.
+
+**Especificación técnica:**
+
+- El estado (`isOpen`) y dos manejadores viven en `App`: `handleOpen` →
+  `setOpen(true)`, `handleClose` → `setOpen(false)`.
+- El botón «Open Modal» llama a `handleOpen`.
+- `App` pasa `handleClose` a `Modal` mediante la prop `onClose`. El modal no
+  es dueño del estado: solo recibe una función para «pedirle» al padre que lo
+  cierre.
+- En `Modal` la prop está tipada con `interface ModalProps { onClose: () => void }`
+  y asignada al botón de cerrar: `onClick={onClose}`.
+- Maquetación: `backdrop` cubre toda la pantalla con un fondo semitransparente,
+  `modal` se centra con flexbox; los estilos están en CSS Modules.
 
 ### Ramas — tareas para volver a resolver
 

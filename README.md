@@ -18,6 +18,26 @@ only, no theory notes. The list grows as I progress.
 | `src/components/Theory-pr`    | Components and typed props, `clsx` variants, CSS Modules, `react-icons` |
 | `src/components/Theory-pr2`   | `useState`: `Counter` component with independent state per instance     |
 | `src/components/Cocktails-pr` | Cocktails page: nested components, rendering lists with `map()`         |
+| `src/components/ModalExample` | Modal window: open/close with a boolean `useState`, passing a callback via props |
+
+#### `ModalExample` — how the modal works
+
+**Idea.** Opening and closing a modal comes down to one boolean in state:
+`const [isOpen, setOpen] = useState(false)`. `true` — the modal is shown,
+`false` — it's hidden. Conditional rendering `{isOpen && <Modal ... />}` adds
+the modal to the page or removes it.
+
+**Technical spec:**
+
+- `App` owns the state (`isOpen`) and two handlers: `handleOpen` →
+  `setOpen(true)`, `handleClose` → `setOpen(false)`.
+- The "Open Modal" button calls `handleOpen`.
+- `App` passes `handleClose` to `Modal` through the `onClose` prop. The modal
+  doesn't own the state — it only gets a function to "ask" the parent to close it.
+- In `Modal` the prop is typed via `interface ModalProps { onClose: () => void }`
+  and attached to the close button: `onClick={onClose}`.
+- Layout: `backdrop` covers the whole screen with a semi-transparent background,
+  `modal` is centered with flexbox; styles live in CSS Modules.
 
 ### Branches — tasks for re-solving
 

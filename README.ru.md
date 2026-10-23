@@ -19,6 +19,7 @@
 | `src/components/Theory-pr2`   | `useState`: компонент `Counter` с независимым состоянием у каждого экземпляра |
 | `src/components/Cocktails-pr` | Страница коктейлей: вложенные компоненты, рендер списков через `map()`      |
 | `src/components/ModalExample` | Модальное окно: открытие/закрытие через булевый `useState`, передача функции через пропсы |
+| `src/components/SearchForm`   | Поиск машин: `action` формы + `FormData`, передача данных наверх через колбэк-пропс, запрос к API через `axios` |
 
 #### `Cocktails-pr` — как устроена страница коктейлей
 
@@ -61,6 +62,37 @@
   и навешан на кнопку закрытия: `onClick={onClose}`.
 - Вёрстка: `backdrop` закрывает весь экран полупрозрачным фоном, `modal`
   центрируется через flexbox; стили — в CSS-модулях.
+
+#### `SearchForm` — как работает поиск машин
+
+![Поток данных SearchForm](docs/searchform-flow.ru.png)
+
+**Идея.** Форма ничего не знает про машины: она только собирает запрос и
+отдаёт его родителю через колбэк, поэтому её можно переиспользовать где угодно.
+Родитель `Cars` владеет состоянием, ходит в API через отдельный сервис и
+передаёт результат вниз в список.
+
+**Техническая спецификация:**
+
+- `App` рендерит `Cars`.
+- В `Cars` живут состояние `const [cars, setCars] = useState<Car[]>([])` и
+  обработчик `onSearchCar(query)`.
+- `Cars` передаёт `onSearchCar` в `SearchForm` через пропс `callback`, а массив
+  `cars` в `CarList` через пропс `cars`.
+- `SearchForm` использует action формы из React 19: `<form action={handleSubmit}>`.
+  `handleSubmit(formData)` достаёт значение через `formData.get("query")` (у
+  инпута `name="query"`) и вызывает `callback(query)`. Пропсы типизированы через
+  `interface SearchFormProps { callback: (query: string) => void }`.
+- `onSearchCar` — `async`: ждёт `getCarList(query)` и потом вызывает
+  `setCars(result.items)`.
+- `getCarList` лежит в `services/carService.ts`, а не в компоненте: отправляет
+  `axios.get` на `/public/cars` с `params: { make: query }` и возвращает
+  `res.data`. Ответ типизирован через `GetCarListResponse` (поля пагинации +
+  `items: Car[]`). Тип `Car` описан в `types/cars.ts`.
+- `CarList` состоянием не владеет: получает массив `cars` и через `map()`
+  рендерит `<li key={car._id}>` с `make`, `model` и `description`.
+- После `setCars` React перерисовывает `Cars`, и `CarList` получает новый массив.
+- У каждого компонента рядом свой CSS-модуль.
 
 ### Ветки — задачи для повторного прохождения
 
@@ -110,7 +142,7 @@ PR **не мерджится**, чтобы ветка задачи остала�
 - Vite
 - CSS Modules + `modern-normalize`
 - ESLint, Prettier
-- `clsx`, `react-icons`
+- `clsx`, `react-icons`, `axios`
 
 ## Скрипты
 

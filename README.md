@@ -19,6 +19,7 @@ only, no theory notes. The list grows as I progress.
 | `src/components/Theory-pr2`   | `useState`: `Counter` component with independent state per instance     |
 | `src/components/Cocktails-pr` | Cocktails page: nested components, rendering lists with `map()`         |
 | `src/components/ModalExample` | Modal window: open/close with a boolean `useState`, passing a callback via props |
+| `src/components/SearchForm`   | Car search: form `action` + `FormData`, passing data up via a callback prop, API request with `axios` |
 
 #### `Cocktails-pr` — how the cocktails page works
 
@@ -59,6 +60,37 @@ the modal to the page or removes it.
   and attached to the close button: `onClick={onClose}`.
 - Layout: `backdrop` covers the whole screen with a semi-transparent background,
   `modal` is centered with flexbox; styles live in CSS Modules.
+
+#### `SearchForm` — how the car search works
+
+![SearchForm data flow](docs/searchform-flow.en.png)
+
+**Idea.** The form knows nothing about cars: it only collects the query and
+hands it to the parent through a callback, so it can be reused anywhere. The
+parent `Cars` owns the state, calls the API through a separate service and
+passes the result down to the list.
+
+**Technical spec:**
+
+- `App` renders `Cars`.
+- `Cars` owns the state `const [cars, setCars] = useState<Car[]>([])` and the
+  handler `onSearchCar(query)`.
+- `Cars` passes `onSearchCar` to `SearchForm` through the `callback` prop, and
+  the `cars` array to `CarList` through the `cars` prop.
+- `SearchForm` uses a React 19 form action: `<form action={handleSubmit}>`.
+  `handleSubmit(formData)` reads the value with `formData.get("query")` (the
+  input has `name="query"`) and calls `callback(query)`. Props are typed via
+  `interface SearchFormProps { callback: (query: string) => void }`.
+- `onSearchCar` is `async`: it waits for `getCarList(query)` and then calls
+  `setCars(result.items)`.
+- `getCarList` lives in `services/carService.ts`, not in the component: it
+  sends `axios.get` to `/public/cars` with `params: { make: query }` and returns
+  `res.data`. The response is typed via `GetCarListResponse` (pagination fields
+  + `items: Car[]`). The `Car` type lives in `types/cars.ts`.
+- `CarList` doesn't own any state: it gets the `cars` array and renders
+  `<li key={car._id}>` with `make`, `model` and `description` via `map()`.
+- After `setCars` React re-renders `Cars`, and `CarList` receives the new array.
+- Every component has its own CSS Module next to it.
 
 ### Branches — tasks for re-solving
 
@@ -109,7 +141,7 @@ After the review I'll close the PR, and your solution stays in your fork.
 - Vite
 - CSS Modules + `modern-normalize`
 - ESLint, Prettier
-- `clsx`, `react-icons`
+- `clsx`, `react-icons`, `axios`
 
 ## Scripts
 

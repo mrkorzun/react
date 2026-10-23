@@ -19,6 +19,7 @@ práctica y código, sin explicaciones teóricas. La lista crece a medida que av
 | `src/components/Theory-pr2`   | `useState`: componente `Counter` con estado independiente en cada instancia |
 | `src/components/Cocktails-pr` | Página de cócteles: componentes anidados, renderizado de listas con `map()` |
 | `src/components/ModalExample` | Ventana modal: abrir/cerrar con un `useState` booleano, pasar una función por props |
+| `src/components/SearchForm`   | Búsqueda de coches: `action` del formulario + `FormData`, pasar datos hacia arriba con un callback por props, petición a la API con `axios` |
 
 #### `Cocktails-pr` — cómo está hecha la página de cócteles
 
@@ -61,6 +62,38 @@ lo añade a la página o lo quita.
   y asignada al botón de cerrar: `onClick={onClose}`.
 - Maquetación: `backdrop` cubre toda la pantalla con un fondo semitransparente,
   `modal` se centra con flexbox; los estilos están en CSS Modules.
+
+#### `SearchForm` — cómo funciona la búsqueda de coches
+
+![Flujo de datos de SearchForm](docs/searchform-flow.es.png)
+
+**Idea.** El formulario no sabe nada de coches: solo recoge la consulta y se la
+entrega al padre mediante un callback, así que se puede reutilizar en cualquier
+sitio. El padre `Cars` es dueño del estado, llama a la API a través de un
+servicio aparte y pasa el resultado hacia abajo a la lista.
+
+**Especificación técnica:**
+
+- `App` renderiza `Cars`.
+- En `Cars` viven el estado `const [cars, setCars] = useState<Car[]>([])` y el
+  manejador `onSearchCar(query)`.
+- `Cars` pasa `onSearchCar` a `SearchForm` mediante la prop `callback`, y el
+  array `cars` a `CarList` mediante la prop `cars`.
+- `SearchForm` usa una action de formulario de React 19: `<form action={handleSubmit}>`.
+  `handleSubmit(formData)` lee el valor con `formData.get("query")` (el input
+  tiene `name="query"`) y llama a `callback(query)`. Las props están tipadas con
+  `interface SearchFormProps { callback: (query: string) => void }`.
+- `onSearchCar` es `async`: espera a `getCarList(query)` y luego llama a
+  `setCars(result.items)`.
+- `getCarList` está en `services/carService.ts`, no en el componente: envía
+  `axios.get` a `/public/cars` con `params: { make: query }` y devuelve
+  `res.data`. La respuesta está tipada con `GetCarListResponse` (campos de
+  paginación + `items: Car[]`). El tipo `Car` está en `types/cars.ts`.
+- `CarList` no tiene estado: recibe el array `cars` y con `map()` renderiza
+  `<li key={car._id}>` con `make`, `model` y `description`.
+- Tras `setCars`, React vuelve a renderizar `Cars` y `CarList` recibe el nuevo
+  array.
+- Cada componente tiene su propio CSS Module al lado.
 
 ### Ramas — tareas para volver a resolver
 
@@ -112,7 +145,7 @@ intentos. Tras la revisión cerraré el PR y tu solución seguirá en tu fork.
 - Vite
 - CSS Modules + `modern-normalize`
 - ESLint, Prettier
-- `clsx`, `react-icons`
+- `clsx`, `react-icons`, `axios`
 
 ## Scripts
 

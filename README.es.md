@@ -18,6 +18,49 @@ práctica y código, sin explicaciones teóricas. La lista crece a medida que av
 | `src/components/Theory-pr`    | Componentes y props tipadas, variantes con `clsx`, CSS Modules, `react-icons` |
 | `src/components/Theory-pr2`   | `useState`: componente `Counter` con estado independiente en cada instancia |
 | `src/components/Cocktails-pr` | Página de cócteles: componentes anidados, renderizado de listas con `map()` |
+| `src/components/ModalExample` | Ventana modal: abrir/cerrar con un `useState` booleano, pasar una función por props |
+
+#### `Cocktails-pr` — cómo está hecha la página de cócteles
+
+**Idea.** La página se divide en componentes pequeños, cada uno con una sola
+responsabilidad. La lista de cócteles no se escribe a mano: un array de datos
+pasa por `map()` y cada elemento se convierte en una tarjeta.
+
+**Especificación técnica:**
+
+- `App` arma la página con tres bloques: `Header`, `CocktailList`, `Footer`.
+- `Header` se compone de `Logo` y `Navigation`. `Navigation` renderiza los
+  elementos `NavigationItem` del array `nav` con `map()`.
+- `CocktailList` contiene el array `coctails` (objetos con `_id`, `drink`,
+  `drinkThumb`, `description`), toma los primeros 8 con `slice(0, 8)` y
+  convierte cada uno en un `CocktailCard` con `map()`.
+- Cada tarjeta tiene un `key={el._id}` único para que React siga los elementos
+  de la lista.
+- `CocktailList` pasa los datos a `CocktailCard` por props: `title`, `img`,
+  `desc`. Las props están tipadas con `interface CocktailCardProps`.
+- `CocktailCard` renderiza un `<li>` con imagen, título y descripción; el `alt`
+  de la imagen es el nombre del cóctel.
+- Cada componente tiene su propio CSS Module al lado.
+
+#### `ModalExample` — cómo funciona el modal
+
+**Idea.** Abrir y cerrar un modal se reduce a un booleano en el estado:
+`const [isOpen, setOpen] = useState(false)`. `true` — el modal se muestra,
+`false` — se oculta. El renderizado condicional `{isOpen && <Modal ... />}`
+lo añade a la página o lo quita.
+
+**Especificación técnica:**
+
+- El estado (`isOpen`) y dos manejadores viven en `App`: `handleOpen` →
+  `setOpen(true)`, `handleClose` → `setOpen(false)`.
+- El botón «Open Modal» llama a `handleOpen`.
+- `App` pasa `handleClose` a `Modal` mediante la prop `onClose`. El modal no
+  es dueño del estado: solo recibe una función para «pedirle» al padre que lo
+  cierre.
+- En `Modal` la prop está tipada con `interface ModalProps { onClose: () => void }`
+  y asignada al botón de cerrar: `onClick={onClose}`.
+- Maquetación: `backdrop` cubre toda la pantalla con un fondo semitransparente,
+  `modal` se centra con flexbox; los estilos están en CSS Modules.
 
 ### Ramas — tareas para volver a resolver
 

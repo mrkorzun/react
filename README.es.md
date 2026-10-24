@@ -6,7 +6,9 @@
 
 # Búsqueda de películas — TMDB
 
-![Demo: búsqueda, cuadrícula de películas, ventana modal y notificaciones en la app terminada](assets/task-02/demo.gif)
+<p align="center">
+  <img src="assets/task-02/demo.gif" alt="Demo: búsqueda, cuadrícula de películas, ventana modal y notificaciones en la app terminada" width="800">
+</p>
 
 ## Sobre el proyecto
 
@@ -62,6 +64,10 @@ así que vas directo a la **lógica de React y TypeScript**: peticiones HTTP,
 estado, props, tipado, renderizado condicional y la ventana modal.
 
 ## Qué incluye el código inicial
+
+<p align="center">
+  <img src="assets/task-02/components.png" alt="Estructura de componentes: SearchBar, MovieGrid, Loader, ErrorMessage y MovieModal dentro de App" width="800">
+</p>
 
 ```
 src/

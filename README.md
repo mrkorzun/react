@@ -6,7 +6,9 @@
 
 # Movie search — TMDB
 
-![Demo: search, movie grid, modal window and notifications in the finished app](assets/task-02/demo.gif)
+<p align="center">
+  <img src="assets/task-02/demo.gif" alt="Demo: search, movie grid, modal window and notifications in the finished app" width="800">
+</p>
 
 ## About the project
 
@@ -61,6 +63,10 @@ so you go straight to the **React and TypeScript logic** — HTTP requests,
 state, props, typing, conditional rendering and the modal window.
 
 ## What's already in the starter
+
+<p align="center">
+  <img src="assets/task-02/components.png" alt="Component structure: SearchBar, MovieGrid, Loader, ErrorMessage and MovieModal inside App" width="800">
+</p>
 
 ```
 src/

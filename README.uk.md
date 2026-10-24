@@ -6,7 +6,9 @@
 
 # Пошук фільмів — TMDB
 
-![Демо: пошук, сітка фільмів, модальне вікно та сповіщення в готовому застосунку](assets/task-02/demo.gif)
+<p align="center">
+  <img src="assets/task-02/demo.gif" alt="Демо: пошук, сітка фільмів, модальне вікно та сповіщення в готовому застосунку" width="800">
+</p>
 
 ## Про проєкт
 
@@ -61,6 +63,10 @@
 пропсів, типізації, умовного рендерингу та модального вікна.
 
 ## Що вже є в стартовому коді
+
+<p align="center">
+  <img src="assets/task-02/components.png" alt="Структура компонентів: SearchBar, MovieGrid, Loader, ErrorMessage і MovieModal всередині App" width="800">
+</p>
 
 ```
 src/

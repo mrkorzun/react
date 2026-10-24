@@ -105,6 +105,7 @@ again to reinforce what I've learned. Branches are **never merged** into `main`.
 | #  | Task                               | Branch                                                                                     | Topics                                                     |
 | -- | ---------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------- |
 | 01 | Feedback widget (Sip Happens Café) | [`task-01-cafe-feedback`](https://github.com/mrkorzun/react/tree/task-01-cafe-feedback) | components, props, `useState`, typing, conditional rendering |
+| 02 | Movie search (TMDB)                | [`task-02-movie-search`](https://github.com/mrkorzun/react/tree/task-02-movie-search)   | `axios`, env variables, Form Actions, `react-hot-toast`, `createPortal`, `useEffect` |
 
 > The full list of task branches is in this table. New task = new row.
 > How to solve a task and how to add a new one is described in each task

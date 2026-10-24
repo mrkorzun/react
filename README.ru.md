@@ -106,7 +106,8 @@
 
 | №  | Задача                         | Ветка                                                                                      | Темы                                                |
 | -- | ------------------------------ | ------------------------------------------------------------------------------------------ | --------------------------------------------------- |
-| 01 | Віджет відгуків (Sip Happens Café) | [`task-01-cafe-feedback`](https://github.com/mrkorzun/react/tree/task-01-cafe-feedback) | компоненты, пропсы, `useState`, типизация, условный рендеринг |
+| 01 | Виджет отзывов (Sip Happens Café)  | [`task-01-cafe-feedback`](https://github.com/mrkorzun/react/tree/task-01-cafe-feedback) | компоненты, пропсы, `useState`, типизация, условный рендеринг |
+| 02 | Поиск фильмов (TMDB)               | [`task-02-movie-search`](https://github.com/mrkorzun/react/tree/task-02-movie-search)   | `axios`, переменные окружения, Form Actions, `react-hot-toast`, `createPortal`, `useEffect` |
 
 > Полный список веток с задачами — в этой таблице. Новая задача = новая строка.
 > Как решать задачу и как добавить новую — описано в README каждой ветки задачи.

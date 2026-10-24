@@ -109,6 +109,7 @@ con `main`.
 | #  | Tarea                                      | Rama                                                                                       | Temas                                                              |
 | -- | ------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | 01 | Widget de opiniones (Sip Happens Café)     | [`task-01-cafe-feedback`](https://github.com/mrkorzun/react/tree/task-01-cafe-feedback) | componentes, props, `useState`, tipado, renderizado condicional |
+| 02 | Búsqueda de películas (TMDB)               | [`task-02-movie-search`](https://github.com/mrkorzun/react/tree/task-02-movie-search)   | `axios`, variables de entorno, Form Actions, `react-hot-toast`, `createPortal`, `useEffect` |
 
 > La lista completa de ramas con tareas está en esta tabla. Nueva tarea = nueva fila.
 > Cómo resolver una tarea y cómo añadir una nueva se describe en el README de

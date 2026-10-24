@@ -2,259 +2,312 @@
   <a href="README.md">English</a> | <a href="README.ru.md">Русский</a> | <a href="README.uk.md">Українська</a> | <b>Español</b>
 </p>
 
-<img align="right" alt="Nivel: principiante" src="https://img.shields.io/badge/Nivel-principiante-2EA44F">
+<img align="right" alt="Nivel: intermedio" src="https://img.shields.io/badge/Nivel-intermedio-DBAB09">
 
-# Widget de opiniones — Sip Happens Café
+# Búsqueda de películas — TMDB
 
-![Demo: votación, estadísticas y Reset en la app terminada](assets/task-01/demo.gif)
+![Demo: búsqueda, cuadrícula de películas, ventana modal y notificaciones en la app terminada](assets/task-02/demo.gif)
 
 ## Sobre el proyecto
 
-Una app de una sola página donde el visitante valora una cafetería
-(**Good / Neutral / Bad**) y ve al instante las estadísticas: los votos de cada
-opción, el total de votos y el porcentaje de opiniones positivas. Mientras no
-haya votos se muestra el mensaje «No feedback yet»; el botón **Reset** aparece
-solo después del primer voto y reinicia los resultados.
+Una app de una sola página para buscar películas por palabra clave. El usuario
+escribe una consulta, la app envía una petición HTTP a
+[TMDB](https://www.themoviedb.org/) y muestra una cuadrícula de pósteres. Al
+hacer clic en un póster se abre una ventana modal con la imagen de fondo, la
+sinopsis, la fecha de estreno y la valoración. Mientras la petición está en
+curso se muestra un loader; ante un error de red, un mensaje de error; ante una
+consulta vacía o un resultado vacío, una notificación emergente.
 
 ![React: 19](https://img.shields.io/badge/React-19-087EA4?logo=react&logoColor=white)
 ![TypeScript: strict](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![Vite: 8](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 ![CSS: Modules](https://img.shields.io/badge/CSS-Modules-1572B6?logo=cssmodules&logoColor=white)
 ![Prettier: formatted](https://img.shields.io/badge/Prettier-formatted-F7B93E?logo=prettier&logoColor=white)
-![hook: useState](https://img.shields.io/badge/hook-useState-20232A?logo=react&logoColor=white)
-![props: typed](https://img.shields.io/badge/props-typed-20232A)
-![rendering: conditional](https://img.shields.io/badge/rendering-conditional-20232A)
-![state: lifting up](https://img.shields.io/badge/state-lifting%20up-20232A)
+![HTTP: axios](https://img.shields.io/badge/HTTP-axios-5A29E4?logo=axios&logoColor=white)
+![API: TMDB](https://img.shields.io/badge/API-TMDB-01B4E4?logo=themoviedatabase&logoColor=white)
+![toasts: react--hot--toast](https://img.shields.io/badge/toasts-react--hot--toast-20232A)
+![form: actions](https://img.shields.io/badge/form-actions-20232A?logo=react&logoColor=white)
+![hook: useEffect](https://img.shields.io/badge/hook-useEffect-20232A?logo=react&logoColor=white)
+![modal: createPortal](https://img.shields.io/badge/modal-createPortal-20232A)
 
 ### Qué vas a practicar
 
-| Habilidad                            | Dónde se usa en la tarea                                          |
-| ------------------------------------ | ----------------------------------------------------------------- |
-| Componentes funcionales y JSX        | `App`, `CafeInfo`, `VoteOptions`, `VoteStats`, `Notification`     |
-| Composición de componentes           | todos los componentes se renderizan dentro de `App`               |
-| Props                                | pasar datos y callbacks de `App` a los componentes hijos          |
-| Tipado de props (`interface`)        | `VoteOptionsProps`, `VoteStatsProps`                              |
-| Tipos TS compartidos, union types    | `Votes`, `VoteTypes = 'good' \| 'neutral' \| 'bad'` en `src/types` |
-| `useState` con un objeto             | estado `votes` `{ good, neutral, bad }`                           |
-| Actualización inmutable del estado   | `handleVote(type)` — spread + clave calculada `[type]`            |
-| Elevar el estado (lifting state up)  | el estado vive en `App`, los hijos lo reciben por props           |
-| Manejo de eventos                    | `onClick` en los botones → `onVote` / `onReset`                   |
-| Datos derivados                      | `totalVotes` y `positiveRate` se calculan, no se guardan          |
-| Renderizado condicional              | `VoteStats` o `Notification`, botón Reset con `canReset`          |
-| CSS Modules                          | `*.module.css` para cada componente, `modern-normalize`           |
+| Habilidad                                    | Dónde se usa en la tarea                                               |
+| -------------------------------------------- | ---------------------------------------------------------------------- |
+| Peticiones HTTP con `axios`                  | `fetchMovies` en `src/services/movieService.ts`                        |
+| Cabecera de autorización, variables de entorno | `Authorization: Bearer ...` desde `VITE_TMDB_TOKEN`                  |
+| Tipado de respuestas de la API               | `Movie`, `FetchMoviesResponse`, `axios.get<FetchMoviesResponse>`       |
+| `async/await`, `try/catch/finally`           | manejador de búsqueda en `App`                                         |
+| Form Actions de React 19                     | `<form action={handleSubmit}>` + `formData.get("query")` en `SearchBar` |
+| Varios estados                               | `movies`, `isLoading`, `isError`, `selectedMovie` en `App`             |
+| Renderizado condicional                      | `Loader`, `ErrorMessage`, `MovieGrid`, `MovieModal`                    |
+| Notificaciones emergentes                    | `react-hot-toast`: consulta vacía y «no se encontraron películas»      |
+| Props callback con argumentos                | `onSubmit(query)`, `onSelect(movie)`, `onClose()`                      |
+| Portales                                     | `MovieModal` se renderiza en `document.body` con `createPortal`        |
+| `useEffect` con limpieza                     | listener de ESC y bloqueo del scroll de `body` en `MovieModal`         |
+| CSS Modules                                  | `*.module.css` listos para cada componente                             |
 
 ---
 
 ## Tarea
 
-Crea una aplicación que permita a los usuarios dejar su opinión sobre una
-cafetería. Hay tres opciones de valoración: **good**, **neutral**, **bad**. El
-usuario elige una de ellas y ve las estadísticas.
+Crea una app que busque películas por palabra clave usando la API de TMDB.
 
-> 💡 No hace falta escribir tus propios estilos: céntrate solo en la lógica con React y TypeScript.
+> 💡 No hace falta escribir estilos propios: céntrate solo en la lógica de React y TypeScript.
 
-La maquetación ya está hecha: todos los componentes con su JSX y estilos están
-en la rama, así que no pierdes tiempo maquetando y vas directo a la **lógica con
-React y TypeScript**: estado, props, tipado, cálculos y renderizado condicional.
+El marcado ya está hecho: todos los componentes con JSX y estilos están en la
+rama (los estilos vienen de
+[goitacademy/react-movies-styles](https://github.com/goitacademy/react-movies-styles)),
+así que vas directo a la **lógica de React y TypeScript**: peticiones HTTP,
+estado, props, tipado, renderizado condicional y la ventana modal.
 
 ## Qué incluye el código inicial
-
-![Estructura de componentes: CafeInfo, VoteOptions y VoteStats dentro de App](assets/task-01/components.png)
 
 ```
 src/
 ├── components/
-│   ├── App/            App.tsx, App.module.css                    ← renderiza todos los componentes
-│   ├── CafeInfo/       CafeInfo.tsx, CafeInfo.module.css          ← listo, no necesita lógica
-│   ├── VoteOptions/    VoteOptions.tsx, VoteOptions.module.css    ← marcado de los botones
-│   ├── VoteStats/      VoteStats.tsx, VoteStats.module.css        ← marcado de las estadísticas (ceros)
-│   └── Notification/   Notification.tsx, Notification.module.css  ← mensaje «No feedback yet»
+│   ├── App/            App.tsx, App.module.css                    ← renderiza los componentes
+│   ├── SearchBar/      SearchBar.tsx, SearchBar.module.css        ← cabecera con el formulario de búsqueda
+│   ├── MovieGrid/      MovieGrid.tsx, MovieGrid.module.css        ← marcado de la cuadrícula (una tarjeta de ejemplo)
+│   ├── Loader/         Loader.tsx, Loader.module.css              ← «Loading movies, please wait...»
+│   ├── ErrorMessage/   ErrorMessage.tsx, ErrorMessage.module.css  ← «There was an error, please try again...»
+│   └── MovieModal/     MovieModal.tsx, MovieModal.module.css      ← marcado del modal (aún no se renderiza)
 └── types/
-    └── Vote.ts                                                    ← Votes y VoteTypes
+    └── movie.ts                                                   ← interfaz Movie
+.env.example                                                       ← plantilla para VITE_TMDB_TOKEN
 ```
 
 - Cada componente tiene su marcado JSX listo y su propio módulo CSS.
-- `App` renderiza `CafeInfo`, `VoteOptions`, `VoteStats` y `Notification` todos
-  a la vez; todavía no hay lógica.
-- `src/types/Vote.ts` ya exporta los tipos compartidos:
+- `App` renderiza `SearchBar`, `Loader`, `ErrorMessage` y `MovieGrid` todos a
+  la vez: todavía no hay lógica. `MovieModal` está importado pero comentado,
+  porque su backdrop taparía toda la página.
+- `axios` y `react-hot-toast` ya están en `package.json`.
+- `src/types/movie.ts` ya exporta el tipo de película:
 
   ```ts
-  export interface Votes {
-    good: number;
-    neutral: number;
-    bad: number;
+  export interface Movie {
+    id: number;
+    poster_path: string;
+    backdrop_path: string;
+    title: string;
+    overview: string;
+    release_date: string;
+    vote_average: number;
   }
-
-  export type VoteTypes = "good" | "neutral" | "bad";
   ```
 
 ## Requisitos generales
 
 - No cambies el marcado ni los estilos: solo añade lógica, props y tipos.
 - Los componentes se exportan por defecto (`export default`).
-- Los tipos compartidos se importan de `src/types/Vote.ts`. Los tipos e
-  interfaces que pertenecen a un solo componente (por ejemplo, las props) se
-  declaran directamente en el archivo de ese componente.
+- Los tipos compartidos viven en `src/types`. Los tipos e interfaces que
+  pertenecen a un solo componente (por ejemplo, las props) se declaran
+  directamente en el archivo de ese componente.
+- Nunca guardes el token de acceso en el código: solo en la variable de entorno
+  `VITE_TMDB_TOKEN`. El archivo `.env` ya está en `.gitignore`.
 - El código TypeScript debe ser limpio, legible y formateado con Prettier.
 
 ---
 
-## Paso 1. Explora el código inicial
+## Paso 1. Token de acceso de TMDB
 
-Arranca el proyecto (`npm install`, `npm run dev`) y revisa los archivos de
-`src/components` y `src/types`. Ahora mismo la app muestra a la vez la
-información de la cafetería, los botones, las estadísticas con ceros y el
-mensaje «No feedback yet», y los botones no hacen nada.
+1. Regístrate en [themoviedb.org](https://www.themoviedb.org/signup) y
+   confirma tu correo.
+2. Abre **Settings → API**, crea una aplicación (tipo *Developer*, uso
+   personal/educativo) y rellena el formulario.
+3. Copia el **API Read Access Token** (la cadena JWT larga, no la API Key corta).
+4. Crea un archivo `.env` en la raíz del proyecto a partir de `.env.example`:
 
-## Paso 2. Estado de la aplicación
+   ```bash
+   VITE_TMDB_TOKEN=your_tmdb_read_access_token
+   ```
 
-Al hacer clic en **Good / Neutral / Bad** en `VoteOptions` hay que guardar la
-elección del usuario y pasarla a otros componentes, en particular a
-`<VoteStats />`.
+5. Reinicia `npm run dev`: Vite lee `.env` solo al arrancar. En el código el
+   token está disponible como `import.meta.env.VITE_TMDB_TOKEN`.
 
-Crea en `App` el estado `votes`, tipado con la interfaz `Votes`:
+Documentación útil:
+[autenticación](https://developer.themoviedb.org/docs/authentication-application),
+[buscar películas](https://developer.themoviedb.org/reference/search-movie),
+[construir URLs de imágenes](https://developer.themoviedb.org/docs/image-basics).
+
+## Paso 2. Servicio `fetchMovies`
+
+Crea `src/services/movieService.ts` con una función `fetchMovies`:
+
+- recibe la consulta de búsqueda (`string`) y devuelve `Promise<Movie[]>`;
+- envía `GET https://api.themoviedb.org/3/search/movie`;
+- describe la respuesta con una interfaz `FetchMoviesResponse` (como mínimo
+  `results: Movie[]`) y pásala a axios: `axios.get<FetchMoviesResponse>(...)`.
+
+El objeto de configuración de axios se ve así:
 
 ```ts
 {
-  good: 0,
-  neutral: 0,
-  bad: 0
+  params: {
+    query, // tus parámetros
+  },
+  headers: {
+    Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
+  },
 }
 ```
 
-Añade en `App` las funciones:
+> Comprueba el resultado en la consola antes de conectar la interfaz: llama una
+> vez a `fetchMovies("batman")` y asegúrate de recibir un array de películas.
 
-- `handleVote(type)` — actualiza el estado de los votos; su parámetro se tipa con `VoteTypes`;
-- `resetVotes()` — reinicia el estado.
+## Paso 3. `SearchBar`: Form Actions y validación
 
-`votes` es la única fuente de verdad; los componentes reciben los valores
-actualizados a través de props.
+| Prop       | Tipo                      | Descripción                            |
+| ---------- | ------------------------- | -------------------------------------- |
+| `onSubmit` | `(query: string) => void` | pasa el valor del input al padre       |
 
-## Paso 3. `VoteOptions` — props y clics
+- Declara una interfaz `SearchBarProps` en el archivo del componente.
+- Gestiona el formulario con **Form Actions**: `<form action={handleSubmit}>`,
+  donde `handleSubmit(formData: FormData)` lee `formData.get("query")`.
+- Si el campo está vacío (tras `trim()`), muestra la notificación
+  `Please enter your search query.` y no llames a `onSubmit`.
+- Esta comprobación se hace en `SearchBar`. Añade `<Toaster />` de
+  `react-hot-toast` una sola vez en `App`, o las notificaciones no se verán.
 
-Añade props a `VoteOptions` y conéctalas a los botones:
+Después de este paso la app debería funcionar así:
 
-| Prop       | Tipo                        | Descripción                                               |
-| ---------- | --------------------------- | --------------------------------------------------------- |
-| `onVote`   | `(type: VoteTypes) => void` | se llama al hacer clic en un botón de votación            |
-| `onReset`  | `() => void`                | se llama al hacer clic en Reset, reinicia los votos       |
-| `canReset` | `boolean`                   | si se muestra el botón Reset (por ahora puede ser `true`) |
+![Resultado del paso 3: aparece una notificación si la consulta está vacía](assets/task-02/01-validation.gif)
 
-Declara la interfaz `VoteOptionsProps` en el archivo del componente. Pasa
-`handleVote` y `resetVotes` desde `App`. Los botones deben actualizar el estado
-en `App`.
+## Paso 4. Búsqueda en `App` y `MovieGrid`
 
-Después de este paso la app debe funcionar así:
+En `App` crea el estado `movies` (`Movie[]`) y un manejador de búsqueda que
+pasarás a `SearchBar` mediante `onSubmit`. El manejador:
 
-![Resultado del paso 3: los botones de VoteOptions actualizan el estado](assets/task-01/step-04-vote-options.gif)
+1. vacía la colección anterior (`setMovies([])`): cada nueva búsqueda empieza
+   de cero;
+2. llama a `fetchMovies(query)` y guarda el resultado en `movies`.
 
-## Paso 4. `VoteStats` — mostrar los votos
+Añade props a `MovieGrid`:
 
-Añade props a `VoteStats` y sustituye los ceros del marcado por valores reales:
+| Prop       | Tipo                     | Descripción                            |
+| ---------- | ------------------------ | -------------------------------------- |
+| `movies`   | `Movie[]`                | el array de películas                  |
+| `onSelect` | `(movie: Movie) => void` | se llama al hacer clic en una tarjeta  |
 
-| Prop           | Tipo     | Descripción                                     |
-| -------------- | -------- | ----------------------------------------------- |
-| `votes`        | `Votes`  | número de votos para good, neutral, bad         |
-| `totalVotes`   | `number` | número total de votos (por ahora puede ser `0`) |
-| `positiveRate` | `number` | porcentaje de votos positivos (por ahora `0`)   |
+- Declara una interfaz `MovieGridProps`.
+- Renderiza un `<li key={movie.id}>` por película con `map()`.
+- URL del póster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+  `alt` — el título de la película.
+- `MovieGrid` se renderiza **solo cuando** `movies.length > 0`.
 
-Declara la interfaz `VoteStatsProps` en el archivo del componente. Al hacer clic
-en los botones de `VoteOptions`, los cambios deben verse en `VoteStats`.
+Después de este paso la app debería funcionar así:
 
-Después de este paso la app debe funcionar así:
+![Resultado del paso 4: la búsqueda muestra una cuadrícula de pósteres](assets/task-02/02-search-batman.gif)
 
-![Resultado del paso 4: VoteStats muestra los votos](assets/task-01/step-05-vote-stats.gif)
+## Paso 5. `Loader` y `ErrorMessage`
 
-## Paso 5. Cálculo de estadísticas
+Añade los estados `isLoading` e `isError` (`boolean`) en `App`.
 
-Los cálculos se hacen en `App` y los valores ya calculados se pasan a
-`VoteStats` como props.
+- Antes de la petición: `isLoading = true`, `isError = false`.
+- Envuelve la petición en `try/catch/finally`: en `catch` pon `isError = true`,
+  en `finally`, `isLoading = false`.
+- `Loader` se renderiza **en lugar de** la cuadrícula mientras dura la petición.
+- `ErrorMessage` se renderiza **en lugar de** la cuadrícula si la petición falla.
 
-```ts
-const totalVotes = votes.good + votes.neutral + votes.bad;
+> Para probar `ErrorMessage`, estropea temporalmente el token en `.env` y
+> reinicia el servidor de desarrollo.
 
-const positiveRate = totalVotes
-  ? Math.round((votes.good / totalVotes) * 100)
-  : 0;
-```
+## Paso 6. Notificación «no se encontraron películas»
 
-> **No hace falta** crear propiedades separadas en el estado para `totalVotes`
-> y `positiveRate`: son datos derivados.
+Si la petición tuvo éxito pero el array está vacío, muestra la notificación
+`No movies found for your request.` Esta comprobación se hace en `App`, en el
+manejador de búsqueda.
 
-Después de este paso la app debe funcionar así:
+Después de este paso la app debería funcionar así:
 
-![Resultado del paso 5: se calculan Total y el porcentaje positivo](assets/task-01/step-06-statistics.gif)
+![Resultado del paso 6: aparece una notificación cuando no se encuentra nada](assets/task-02/04-no-results.gif)
 
-## Paso 6. `Notification` — renderizado condicional
+## Paso 7. `MovieModal`
 
-Ahora `App` renderiza `VoteStats` y `Notification` juntos. Haz que dependa de
-`totalVotes`:
+Al hacer clic en una tarjeta se abre un modal con los detalles de la película.
 
-- `totalVotes > 0` → se renderiza `VoteStats`;
-- `totalVotes === 0` → se renderiza `Notification`.
+En `App`:
 
-`Notification` no recibe props.
+- crea el estado `selectedMovie` (`Movie | null`);
+- pasa `setSelectedMovie` (o un wrapper) a `MovieGrid` como `onSelect`;
+- renderiza `MovieModal` solo cuando `selectedMovie` no es `null`;
+- al cerrar el modal, `selectedMovie` vuelve a `null`.
 
-Después de este paso la app debe funcionar así:
+Props de `MovieModal`:
 
-![Resultado del paso 6: Notification se muestra hasta el primer voto](assets/task-01/step-07-notification.gif)
+| Prop      | Tipo         | Descripción              |
+| --------- | ------------ | ------------------------ |
+| `movie`   | `Movie`      | la película seleccionada |
+| `onClose` | `() => void` | cierra el modal          |
 
-## Paso 7. Botón Reset condicional
+Requisitos:
 
-El botón Reset solo se muestra cuando hay al menos un voto. Usa `totalVotes` en
-`App`, pasa el valor correspondiente a `VoteOptions` mediante la prop
-`canReset` y renderiza el botón Reset solo cuando `canReset` sea `true`.
+- el modal se renderiza fuera del árbol principal con `createPortal(..., document.body)`;
+- se cierra con el botón **×**, con **Escape** y con un clic en el backdrop
+  (pero no en el propio modal: compara `event.target` y `event.currentTarget`);
+- mientras está abierto, el scroll de la página está bloqueado
+  (`document.body.style.overflow = "hidden"`);
+- imagen de fondo: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
+- sustituye los marcadores por `title`, `overview`, `release_date` y
+  `vote_average` (formato: `7.2/10`).
 
-Después de este paso la app está terminada y debe funcionar así:
+> **La limpieza es obligatoria.** Añade el listener de `keydown` y el bloqueo
+> del scroll en `useEffect`, y en la función que devuelve elimina el listener y
+> restaura `overflow`. Al cerrar no debe quedar nada.
 
-![Resultado del paso 7: el botón Reset aparece solo tras el primer voto](assets/task-01/step-08-reset.gif)
+Después de este paso la app está terminada y debería funcionar así:
+
+![Resultado del paso 7: el modal se abre, se cierra y muestra los datos de la película](assets/task-02/03-modal-marvel.gif)
 
 ---
 
-## Entrega para revisión
+## Enviar a revisión
 
 ¿Has resuelto la tarea y quieres que la revise? Estos son los pasos y requisitos.
 
 **Requisitos de la solución**
 
-- [ ] Están hechos todos los pasos 1–7 y marcados todos los puntos del checklist de abajo.
+- [ ] Todos los pasos 1–7 están hechos y todos los puntos de la checklist de abajo están marcados.
+- [ ] El token **no** está en el código ni en los commits: solo en un `.env` local.
 - [ ] `npm run build` y `npm run lint` pasan sin errores.
 - [ ] El código está formateado con Prettier.
-- [ ] La app está probada en el navegador: votación, estadísticas, `Notification` y Reset funcionan.
-- [ ] *(Opcional)* La app está desplegada (Vercel / Netlify / GitHub Pages) y el enlace está en el PR.
+- [ ] La app está probada en el navegador: búsqueda, notificaciones, loader, error, cuadrícula y modal funcionan.
+- [ ] *(Opcional)* La app está desplegada (Vercel / Netlify) con `VITE_TMDB_TOKEN`
+      configurado en el hosting, y el enlace está añadido al PR.
 
-**Cómo entregar**
+**Cómo enviarla**
 
-1. Haz un **Fork** de este repositorio (botón arriba a la derecha en GitHub).
+1. Haz **Fork** de este repositorio (botón arriba a la derecha en GitHub).
 2. Clona tu fork y crea tu rama a partir de la rama de la tarea:
    ```bash
    git clone https://github.com/<tu-usuario>/react.git
    cd react
-   git checkout task-01-cafe-feedback
-   git checkout -b task-01-cafe-feedback-<tu-usuario>
+   git checkout task-02-movie-search
+   git checkout -b task-02-movie-search-<tu-usuario>
    npm install
+   cp .env.example .env   # y pega tu token
    npm run dev
    ```
 3. Resuelve la tarea, haz commit y sube la rama a tu fork:
    ```bash
-   git push -u origin task-01-cafe-feedback-<tu-usuario>
+   git push -u origin task-02-movie-search-<tu-usuario>
    ```
 4. Abre un **Pull Request** a este repositorio:
-   - **base:** `task-01-cafe-feedback` (la rama de la tarea, **no** `main`);
+   - **base:** `task-02-movie-search` (la rama de la tarea, **no** `main`);
    - **compare:** tu rama del fork;
-   - título: `Solución task-01 — <tu-usuario>`;
+   - título: `Solución task-02 — <tu-usuario>`;
    - rellena la plantilla del PR (aparece automáticamente).
 5. Revisaré el código y dejaré comentarios directamente en el PR.
 
-El PR **no se fusiona**, para que la rama de la tarea siga limpia para futuros
-intentos. Tras la revisión lo cerraré y tu solución seguirá en tu fork.
+El PR **no se fusiona**, así la rama de la tarea queda limpia para futuros
+intentos. Tras la revisión lo cerraré, y tu solución se queda en tu fork.
 
 ## Checklist
 
-- [ ] Paso 1 — código inicial explorado
-- [ ] Paso 2 — estado `votes`, `handleVote` y `resetVotes`
-- [ ] Paso 3 — `VoteOptions`: props y clics
-- [ ] Paso 4 — `VoteStats`: props y valores
-- [ ] Paso 5 — `totalVotes` y `positiveRate`
-- [ ] Paso 6 — `Notification` y renderizado condicional
-- [ ] Paso 7 — Reset condicional
+- [ ] Paso 1 — token de TMDB en `.env`
+- [ ] Paso 2 — `fetchMovies` en `services/movieService.ts`, respuesta tipada
+- [ ] Paso 3 — `SearchBar`: Form Actions, `onSubmit`, notificación de consulta vacía
+- [ ] Paso 4 — estado `movies`, manejador de búsqueda, `MovieGrid`
+- [ ] Paso 5 — `Loader` y `ErrorMessage`
+- [ ] Paso 6 — notificación «No movies found»
+- [ ] Paso 7 — `MovieModal`: portal, ×/ESC/backdrop, bloqueo del scroll, limpieza

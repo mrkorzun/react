@@ -2,259 +2,311 @@
   <a href="README.md">English</a> | <b>Русский</b> | <a href="README.uk.md">Українська</a> | <a href="README.es.md">Español</a>
 </p>
 
-<img align="right" alt="Уровень: начальный" src="https://img.shields.io/badge/%D0%A3%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C-%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-2EA44F">
+<img align="right" alt="Уровень: средний" src="https://img.shields.io/badge/%D0%A3%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C-%D1%81%D1%80%D0%B5%D0%B4%D0%BD%D0%B8%D0%B9-DBAB09">
 
-# Виджет отзывов — Sip Happens Café
+# Поиск фильмов — TMDB
 
-![Демо: голосование, статистика и Reset в готовом приложении](assets/task-01/demo.gif)
+![Демо: поиск, сетка фильмов, модальное окно и уведомления в готовом приложении](assets/task-02/demo.gif)
 
 ## О проекте
 
-Одностраничное приложение: посетитель оценивает кофейню (**Good / Neutral / Bad**)
-и сразу видит статистику — количество голосов по каждому варианту, общее число
-голосов и процент положительных отзывов. Пока голосов нет, показывается
-сообщение «No feedback yet»; кнопка **Reset** появляется только после первого
-голоса и сбрасывает результаты.
+Одностраничное приложение для поиска фильмов по ключевому слову. Пользователь
+вводит запрос, приложение отправляет HTTP-запрос к
+[TMDB](https://www.themoviedb.org/) и показывает сетку постеров. Клик по
+постеру открывает модальное окно с фоновым кадром, описанием, датой выхода и
+рейтингом. Пока идёт запрос, показывается лоадер; при ошибке сети — сообщение
+об ошибке; при пустом запросе или пустом результате — всплывающее уведомление.
 
 ![React: 19](https://img.shields.io/badge/React-19-087EA4?logo=react&logoColor=white)
 ![TypeScript: strict](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![Vite: 8](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 ![CSS: Modules](https://img.shields.io/badge/CSS-Modules-1572B6?logo=cssmodules&logoColor=white)
 ![Prettier: formatted](https://img.shields.io/badge/Prettier-formatted-F7B93E?logo=prettier&logoColor=white)
-![hook: useState](https://img.shields.io/badge/hook-useState-20232A?logo=react&logoColor=white)
-![props: typed](https://img.shields.io/badge/props-typed-20232A)
-![rendering: conditional](https://img.shields.io/badge/rendering-conditional-20232A)
-![state: lifting up](https://img.shields.io/badge/state-lifting%20up-20232A)
+![HTTP: axios](https://img.shields.io/badge/HTTP-axios-5A29E4?logo=axios&logoColor=white)
+![API: TMDB](https://img.shields.io/badge/API-TMDB-01B4E4?logo=themoviedatabase&logoColor=white)
+![toasts: react--hot--toast](https://img.shields.io/badge/toasts-react--hot--toast-20232A)
+![form: actions](https://img.shields.io/badge/form-actions-20232A?logo=react&logoColor=white)
+![hook: useEffect](https://img.shields.io/badge/hook-useEffect-20232A?logo=react&logoColor=white)
+![modal: createPortal](https://img.shields.io/badge/modal-createPortal-20232A)
 
 ### Что прокачиваешь
 
-| Навык                              | Где используется в задаче                                        |
-| ---------------------------------- | ---------------------------------------------------------------- |
-| Функциональные компоненты и JSX    | `App`, `CafeInfo`, `VoteOptions`, `VoteStats`, `Notification`    |
-| Композиция компонентов             | все компоненты рендерятся внутри `App`                           |
-| Пропсы                             | передача данных и колбэков из `App` в дочерние компоненты        |
-| Типизация пропсов (`interface`)    | `VoteOptionsProps`, `VoteStatsProps`                             |
-| Общие TS-типы, union-типы          | `Votes`, `VoteTypes = 'good' \| 'neutral' \| 'bad'` в `src/types` |
-| `useState` с объектом              | состояние `votes` `{ good, neutral, bad }`                       |
-| Иммутабельное обновление состояния | `handleVote(type)` — spread + вычисляемый ключ `[type]`          |
-| Подъём состояния (lifting state up) | состояние в `App`, дети получают его через пропсы               |
-| Обработка событий                  | `onClick` на кнопках → `onVote` / `onReset`                      |
-| Производные данные                 | `totalVotes` и `positiveRate` вычисляются, а не хранятся         |
-| Условный рендеринг                 | `VoteStats` или `Notification`, кнопка Reset через `canReset`    |
-| CSS-модули                         | `*.module.css` для каждого компонента, `modern-normalize`        |
+| Навык                                  | Где используется в задаче                                              |
+| -------------------------------------- | ---------------------------------------------------------------------- |
+| HTTP-запросы через `axios`             | `fetchMovies` в `src/services/movieService.ts`                         |
+| Заголовок авторизации, переменные окружения | `Authorization: Bearer ...` из `VITE_TMDB_TOKEN`                  |
+| Типизация ответа API                   | `Movie`, `FetchMoviesResponse`, `axios.get<FetchMoviesResponse>`       |
+| `async/await`, `try/catch/finally`     | обработчик поиска в `App`                                              |
+| Form Actions в React 19                | `<form action={handleSubmit}>` + `formData.get("query")` в `SearchBar` |
+| Несколько состояний                    | `movies`, `isLoading`, `isError`, `selectedMovie` в `App`              |
+| Условный рендеринг                     | `Loader`, `ErrorMessage`, `MovieGrid`, `MovieModal`                    |
+| Всплывающие уведомления                | `react-hot-toast`: пустой запрос и «фильмы не найдены»                 |
+| Колбэк-пропсы с аргументами            | `onSubmit(query)`, `onSelect(movie)`, `onClose()`                      |
+| Порталы                                | `MovieModal` рендерится в `document.body` через `createPortal`         |
+| `useEffect` с очисткой                 | слушатель ESC и блокировка скролла `body` в `MovieModal`               |
+| CSS-модули                             | готовые `*.module.css` для каждого компонента                          |
 
 ---
 
 ## Задача
 
-Создай приложение, которое позволяет пользователям оставлять отзывы о кофейне.
-Есть три варианта оценки: **good**, **neutral**, **bad**. Пользователь выбирает
-один из вариантов и видит статистику.
+Создай приложение для поиска фильмов по ключевому слову через TMDB API.
 
 > 💡 Свои стили писать не нужно — сосредоточься только на логике на React и TypeScript.
 
-Вёрстка уже готова: все компоненты с JSX-разметкой и стилями лежат в ветке,
-поэтому не нужно тратить время на верстку — сразу переходи к **логике на React
-и TypeScript**: состоянию, пропсам, типизации, вычислениям и условному
-рендерингу.
+Вёрстка уже готова: все компоненты с JSX-разметкой и стилями лежат в ветке
+(стили взяты из
+[goitacademy/react-movies-styles](https://github.com/goitacademy/react-movies-styles)),
+поэтому сразу переходи к **логике на React и TypeScript**: HTTP-запросам,
+состоянию, пропсам, типизации, условному рендерингу и модальному окну.
 
 ## Что уже есть в стартовом коде
-
-![Структура компонентов: CafeInfo, VoteOptions и VoteStats внутри App](assets/task-01/components.png)
 
 ```
 src/
 ├── components/
-│   ├── App/            App.tsx, App.module.css                    ← рендерит все компоненты
-│   ├── CafeInfo/       CafeInfo.tsx, CafeInfo.module.css          ← готов, логика не нужна
-│   ├── VoteOptions/    VoteOptions.tsx, VoteOptions.module.css    ← разметка кнопок
-│   ├── VoteStats/      VoteStats.tsx, VoteStats.module.css        ← разметка статистики (нули)
-│   └── Notification/   Notification.tsx, Notification.module.css  ← сообщение «No feedback yet»
+│   ├── App/            App.tsx, App.module.css                    ← рендерит компоненты
+│   ├── SearchBar/      SearchBar.tsx, SearchBar.module.css        ← шапка с формой поиска
+│   ├── MovieGrid/      MovieGrid.tsx, MovieGrid.module.css        ← разметка сетки (одна карточка-пример)
+│   ├── Loader/         Loader.tsx, Loader.module.css              ← «Loading movies, please wait...»
+│   ├── ErrorMessage/   ErrorMessage.tsx, ErrorMessage.module.css  ← «There was an error, please try again...»
+│   └── MovieModal/     MovieModal.tsx, MovieModal.module.css      ← разметка модалки (пока не рендерится)
 └── types/
-    └── Vote.ts                                                    ← Votes и VoteTypes
+    └── movie.ts                                                   ← интерфейс Movie
+.env.example                                                       ← шаблон для VITE_TMDB_TOKEN
 ```
 
 - У каждого компонента есть готовая JSX-разметка и свой CSS-модуль.
-- `App` рендерит `CafeInfo`, `VoteOptions`, `VoteStats` и `Notification` сразу
-  все вместе — логики пока нет.
-- В `src/types/Vote.ts` уже экспортированы общие типы:
+- `App` рендерит `SearchBar`, `Loader`, `ErrorMessage` и `MovieGrid` сразу
+  все вместе — логики пока нет. `MovieModal` импортирован, но закомментирован,
+  потому что его бэкдроп перекрыл бы всю страницу.
+- `axios` и `react-hot-toast` уже добавлены в `package.json`.
+- В `src/types/movie.ts` уже экспортирован тип фильма:
 
   ```ts
-  export interface Votes {
-    good: number;
-    neutral: number;
-    bad: number;
+  export interface Movie {
+    id: number;
+    poster_path: string;
+    backdrop_path: string;
+    title: string;
+    overview: string;
+    release_date: string;
+    vote_average: number;
   }
-
-  export type VoteTypes = "good" | "neutral" | "bad";
   ```
 
 ## Общие требования
 
-- Разметку и стили не меняем — добавляем только логику, пропсы и типы.
+- Не меняй разметку и стили — только добавляй логику, пропсы и типы.
 - Компоненты экспортируются по умолчанию (`export default`).
-- Общие типы импортируются из `src/types/Vote.ts`. Типы и интерфейсы, которые
-  относятся только к одному компоненту (например, пропсы), объявляются прямо в
-  файле этого компонента.
-- TypeScript-код должен быть чистым, понятным и отформатированным с помощью
-  Prettier.
+- Общие типы лежат в `src/types`. Типы и интерфейсы, которые относятся к
+  одному компоненту (например, пропсы), объявляются прямо в файле этого
+  компонента.
+- Никогда не храни токен доступа в коде — только в переменной окружения
+  `VITE_TMDB_TOKEN`. Файл `.env` уже добавлен в `.gitignore`.
+- Код на TypeScript должен быть чистым, читаемым и отформатированным Prettier.
 
 ---
 
-## Шаг 1. Изучи стартовый код
+## Шаг 1. Токен доступа TMDB
 
-Запусти проект (`npm install`, `npm run dev`) и посмотри файлы в
-`src/components` и `src/types`. Сейчас приложение одновременно показывает
-информацию о кофейне, кнопки, статистику с нулями и сообщение «No feedback yet»,
-а кнопки ничего не делают.
+1. Зарегистрируйся на [themoviedb.org](https://www.themoviedb.org/signup) и
+   подтверди почту.
+2. Открой **Settings → API**, создай приложение (тип — *Developer*,
+   использование — личное/учебное) и заполни форму.
+3. Скопируй **API Read Access Token** (длинная JWT-строка, а не короткий API Key).
+4. Создай в корне проекта файл `.env` по образцу `.env.example`:
 
-## Шаг 2. Состояние приложения
+   ```bash
+   VITE_TMDB_TOKEN=your_tmdb_read_access_token
+   ```
 
-При клике на **Good / Neutral / Bad** в `VoteOptions` нужно сохранять выбор
-пользователя и передавать его другим компонентам, в частности `<VoteStats />`.
+5. Перезапусти `npm run dev` — Vite читает `.env` только при старте. В коде
+   токен доступен как `import.meta.env.VITE_TMDB_TOKEN`.
 
-Создай в `App` состояние `votes`, типизированное интерфейсом `Votes`:
+Полезные разделы документации:
+[авторизация](https://developer.themoviedb.org/docs/authentication-application),
+[поиск фильмов](https://developer.themoviedb.org/reference/search-movie),
+[полный путь к изображению](https://developer.themoviedb.org/docs/image-basics).
+
+## Шаг 2. Сервис `fetchMovies`
+
+Создай файл `src/services/movieService.ts` с функцией `fetchMovies`:
+
+- принимает поисковый запрос (`string`) и возвращает `Promise<Movie[]>`;
+- отправляет `GET https://api.themoviedb.org/3/search/movie`;
+- опиши ответ интерфейсом `FetchMoviesResponse` (минимум `results: Movie[]`)
+  и передай его в axios: `axios.get<FetchMoviesResponse>(...)`.
+
+Объект настроек axios выглядит так:
 
 ```ts
 {
-  good: 0,
-  neutral: 0,
-  bad: 0
+  params: {
+    query, // твои параметры
+  },
+  headers: {
+    Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
+  },
 }
 ```
 
-Добавь в `App` функции:
+> Проверь результат в консоли до подключения интерфейса: один раз вызови
+> `fetchMovies("batman")` и убедись, что приходит массив фильмов.
 
-- `handleVote(type)` — обновляет состояние голосов; параметр типизирован через `VoteTypes`;
-- `resetVotes()` — сбрасывает состояние.
+## Шаг 3. `SearchBar` — Form Actions и валидация
 
-`votes` — центральный источник данных; компоненты получают актуальные значения
-через пропсы.
+| Пропс      | Тип                       | Описание                              |
+| ---------- | ------------------------- | ------------------------------------- |
+| `onSubmit` | `(query: string) => void` | передаёт значение инпута родителю     |
 
-## Шаг 3. `VoteOptions` — пропсы и клики
-
-Добавь пропсы в `VoteOptions` и подключи их к кнопкам:
-
-| Пропс      | Тип                         | Описание                                                |
-| ---------- | --------------------------- | ------------------------------------------------------- |
-| `onVote`   | `(type: VoteTypes) => void` | вызывается при клике на кнопку голосования              |
-| `onReset`  | `() => void`                | вызывается при клике на Reset, сбрасывает голоса        |
-| `canReset` | `boolean`                   | показывать ли кнопку Reset (на этом этапе можно `true`) |
-
-В файле компонента объяви интерфейс `VoteOptionsProps`. Передай из `App`
-функции `handleVote` и `resetVotes`. Кнопки должны обновлять состояние в `App`.
+- Объяви интерфейс `SearchBarProps` в файле компонента.
+- Обработай форму через **Form Actions**: `<form action={handleSubmit}>`, где
+  `handleSubmit(formData: FormData)` читает `formData.get("query")`.
+- Если поле пустое (после `trim()`), покажи уведомление
+  `Please enter your search query.` и не вызывай `onSubmit`.
+- Эта проверка делается в `SearchBar`. Добавь `<Toaster />` из
+  `react-hot-toast` один раз в `App`, иначе уведомлений не будет видно.
 
 После этого шага приложение должно работать так:
 
-![Результат шага 3: кнопки VoteOptions обновляют состояние](assets/task-01/step-04-vote-options.gif)
+![Результат шага 3: при пустом запросе появляется уведомление](assets/task-02/01-validation.gif)
 
-## Шаг 4. `VoteStats` — вывод голосов
+## Шаг 4. Поиск в `App` и `MovieGrid`
 
-Добавь пропсы в `VoteStats` и замени нули в разметке на реальные значения:
+В `App` создай состояние `movies` (`Movie[]`) и обработчик поиска, который
+передашь в `SearchBar` через `onSubmit`. Обработчик:
 
-| Пропс          | Тип      | Описание                                       |
-| -------------- | -------- | ---------------------------------------------- |
-| `votes`        | `Votes`  | количество голосов для good, neutral, bad      |
-| `totalVotes`   | `number` | общее количество голосов (пока можно `0`)      |
-| `positiveRate` | `number` | процент положительных голосов (пока можно `0`) |
+1. очищает предыдущую коллекцию (`setMovies([])`) — каждый новый поиск
+   начинается с нуля;
+2. вызывает `fetchMovies(query)` и сохраняет результат в `movies`.
 
-В файле компонента объяви интерфейс `VoteStatsProps`. При кликах на кнопки в
-`VoteOptions` изменения должны отображаться в `VoteStats`.
+Добавь пропсы в `MovieGrid`:
 
-После этого шага приложение должно работать так:
+| Пропс      | Тип                      | Описание                        |
+| ---------- | ------------------------ | ------------------------------- |
+| `movies`   | `Movie[]`                | массив фильмов                  |
+| `onSelect` | `(movie: Movie) => void` | вызывается при клике на карточку |
 
-![Результат шага 4: VoteStats показывает голоса](assets/task-01/step-05-vote-stats.gif)
-
-## Шаг 5. Вычисление статистики
-
-Вычисления выполняются в `App`, готовые значения передаются пропсами в
-`VoteStats`.
-
-```ts
-const totalVotes = votes.good + votes.neutral + votes.bad;
-
-const positiveRate = totalVotes
-  ? Math.round((votes.good / totalVotes) * 100)
-  : 0;
-```
-
-> Для `totalVotes` и `positiveRate` **не нужно** создавать отдельные свойства в
-> состоянии — это производные данные.
+- Объяви интерфейс `MovieGridProps`.
+- Через `map()` рендери по одному `<li key={movie.id}>` на фильм.
+- Адрес постера: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+  `alt` — название фильма.
+- `MovieGrid` рендерится **только если** `movies.length > 0`.
 
 После этого шага приложение должно работать так:
 
-![Результат шага 5: вычисляются Total и процент положительных](assets/task-01/step-06-statistics.gif)
+![Результат шага 4: поиск показывает сетку постеров](assets/task-02/02-search-batman.gif)
 
-## Шаг 6. `Notification` — условный рендеринг
+## Шаг 5. `Loader` и `ErrorMessage`
 
-Сейчас `App` рендерит `VoteStats` и `Notification` вместе. Сделай так, чтобы это
-зависело от `totalVotes`:
+Добавь в `App` состояния `isLoading` и `isError` (`boolean`).
 
-- `totalVotes > 0` → рендерится `VoteStats`;
-- `totalVotes === 0` → рендерится `Notification`.
+- Перед запросом: `isLoading = true`, `isError = false`.
+- Оберни запрос в `try/catch/finally`: в `catch` выставь `isError = true`, в
+  `finally` — `isLoading = false`.
+- `Loader` рендерится **вместо** сетки, пока идёт запрос.
+- `ErrorMessage` рендерится **вместо** сетки, если запрос завершился ошибкой.
 
-`Notification` пропсов не принимает.
+> Чтобы проверить `ErrorMessage`, временно испорти токен в `.env` и перезапусти
+> dev-сервер.
+
+## Шаг 6. Уведомление «фильмы не найдены»
+
+Если запрос прошёл успешно, но массив пустой, покажи уведомление
+`No movies found for your request.` Эта проверка делается в `App`, в
+обработчике поиска.
 
 После этого шага приложение должно работать так:
 
-![Результат шага 6: Notification показывается до первого голоса](assets/task-01/step-07-notification.gif)
+![Результат шага 6: если ничего не найдено, появляется уведомление](assets/task-02/04-no-results.gif)
 
-## Шаг 7. Кнопка Reset по условию
+## Шаг 7. `MovieModal`
 
-Кнопка Reset отображается только когда есть хотя бы один голос. Используй
-`totalVotes` в `App`, передай соответствующее значение пропсом `canReset` в
-`VoteOptions` и рендери кнопку Reset, только если `canReset` равен `true`.
+Клик по карточке открывает модалку с подробностями о фильме.
+
+В `App`:
+
+- создай состояние `selectedMovie` (`Movie | null`);
+- передай `setSelectedMovie` (или обёртку) в `MovieGrid` как `onSelect`;
+- рендери `MovieModal`, только когда `selectedMovie` не `null`;
+- закрытие модалки сбрасывает `selectedMovie` в `null`.
+
+Пропсы `MovieModal`:
+
+| Пропс     | Тип          | Описание                |
+| --------- | ------------ | ----------------------- |
+| `movie`   | `Movie`      | выбранный фильм         |
+| `onClose` | `() => void` | закрывает модалку       |
+
+Требования:
+
+- модалка рендерится вне основного дерева через `createPortal(..., document.body)`;
+- закрывается по кнопке **×**, по **Escape** и по клику на бэкдроп (но не на
+  саму модалку — сравни `event.target` и `event.currentTarget`);
+- пока она открыта, прокрутка страницы запрещена
+  (`document.body.style.overflow = "hidden"`);
+- фоновое изображение: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
+- замени заглушки на `title`, `overview`, `release_date` и `vote_average`
+  (формат: `7.2/10`).
+
+> **Очистка обязательна.** Слушатель `keydown` и блокировку скролла добавляй в
+> `useEffect`, а в функции, которую он возвращает, удаляй слушатель и
+> восстанавливай `overflow`. После закрытия ничего не должно остаться.
 
 После этого шага приложение готово и должно работать так:
 
-![Результат шага 7: кнопка Reset появляется только после первого голоса](assets/task-01/step-08-reset.gif)
+![Результат шага 7: модалка открывается, закрывается и показывает данные фильма](assets/task-02/03-modal-marvel.gif)
 
 ---
 
-## Сдача на проверку
+## Отправка на ревью
 
-Решил задачу и хочешь, чтобы я проверил? Вот шаги и условия.
+Решил задачу и хочешь, чтобы я посмотрел? Вот шаги и требования.
 
 **Требования к решению**
 
-- [ ] Выполнены все шаги 1–7, отмечены все пункты чеклиста ниже.
+- [ ] Все шаги 1–7 выполнены, все пункты чек-листа ниже отмечены.
+- [ ] Токена **нет** ни в коде, ни в коммитах — только в локальном `.env`.
 - [ ] `npm run build` и `npm run lint` проходят без ошибок.
 - [ ] Код отформатирован Prettier.
-- [ ] Приложение проверено в браузере: голосование, статистика, `Notification` и Reset работают.
-- [ ] *(Необязательно)* Приложение задеплоено (Vercel / Netlify / GitHub Pages), ссылка добавлена в PR.
+- [ ] Приложение проверено в браузере: поиск, уведомления, лоадер, ошибка, сетка и модалка работают.
+- [ ] *(По желанию)* Приложение задеплоено (Vercel / Netlify), `VITE_TMDB_TOKEN`
+      задан в настройках хостинга, ссылка добавлена в PR.
 
-**Как сдать**
+**Как отправить**
 
 1. Сделай **Fork** этого репозитория (кнопка справа вверху на GitHub).
 2. Склонируй свой форк и создай свою ветку от ветки задачи:
    ```bash
    git clone https://github.com/<твой-ник>/react.git
    cd react
-   git checkout task-01-cafe-feedback
-   git checkout -b task-01-cafe-feedback-<твой-ник>
+   git checkout task-02-movie-search
+   git checkout -b task-02-movie-search-<твой-ник>
    npm install
+   cp .env.example .env   # и вставь свой токен
    npm run dev
    ```
 3. Реши задачу, закоммить и запушь ветку в свой форк:
    ```bash
-   git push -u origin task-01-cafe-feedback-<твой-ник>
+   git push -u origin task-02-movie-search-<твой-ник>
    ```
 4. Открой **Pull Request** в этот репозиторий:
-   - **base:** `task-01-cafe-feedback` (ветка задачи, **не** `main`);
+   - **base:** `task-02-movie-search` (ветка задачи, **не** `main`);
    - **compare:** твоя ветка из форка;
-   - название: `Решение task-01 — <твой-ник>`;
-   - заполни шаблон PR (он подставится сам).
+   - в названии укажи: `Решение task-02 — <твой-ник>`;
+   - заполни шаблон PR (он подставится автоматически).
 5. Я посмотрю код и оставлю комментарии прямо в PR.
 
-PR **не мерджится**, чтобы ветка задачи осталась чистой для следующих
-прохождений. После ревью я закрою PR, а твоё решение останется в твоём форке.
+PR **не мерджится**, чтобы ветка задачи оставалась чистой для следующих
+попыток. После ревью я закрою его, а твоё решение останется в твоём форке.
 
-## Чеклист
+## Чек-лист
 
-- [ ] Шаг 1 — изучен стартовый код
-- [ ] Шаг 2 — состояние `votes`, `handleVote` и `resetVotes`
-- [ ] Шаг 3 — `VoteOptions`: пропсы и клики
-- [ ] Шаг 4 — `VoteStats`: пропсы и значения
-- [ ] Шаг 5 — `totalVotes` и `positiveRate`
-- [ ] Шаг 6 — `Notification` и условный рендеринг
-- [ ] Шаг 7 — Reset по условию
+- [ ] Шаг 1 — токен TMDB в `.env`
+- [ ] Шаг 2 — `fetchMovies` в `services/movieService.ts`, типизированный ответ
+- [ ] Шаг 3 — `SearchBar`: Form Actions, `onSubmit`, уведомление о пустом запросе
+- [ ] Шаг 4 — состояние `movies`, обработчик поиска, `MovieGrid`
+- [ ] Шаг 5 — `Loader` и `ErrorMessage`
+- [ ] Шаг 6 — уведомление «No movies found»
+- [ ] Шаг 7 — `MovieModal`: портал, ×/ESC/бэкдроп, блокировка скролла, очистка

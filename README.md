@@ -57,8 +57,7 @@ Build an app that searches movies by keyword using the TMDB API.
 > 💡 No need to write your own styles — just focus on React and TypeScript logic.
 
 The markup is already done: all components with JSX and styles are in the
-branch (styles are taken from
-[goitacademy/react-movies-styles](https://github.com/goitacademy/react-movies-styles)),
+branch,
 so you go straight to the **React and TypeScript logic** — HTTP requests,
 state, props, typing, conditional rendering and the modal window.
 

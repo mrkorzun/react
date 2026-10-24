@@ -58,8 +58,7 @@ Crea una app que busque películas por palabra clave usando la API de TMDB.
 > 💡 No hace falta escribir estilos propios: céntrate solo en la lógica de React y TypeScript.
 
 El marcado ya está hecho: todos los componentes con JSX y estilos están en la
-rama (los estilos vienen de
-[goitacademy/react-movies-styles](https://github.com/goitacademy/react-movies-styles)),
+rama,
 así que vas directo a la **lógica de React y TypeScript**: peticiones HTTP,
 estado, props, tipado, renderizado condicional y la ventana modal.
 

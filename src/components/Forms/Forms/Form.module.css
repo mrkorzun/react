@@ -1,0 +1,40 @@
+.forms {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 10px;
+}
+
+input {
+  border: 1px solid #5c69f5;
+  padding: 0 10px;
+  height: 30px;
+  border-radius: 20px;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #f55c5c;
+  color: #f55c5c;
+}
+
+button {
+  cursor: pointer;
+  height: 30px;
+
+  color: aliceblue;
+
+  border: none;
+  border-radius: 10px;
+  background-color: #5c69f5;
+}
+
+button:focus,
+button:hover {
+  background-color: blue;
+}

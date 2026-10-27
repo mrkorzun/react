@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CarList from "../CarList/CarList";
-import SearchForm from "../SearchForm/SearchForm";
+import SearchForm from "../Form/SearchForm";
 import { getCarList } from "../services/carService";
 import css from "./Cars.module.css";
 import type { Car } from "../types/cars";

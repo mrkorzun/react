@@ -73,3 +73,9 @@ button:hover {
 .list:focus {
   outline: none;
 }
+
+.polici {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}

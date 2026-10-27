@@ -56,6 +56,9 @@ const Form = () => {
           <option value="barcelona">Barcelona</option>
         </select>
         <button type="submit">Registration</button>
+        <label htmlFor="" className={css["polici"]}>
+          <input type="checkbox" value="check" required /> Accept polici
+        </label>
       </form>
     </div>
   );

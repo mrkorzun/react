@@ -1,6 +1,10 @@
 .forms {
   display: flex;
   flex-wrap: wrap;
+  padding: 20px;
+  border: 1px solid #5c69f5;
+  margin-top: 30px;
+  border-radius: 20px;
 }
 
 form {
@@ -8,6 +12,27 @@ form {
   flex-direction: column;
   gap: 10px;
   margin: 10px 10px;
+}
+
+legend {
+  padding: 0 10px;
+}
+.genderLabel {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.gender {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  border-radius: 10px;
+  border: 1px solid #5c69f5;
+}
+
+p {
+  margin: 0;
 }
 
 input {
@@ -25,7 +50,7 @@ input:focus {
 
 button {
   cursor: pointer;
-  height: 30px;
+  height: 50px;
 
   color: aliceblue;
 
@@ -37,4 +62,14 @@ button {
 button:focus,
 button:hover {
   background-color: blue;
+}
+
+.list {
+  padding: 0 10px;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.list:focus {
+  outline: none;
 }

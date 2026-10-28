@@ -3,9 +3,13 @@ import { useId } from "react";
 
 const Form = () => {
   const id = useId();
+  const handleSubmit = (formData: FormData) => {
+    const username = formData.get("username") as string;
+    console.log(username);
+  };
   return (
     <div className={css["forms"]}>
-      <form action="" className={css["login"]}>
+      <form action={handleSubmit} className={css["login"]}>
         <label htmlFor={`${id}-username`}>Full Name:</label>
         <input
           id={`${id}-username`}
@@ -56,9 +60,10 @@ const Form = () => {
           <option value="barcelona">Barcelona</option>
         </select>
         <button type="submit">Registration</button>
-        <label htmlFor="" className={css["polici"]}>
-          <input type="checkbox" value="check" required /> Accept polici
-        </label>
+        {/* <label htmlFor="" className={css["polici"]}>
+          <input type="checkbox" value="check" name="checked" required /> Accept
+          policy
+        </label> */}
       </form>
     </div>
   );

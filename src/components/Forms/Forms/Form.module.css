@@ -1,10 +1,12 @@
 .forms {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   padding: 20px;
   border: 1px solid #5c69f5;
   margin-top: 30px;
   border-radius: 20px;
+  background-color: #fafcfe;
 }
 
 form {
@@ -39,13 +41,13 @@ input {
   border: 1px solid #5c69f5;
   padding: 0 10px;
   height: 30px;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 input:focus {
   outline: none;
-  border: 1px solid #f55c5c;
-  color: #f55c5c;
+  border: 2px solid #1c8233;
+  color: #135623;
 }
 
 button {

@@ -1,0 +1,10 @@
+.searchForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  padding: 20px 20px;
+  border: 1px solid #5c69f5;
+  border-radius: 20px;
+  background-color: #fafcfe;
+}

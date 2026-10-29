@@ -1,10 +1,5 @@
 import axios from "axios";
-
-export interface Article {
-  objectID: string;
-  title: string;
-  url: string;
-}
+import type { Article } from "../types/article";
 
 interface ArticlesResponse {
   hits: Article[];

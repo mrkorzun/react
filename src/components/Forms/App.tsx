@@ -2,7 +2,9 @@ import { useState } from "react";
 import css from "./App.module.css";
 import Form from "./Forms/Form";
 import SearchForm from "./NewsForm/SearchForm";
-import { searchNews, type Article } from "./services/service";
+import { searchNews } from "./services/service";
+import ArcticlesList from "./ArticlesList/ArcticlesList";
+import type { Article } from "./types/article";
 
 const App = () => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -19,17 +21,7 @@ const App = () => {
       <Form />
       <div className={css["news"]}>
         <SearchForm onSubmit={handleSearch} />
-        {articles.length > 0 && (
-          <ol>
-            {articles.map(({ objectID, url, title }) => (
-              <li key={objectID}>
-                <a href={url} target="_blank">
-                  {title}
-                </a>
-              </li>
-            ))}
-          </ol>
-        )}
+        {articles.length > 0 && <ArcticlesList items={articles} />}
       </div>
     </div>
   );

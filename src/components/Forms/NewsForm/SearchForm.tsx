@@ -3,6 +3,7 @@ import css from "./SearchForm.module.css";
 interface SearchFormProps {
   onSubmit: (value: string) => void;
 }
+
 const SearchForm = ({ onSubmit }: SearchFormProps) => {
   const handleSubmit = (formData: FormData) => {
     const query = formData.get("topic") as string;

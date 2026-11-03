@@ -1,0 +1,35 @@
+.f {
+  display: flex;
+  flex-direction: column;
+
+  width: 300px;
+
+  margin: 30px auto;
+  gap: 15px;
+}
+
+input {
+  height: 40px;
+  padding-left: 10px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #504aff;
+}
+
+input:focus {
+  border: 2px solid #504aff;
+  padding-left: 9px;
+}
+
+button {
+  cursor: pointer;
+  height: 40px;
+  background-color: #504aff;
+  border-radius: 10px;
+  color: #fff;
+  border: none;
+}
+
+button:hover {
+  background-color: #8480f7;
+}

@@ -9,15 +9,18 @@ import { InfinitySpin } from "react-loader-spinner";
 const App = () => {
   const [article, setArticle] = useState<Article[]>([]);
   const [isLoading, setLoading] = useState(false);
+  const [isError, setError] = useState(false);
   const handleQuery = async (query: string) => {
     try {
       setLoading(true);
       setArticle([]);
       const data = await takeArticle(query);
-      setLoading(false);
       setArticle(data);
     } catch (error) {
       console.log(error);
+      setError(true);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -28,6 +31,7 @@ const App = () => {
           <InfinitySpin width="200" color="#504aff" />
         </span>
       )}
+      {isError && <p>Whoops, something went wrong! Please try again!</p>}
       {article.length > 0 && <ArticleMarkup items={article} />}
     </div>
   );

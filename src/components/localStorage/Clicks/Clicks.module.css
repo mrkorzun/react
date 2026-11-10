@@ -1,0 +1,71 @@
+.counter {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+  border: 1px solid #1562e8;
+  border-radius: 20px;
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 25px;
+}
+
+.highlight {
+  color: #17892e;
+  font-size: 35px;
+  margin-right: 5px;
+}
+
+.lowerText {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.btnsSection {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.button {
+  height: 60px;
+  padding: 0 30px;
+  cursor: pointer;
+  height: 60px;
+
+  color: aliceblue;
+  border-radius: 75px;
+}
+
+.btnCount {
+  border: none;
+  width: 200px;
+  background-color: rgb(23, 164, 61);
+  transition: transform 0.1s ease;
+}
+
+.btnCount:active {
+  transform: scale(0.95);
+}
+
+.btnCount:hover {
+  background-color: #17892e;
+}
+
+.btnReset {
+  border: none;
+  background-color: rgb(247, 65, 65);
+  transition: transform 0.1s ease;
+}
+
+.btnReset:active {
+  transform: scale(0.95);
+}
+
+.btnReset:hover {
+  background-color: rgb(241, 36, 36);
+}

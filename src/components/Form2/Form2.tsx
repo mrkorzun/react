@@ -5,14 +5,10 @@ import { takeArticle } from "./services/service";
 import type { Article } from "./types/types";
 import ArticleMarkup from "./ArticleMarkup/ArticleMarkup";
 import { InfinitySpin } from "react-loader-spinner";
+import Global from "../global/Global";
+import type { PageInfo } from "../global/type";
 
-interface Form2Props {
-  date: string;
-  module: string;
-  title: string;
-}
-
-const Form2 = ({ date, module, title }: Form2Props) => {
+const Form2 = ({ date, module, title }: PageInfo) => {
   const [article, setArticle] = useState<Article[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState(false);
@@ -30,18 +26,7 @@ const Form2 = ({ date, module, title }: Form2Props) => {
     }
   };
   return (
-    <div className={css["page"]}>
-      <div className={css["info"]}>
-        <p className={css["infoText"]}>
-          Date: <span className={css["spanDate"]}>{date}</span>
-        </p>
-        <p className={css["infoText"]}>
-          Module: <span className={css["spanModule"]}>{module}</span>
-        </p>
-      </div>
-      <h1 className={css["title"]}>
-        Working with: <span className={css["title-span"]}>{title}</span>
-      </h1>
+    <Global date={date} module={module} title={title}>
       <FormQuery onSubmit={handleQuery} />
       {isLoading && (
         <span className={css["infinity"]}>
@@ -50,7 +35,7 @@ const Form2 = ({ date, module, title }: Form2Props) => {
       )}
       {isError && <p>Whoops, something went wrong! Please try again!</p>}
       {article.length > 0 && <ArticleMarkup items={article} />}
-    </div>
+    </Global>
   );
 };
 

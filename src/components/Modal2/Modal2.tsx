@@ -1,30 +1,14 @@
 import Modal from "./Modal/Modal";
 import { useState } from "react";
-import css from "./Modal2.module.css";
+import Global from "../global/Global";
+import type { PageInfo } from "../global/type";
 
-interface Modal2Props {
-  date: string;
-  module: string;
-  title: string;
-}
-
-const Modal2 = ({ date, module, title }: Modal2Props) => {
+const Modal2 = ({ date, module, title }: PageInfo) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalOpen = () => setIsModalOpen(true);
   const modalClose = () => setIsModalOpen(false);
   return (
-    <div className={css["page"]}>
-      <div className={css["info"]}>
-        <p className={css["infoText"]}>
-          Date: <span className={css["spanDate"]}>{date}</span>
-        </p>
-        <p className={css["infoText"]}>
-          Module: <span className={css["spanModule"]}>{module}</span>
-        </p>
-      </div>
-      <h1 className={css["title"]}>
-        Working with: <span className={css["title-span"]}>{title}</span>
-      </h1>
+    <Global date={date} module={module} title={title}>
       <h2>Main content of the page</h2>
       <button onClick={modalOpen}>Open Modal</button>
       {isModalOpen && (
@@ -33,7 +17,7 @@ const Modal2 = ({ date, module, title }: Modal2Props) => {
           <p>This modal reused and has a dinamic contant</p>
         </Modal>
       )}
-    </div>
+    </Global>
   );
 };
 

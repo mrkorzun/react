@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import css from "./UseEffect.module.css";
+import Global from "../global/Global";
+import type { PageInfo } from "../global/type";
 
-interface UseEffectProps {
-  date: string;
-  module: string;
-  title: string;
-}
-
-const UseEffect = ({ date, module, title }: UseEffectProps) => {
+const UseEffect = ({ date, module, title }: PageInfo) => {
   const [person, setPerson] = useState(null);
   const [count, setCount] = useState(1);
   console.log("App render");
@@ -20,22 +15,11 @@ const UseEffect = ({ date, module, title }: UseEffectProps) => {
   console.log("App rendered!");
 
   return (
-    <div className={css["page"]}>
-      <div className={css["info"]}>
-        <p className={css["infoText"]}>
-          Date: <span className={css["spanDate"]}>{date}</span>
-        </p>
-        <p className={css["infoText"]}>
-          Module: <span className={css["spanModule"]}>{module}</span>
-        </p>
-      </div>
-      <h1 className={css["title"]}>
-        Working with: <span className={css["title-span"]}>{title}</span>
-      </h1>
+    <Global date={date} module={module} title={title}>
       <button onClick={() => setCount(count + 1)}>Next</button>
       <button onClick={() => setCount(count - 1)}>Back</button>
       <pre>{JSON.stringify(person, null, 4)}</pre>
-    </div>
+    </Global>
   );
 };
 

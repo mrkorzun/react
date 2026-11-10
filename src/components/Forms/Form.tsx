@@ -5,14 +5,10 @@ import SearchForm from "./NewsForm/SearchForm";
 import { searchNews } from "./services/service";
 import ArcticlesList from "./ArticlesList/ArcticlesList";
 import type { Article } from "./types/article";
+import Global from "../global/Global";
+import type { PageInfo } from "../global/type";
 
-interface FormProps {
-  date: string;
-  module: string;
-  title: string;
-}
-
-const Form = ({ date, module, title }: FormProps) => {
+const Form = ({ date, module, title }: PageInfo) => {
   const [articles, setArticles] = useState<Article[]>([]);
   const handleSearch = async (query: string) => {
     try {
@@ -23,18 +19,7 @@ const Form = ({ date, module, title }: FormProps) => {
     }
   };
   return (
-    <div className={css["page"]}>
-      <div className={css["info"]}>
-        <p className={css["infoText"]}>
-          Date: <span className={css["spanDate"]}>{date}</span>
-        </p>
-        <p className={css["infoText"]}>
-          Module: <span className={css["spanModule"]}>{module}</span>
-        </p>
-      </div>
-      <h1 className={css["title"]}>
-        Working with: <span className={css["title-span"]}>{title}</span>
-      </h1>
+    <Global date={date} module={module} title={title}>
       <div className={css["app"]}>
         <Forms />
         <div className={css["news"]}>
@@ -42,7 +27,7 @@ const Form = ({ date, module, title }: FormProps) => {
           {articles.length > 0 && <ArcticlesList items={articles} />}
         </div>
       </div>
-    </div>
+    </Global>
   );
 };
 

@@ -1,12 +1,18 @@
 import { useState } from "react";
-import css from "./App.module.css";
+import css from "./Form2.module.css";
 import FormQuery from "./FormQuery/FormQuery";
 import { takeArticle } from "./services/service";
 import type { Article } from "./types/types";
 import ArticleMarkup from "./ArticleMarkup/ArticleMarkup";
 import { InfinitySpin } from "react-loader-spinner";
 
-const App = () => {
+interface Form2Props {
+  date: string;
+  module: string;
+  title: string;
+}
+
+const Form2 = ({ date, module, title }: Form2Props) => {
   const [article, setArticle] = useState<Article[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState(false);
@@ -24,7 +30,18 @@ const App = () => {
     }
   };
   return (
-    <div className={css["app"]}>
+    <div className={css["page"]}>
+      <div className={css["info"]}>
+        <p className={css["infoText"]}>
+          Date: <span className={css["spanDate"]}>{date}</span>
+        </p>
+        <p className={css["infoText"]}>
+          Module: <span className={css["spanModule"]}>{module}</span>
+        </p>
+      </div>
+      <h1 className={css["title"]}>
+        Working with: <span className={css["title-span"]}>{title}</span>
+      </h1>
       <FormQuery onSubmit={handleQuery} />
       {isLoading && (
         <span className={css["infinity"]}>
@@ -37,4 +54,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Form2;

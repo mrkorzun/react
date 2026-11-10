@@ -34,3 +34,13 @@
 .spanDate {
   text-decoration: underline;
 }
+
+.title {
+  font-size: 20px;
+}
+
+.title-span {
+  padding: 5px 10px;
+  background-color: rgb(137, 244, 187);
+  border-radius: 10px;
+}

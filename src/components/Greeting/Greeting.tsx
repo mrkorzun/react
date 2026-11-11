@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import css from "./Greeting.module.css";
 import Modal from "./Modal/Modal";
+import Global from "../global/Global";
+import type { PageInfo } from "../global/type";
 
-const Greeting = () => {
+const Greeting = ({ date, title, module }: PageInfo) => {
   const [username, setUsername] = useState<string>(() => {
     const saved = localStorage.getItem("username");
     return saved !== null ? JSON.parse(saved) : "Guest";
@@ -22,12 +24,12 @@ const Greeting = () => {
     setUsername(value);
   };
   return (
-    <>
+    <Global date={date} module={module} title={title}>
       <Modal onSubmit={handleSL} />
       <h2 className={css["title"]}>
-        {greeting}, {username}
+        {greeting}, {username}!
       </h2>
-    </>
+    </Global>
   );
 };
 

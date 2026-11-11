@@ -15,7 +15,7 @@ import Greeting from "./components/Greeting/Greeting";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Greeting />
+    <Greeting date={"11 Nov 26"} module={"3"} title={"Greeting message"} />
     <LocalStorage date={"10 Nov 26"} module={"3"} title={"LocalStorage"} />
     <Modal2 date={"08 Nov 26"} module={"3"} title={"Modal"} />
     <Timer date={"08 Nov 26"} module={"3"} title={"Delete Effects "} />

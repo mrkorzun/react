@@ -9,7 +9,8 @@ interface ModalProps {
 const Modal = ({ onSubmit }: ModalProps) => {
   const id = useId();
   const handleSubmit = (formData: FormData) => {
-    const name = formData.get("username") as string;
+    const name = (formData.get("username") as string).trim();
+    if (name === "") return;
     onSubmit(name);
   };
 
@@ -18,10 +19,10 @@ const Modal = ({ onSubmit }: ModalProps) => {
     return () => {
       document.body.style.overflow = "";
     };
-  });
+  }, []);
   return createPortal(
-    <div className={css["dropdown"]}>
-      <div className={css["modal"]}>
+    <div className={css["backdrop"]}>
+      <div className={css["modal"]} role="dialog" aria-modal="true">
         <form action={handleSubmit} className={css["form"]}>
           <label className={css["title"]} htmlFor={id}>
             Put your name:
@@ -32,6 +33,8 @@ const Modal = ({ onSubmit }: ModalProps) => {
             type="text"
             name="username"
             placeholder="My name is..."
+            required
+            autoFocus
           />
           <button className={css["submit"]}>Submit</button>
         </form>

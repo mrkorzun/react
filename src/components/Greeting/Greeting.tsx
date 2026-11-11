@@ -5,13 +5,15 @@ import Global from "../global/Global";
 import type { PageInfo } from "../global/type";
 
 const Greeting = ({ date, title, module }: PageInfo) => {
-  const [username, setUsername] = useState<string>(() => {
+  const [username, setUsername] = useState<string | null>(() => {
     const saved = localStorage.getItem("username");
-    return saved !== null ? JSON.parse(saved) : "Guest";
+    return saved !== null ? JSON.parse(saved) : null;
   });
 
   useEffect(() => {
-    localStorage.setItem("username", JSON.stringify(username));
+    if (username !== null) {
+      localStorage.setItem("username", JSON.stringify(username));
+    }
   }, [username]);
 
   const hours = new Date().getHours();
@@ -20,14 +22,13 @@ const Greeting = ({ date, title, module }: PageInfo) => {
   else if (hours >= 11 && hours < 16) greeting = "Good afternoon";
   else if (hours >= 16 && hours < 20) greeting = "Good evening";
 
-  const handleSL = (value: string) => {
-    setUsername(value);
-  };
   return (
     <Global date={date} module={module} title={title}>
-      <Modal onSubmit={handleSL} />
+      {username === null && (
+        <Modal onSubmit={(value: string) => setUsername(value)} />
+      )}
       <h2 className={css["title"]}>
-        {greeting}, {username}!
+        {greeting}, {username ?? "Guest"}!
       </h2>
     </Global>
   );

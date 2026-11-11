@@ -8,7 +8,9 @@ interface ClickCounterProps {
 const ClickCounter = ({ value, onUpdate }: ClickCounterProps) => {
   return (
     <div className={css["counter"]}>
-      <button onClick={onUpdate}>Click Me: {value}</button>
+      <button className={css["button"]} onClick={onUpdate}>
+        Click Me: {value}
+      </button>
     </div>
   );
 };

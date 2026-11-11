@@ -11,9 +11,11 @@ import Form2 from "./components/Form2/Form2";
 import Form from "./components/Forms/Form";
 import TheoryV2 from "./components/Theory-pr2/TheoryV2";
 import Coctails from "./components/Cocktails-pr/Coctails";
+import Greeting from "./components/Greeting/Greeting";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <Greeting />
     <LocalStorage date={"10 Nov 26"} module={"3"} title={"LocalStorage"} />
     <Modal2 date={"08 Nov 26"} module={"3"} title={"Modal"} />
     <Timer date={"08 Nov 26"} module={"3"} title={"Delete Effects "} />

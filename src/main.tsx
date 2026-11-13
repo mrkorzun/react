@@ -14,6 +14,7 @@ import Form from "./components/Forms/Form";
 import TheoryV2 from "./components/Theory-pr2/TheoryV2";
 import Coctails from "./components/Cocktails-pr/Coctails";
 import Greeting from "./components/Greeting/Greeting";
+import UseQuery from "./components/useQuery/UseQuery";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Greeting date={"11 Nov 26"} module={"3"} title={"Greeting message"} />
+      <UseQuery date={"13 Nov 26"} module={"3"} title={"useQuery"} />
       <LocalStorage date={"10 Nov 26"} module={"3"} title={"LocalStorage"} />
       <Modal2 date={"08 Nov 26"} module={"3"} title={"Modal"} />
       <Timer date={"08 Nov 26"} module={"3"} title={"Delete Effects "} />

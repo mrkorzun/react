@@ -3,7 +3,6 @@ import axios from "axios";
 
 import Global from "../global/Global";
 import type { PageInfo } from "../global/type";
-import css from "./UseQuery.module.css";
 
 const fetchData = async () => {
   const response = await axios.get("https://swapi.info/api/people/1");

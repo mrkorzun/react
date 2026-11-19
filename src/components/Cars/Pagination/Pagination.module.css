@@ -1,0 +1,89 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 24px 0;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* общий вид всех кнопок — стилизуем <a>, чтобы кликабельной была вся кнопка */
+.page a,
+.break a,
+.previous a,
+.next a {
+  display: block;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #337ab7;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+/* номера страниц — слитная группа: соседние рамки накладываются */
+.page a,
+.break a {
+  margin-left: -1px;
+}
+
+/* скругляем края группы: 1-я страница идёт после Prev, последняя — перед Next */
+.container li:nth-child(2) a {
+  border-radius: 4px 0 0 4px;
+}
+.container li:nth-last-child(2) a {
+  border-radius: 0 4px 4px 0;
+}
+
+/* Prev и Next — отдельные кнопки с отступом */
+.previous a {
+  margin-right: 24px;
+  border-radius: 4px;
+}
+.next a {
+  margin-left: 24px;
+  border-radius: 4px;
+}
+
+/* наведение */
+.page a:hover,
+.previous a:hover,
+.next a:hover {
+  background-color: #eee;
+}
+
+/* активная страница */
+.active a,
+.active a:hover {
+  background-color: #337ab7;
+  border-color: #337ab7;
+  color: #fff;
+  cursor: default;
+}
+
+/* неактивные Prev/Next (первая/последняя страница) */
+.disabled a,
+.disabled a:hover {
+  color: #bbb;
+  background-color: #fff;
+  cursor: not-allowed;
+}
+
+/* троеточие — не кликается визуально */
+.break a {
+  color: #777;
+}
+
+/* обводка при навигации клавиатурой */
+.container a:focus-visible {
+  outline: 2px solid #337ab7;
+  outline-offset: 2px;
+  position: relative;
+  z-index: 1;
+}

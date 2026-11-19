@@ -6,13 +6,15 @@ import type { PageInfo } from "../global/type";
 const UseEffect = ({ date, module, title }: PageInfo) => {
   const [person, setPerson] = useState(null);
   const [count, setCount] = useState(1);
-  console.log("App render");
+  // console.log("App render");
   useEffect(() => {
     axios
       .get(`https://swapi.info/api/people/${count}`)
       .then((res) => setPerson(res.data));
+
+    // return () => {};
   }, [count]);
-  console.log("App rendered!");
+  // console.log("App rendered!");
 
   return (
     <Global date={date} module={module} title={title}>

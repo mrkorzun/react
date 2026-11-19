@@ -15,12 +15,14 @@ import TheoryV2 from "./components/Theory-pr2/TheoryV2";
 import Coctails from "./components/Cocktails-pr/Coctails";
 import Greeting from "./components/Greeting/Greeting";
 import UseQuery from "./components/useQuery/UseQuery";
+import Cars from "./components/Cars/Cars";
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      <Cars date={"19 Nov 26"} module={"4"} title={"useQuery"} />
       <Greeting date={"11 Nov 26"} module={"3"} title={"Greeting message"} />
       <UseQuery date={"13 Nov 26"} module={"3"} title={"useQuery"} />
       <LocalStorage date={"10 Nov 26"} module={"3"} title={"LocalStorage"} />

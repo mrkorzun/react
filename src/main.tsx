@@ -16,12 +16,14 @@ import Coctails from "./components/Cocktails-pr/Coctails";
 import Greeting from "./components/Greeting/Greeting";
 import UseQuery from "./components/useQuery/UseQuery";
 import Cars from "./components/Cars/Cars";
+import FormikPractice from "./components/Formik/Formik";
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      <FormikPractice date={"20 Nov 26"} module={"4"} title={"Formik"} />
       <Cars
         date={"19 Nov 26"}
         module={"4"}

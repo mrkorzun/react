@@ -22,7 +22,11 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <Cars date={"19 Nov 26"} module={"4"} title={"useQuery"} />
+      <Cars
+        date={"19 Nov 26"}
+        module={"4"}
+        title={"useQuery + ReactPaginatin"}
+      />
       <Greeting date={"11 Nov 26"} module={"3"} title={"Greeting message"} />
       <UseQuery date={"13 Nov 26"} module={"3"} title={"useQuery"} />
       <LocalStorage date={"10 Nov 26"} module={"3"} title={"LocalStorage"} />
